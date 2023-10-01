@@ -1,0 +1,202 @@
+@import "HandDrawnCircle.css";
+
+.modal {
+    color: var(--foreground-color);
+}
+
+#priceFilter + label {
+    user-select: none;
+}
+  
+#priceFilterIcon {
+    width: 30px;
+    height: 30px;
+}
+
+#priceFilter:focus + label,
+#priceFilter:active + label,
+#priceFilter + label:focus,
+#priceFilter + label:active {
+    text-decoration-line: underline;
+}
+  
+#priceFilter:checked + label #priceFilterIcon {
+    border: 2px solid palevioletred;
+    border-radius: 20%;
+}
+  
+#priceFilter,
+.settings_input {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    cursor: pointer;
+    opacity: 0;
+}
+  
+.settings_label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 4rem;
+    height: 100%;
+    font-size: 0.7rem;
+    line-height: 1rem;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    z-index: 10;
+}
+.settings_label::before {
+    content: "";
+    opacity: 0;
+    z-index: -1;
+}
+
+.svg_overlay {
+    z-index: 0;
+}
+
+.settings_label::before,
+.svg_overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -15%;
+    left: 0;
+    pointer-events: none;
+}
+
+.svg_overlay {
+    transform: translateY(-10%);
+}
+
+.settings_input:checked + .settings_label::before {
+    border-radius: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+    scale: 0.7;
+    box-shadow: 0 0 2em 0.5em rgba(255, 255, 255, 1);
+    transition: opacity 0s, scale 0.3s cubic-bezier(.32,-0.44,.57,1.58);
+    transition-delay: 0.25s, 0.25s;
+}
+
+.settings_input:checked + .settings_label .svg_overlay {
+    opacity: 0;
+    animation: drawn_circle_spin 0.4s cubic-bezier(.22,.61,.36,1) forwards;
+    transform-origin: center 30px;
+    transition: opacity 0.5s ease;
+}
+
+.settings_input:checked + .settings_label .svg_overlay .drawn_circle {
+    stroke: rgba(255, 255, 255, 0.5);
+    transition: stroke 1.0s ease;
+}
+
+@keyframes drawn_circle_spin {
+    0% {
+        scale: 1;
+        rotate: 0deg;
+    }
+    50% {
+        scale: 1 1.2;
+        rotate: 90deg;
+    }
+    100% {
+        scale: 0.9 0.8;
+        rotate: 180deg;
+    }
+}
+
+.lanyard {
+    content: "";
+    position: fixed;
+    width: 70px;
+    height: 175px;
+    top: 90%;
+    left: 50%;
+    translate: -50% 0;
+    background-image: url("/decor/lanyard.png");
+    background-repeat: no-repeat;
+    background-size: 70px 175px;
+    transition: rotate 1s;
+    transform-origin: 50% 0%;
+    z-index: -1;
+}
+
+.swing {
+    animation: swing 1s ease-in-out;
+}
+
+@keyframes swing { 
+    20% { rotate: 20deg; } 
+    40% { rotate: -15deg; } 
+    60% { rotate: 10deg; } 
+    80% { rotate: -5deg; } 
+    100% { rotate: 0deg; } 
+ } 
+
+@media (min-width: 640px) {
+
+    .priceFilterIcon {
+        height: 40px;
+        width: 40px;
+    }
+
+    .settings_label {
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+
+    .settings_label::before,
+    .svg_overlay {
+        width: 150%;
+        height: 150%;
+        top: -25%;
+        left: -25%;
+        transform: translate(0);
+    }
+
+    .settings_input:checked + .settings_label .svg_overlay {
+        transform-origin: 51px 50px;
+    }
+
+    @keyframes drawn_circle_spin {
+        0% {
+            scale: 1;
+            rotate: 0deg;
+        }
+        50% {
+            scale: 1.1 1.3;
+            rotate: 90deg;
+        }
+        100% {
+            scale: 0.7 0.8;
+            rotate: 180deg;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+
+    .settings_input:checked + .settings_label .svg_overlay {
+        transform-origin: unset;
+    }
+
+    @keyframes drawn_circle_spin {
+        0% {
+            scale: 1;
+            rotate: 0deg;
+        }
+        50% {
+            scale: 1.3;
+            rotate: 90deg;
+        }
+        100% {
+            scale: 1 1.3;
+            rotate: 180deg;
+        }
+    }
+}

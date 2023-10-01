@@ -1,0 +1,46 @@
+import { useAppContext } from "@/contexts/AppContext";
+import LoginForm from "@/components/forms/LoginForm";
+import dynamic from "next/dynamic";
+const TEModal = dynamic(
+  () => import("tw-elements-react").then((res) => res.TEModal),
+  { ssr: false }
+);
+const TEModalDialog = dynamic(
+  () => import("tw-elements-react").then((res) => res.TEModalDialog),
+  { ssr: false }
+);
+const TEModalContent = dynamic(
+  () => import("tw-elements-react").then((res) => res.TEModalContent),
+  { ssr: false }
+);
+const TEModalBody = dynamic(
+  () => import("tw-elements-react").then((res) => res.TEModalBody),
+  { ssr: false }
+);
+
+export default function LoginModal() {
+  const { showLoginModal, setShowLoginModal } = useAppContext();
+  return (
+    <div className="modal">
+      <TEModal show={showLoginModal} setShow={setShowLoginModal}>
+        <TEModalDialog theme={{ sizeDefault: "min-[576px]:max-w-[1000px]" }}>
+          <TEModalContent>
+            <TEModalBody>
+              <div className="flex flex-col gap-2">
+                <button
+                  type="button"
+                  className="box-content rounded-[25%] border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none self-end pt-5 pr-5"
+                  onClick={() => setShowLoginModal(false)}
+                  aria-label="Close"
+                >
+                  {"\u2717"}
+                </button>
+                <LoginForm onDismiss={() => setShowLoginModal(false)} />
+              </div>
+            </TEModalBody>
+          </TEModalContent>
+        </TEModalDialog>
+      </TEModal>
+    </div>
+  );
+}

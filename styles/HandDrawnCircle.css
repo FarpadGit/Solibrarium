@@ -1,0 +1,20 @@
+.drawn_circle {
+  position: absolute;
+  stroke: #ff5757;
+  stroke-miterlimit: 10;
+  stroke-dasharray: 700;
+  stroke-dashoffset: 680;
+  stroke-linecap: round;
+  opacity: 0;
+}
+
+.dark-mode .drawn_circle {
+  stroke: #5ef7ff;
+}
+
+.settings_label:hover .drawn_circle,
+.settings_input:focus + .settings_label .drawn_circle {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transition: opacity 0s, stroke-dashoffset 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}

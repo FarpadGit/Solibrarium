@@ -1,0 +1,305 @@
+@font-face {
+  font-family: Book Antiqua;
+  src: local("Book Antiqua"), url("../public/fonts/Book Antiqua Font.ttf");
+}
+
+@font-face {
+  font-family: Futura Book;
+  src: local("Futura Book"), url("../public/fonts/Futura Book Regular.otf");
+}
+
+.hero-banner-container {
+  --background_image_path: url("/banner/red_and_white.jpg");
+  position: relative;
+  /* overflow: clip visible; */
+  background-color: #cdcdcd;
+  background-image: var(--background_image_path);
+  background-position: top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 25px 20px;
+  border-radius: 15px;
+  min-height: 350px;
+  line-height: 0.9;
+  width: 100%;
+  color: black;
+}
+
+.hero-banner-container .hero-banner-sub {
+  font-family: "Book Antiqua"; 
+  text-align: center;
+  font-size: 10px;
+  margin-top: 10px;
+}
+  
+.hero-banner-container .hero-banner-author {
+  font-family: "Futura Book"; 
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+
+.hero-banner-container .hero-banner-title {
+  font-family: "Futura Book"; 
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  width: 200%;
+  white-space: break-spaces;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.hero-banner-desc {
+  font-family: "Book Antiqua"; 
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 2rem;
+  line-height: 1.3;
+  display: flex;
+  flex-direction: column;
+  color: #324d67;
+  max-height: 120px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-color: #fccb44 transparent;
+  scrollbar-width: thin;
+}
+
+.hero-banner-desc::-webkit-scrollbar {
+  width: 12px;
+  background: transparent;
+}
+
+.hero-banner-desc::-webkit-scrollbar-thumb {
+  width: 12px;
+  background: #fccb44;
+}
+
+.hero-banner-backdrop {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  top: 45%;
+  left: 0;
+  background-image: linear-gradient(transparent 0%, bisque 10%, bisque 90%, transparent 100%);
+  z-index: -1;
+}
+
+.hero-banner-image {
+  position: absolute;
+  width: 200px;
+  height: 300px;
+  top: 5%;
+  left: calc(50% + 10px);
+}
+
+.hero-banner-button {
+  position: absolute;
+  display: flex;
+  bottom: 5%;
+  right:2%;
+}
+
+.separator_label_text {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: 100px;
+  margin-bottom: 30px;
+  white-space: nowrap;
+}
+
+.separator_label_text::before, 
+.separator_label_text::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  align-self: center;
+  border: 1px solid #cccccc;
+}
+
+.separator_label_text::before {
+  margin-right: 10px;
+}
+
+.separator_label_text::after {
+  margin-left: 10px;
+}
+
+.marquee_container {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  /* background: var(--background1-color); */
+}
+
+.marquee_track { 
+  position: relative;
+  display: flex;
+  height: 400px;
+  gap: 1.5rem;
+  padding-top: 35px;
+  white-space: nowrap;
+  will-change: transform;
+  animation: marquee 25s linear infinite; 
+}
+
+.marquee_track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee_card {
+  width: 150px;
+  height: 350px;
+}
+
+.marquee_card:hover {
+  border-width: 1px;
+  backdrop-filter: blur(16px);
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  overflow: visible;
+}
+
+.marquee_content {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-template-rows: 100px 60px 50px 15px 25px 40px;
+  width: 150px;
+  justify-content: center;
+  justify-items: center;
+  white-space: normal;
+}
+
+.marquee_card:hover .marquee_content {
+  position: absolute;
+  grid-template-rows: 100px 60px 50px 15px 25px 40px 55px;
+  transform: translateY(-7%);
+}
+
+.marquee_card .buttons {
+  display: none;
+}
+
+.marquee_card:hover .buttons {
+  display: flex; 
+  justify-content: center;
+}
+
+.marquee_text {
+  display: -webkit-box;
+  text-align: center;
+  color: rgb(17 24 39);
+}
+
+.dark-mode .marquee_text {
+  filter: invert(1);
+}
+
+.review_card {
+  width: 480px;
+  height: 380px;
+  border-width: 1px;
+  overflow: visible;
+  backdrop-filter: blur(16px);
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  padding: 1.5rem 2.05rem;
+}
+
+@media (min-width: 640px) {
+  .hero-banner-container {
+    min-height: 400px;
+    background-position: center;
+    padding: 50px 40px;
+  }
+  
+  .hero-banner-container .hero-banner-sub {
+    font-size: 10px;
+    margin-top: 10px;
+  }
+    
+  .hero-banner-container .hero-banner-author {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
+  
+  .hero-banner-container .hero-banner-title {
+    font-size: 3rem;
+    margin-top: 10px;
+  }
+  
+  .hero-banner-desc {
+    font-size: 1rem;
+    max-height: 160px;
+  }
+  
+  .hero-banner-backdrop {
+    top: 45%;
+    background-image: linear-gradient(transparent 0%, bisque 10%, bisque 90%, transparent 100%);
+  }
+  
+  .hero-banner-image {
+    width: 200px;
+    height: 300px;
+    top: 15%;
+    left: unset;
+    right: 10%;
+  }
+}
+
+@media (min-width: 768px) {
+
+  .hero-banner-container {
+    min-height: 500px;
+    background-position: center;
+  }
+
+  .hero-banner-image {
+    width: 300px;
+    height: 450px;
+    top: 0;
+    right: 5%;
+  }
+}
+
+@media (min-width: 1024px) {
+  
+  .hero-banner-container .hero-banner-sub {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+    
+  .hero-banner-container .hero-banner-author {
+    font-size: 2.5rem;
+    margin-top: 20px;
+  }
+  
+  .hero-banner-container .hero-banner-title {
+    font-size: 5rem;
+    margin-top: 20px;
+  }
+  
+  .hero-banner-desc {
+    max-height: 150px;
+  }
+  
+  .hero-banner-backdrop {
+    top: 50%;
+    background-image: linear-gradient(transparent 0%, bisque 20%, bisque 80%, transparent 100%);
+  }
+  
+  .hero-banner-image {
+    right: 10%;
+  }
+}

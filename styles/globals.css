@@ -1,0 +1,273 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "Header.css";
+@import "Footer.css";
+@import "HomePage.css";
+@import "Loading.css";
+@import "SearchPage.css";
+@import "AddToCart.css";
+@import "Modals.css";
+@import "DetailsPage.css";
+@import "CheckoutPage.css";
+@import "AccountPage.css";
+
+@font-face {
+  font-family: Glow Bloom;
+  src: local("Glow Bloom"), url("../public/fonts/Glowbloom.otf");
+}
+
+@font-face {
+  font-family: Source Sans Pro;
+  src: local("Source Sans Pro"), url("../public/fonts/SourceSansPro-Regular.ttf");
+}
+
+:root {
+  overflow-x: hidden;
+  font-family: Source Sans Pro;
+  /* Shadcn color variables */
+  --shadcn-input-hsl: 214.3 31.8% 91.4%;
+  --shadcn-ring-hsl: 215 20.2% 65.1%;
+  /* App variables */
+  --solibrarium-color: rgb(252 211 77);
+  --glow-color: yellow;
+  --foreground-rgb: 0, 0, 0;
+  --foreground-color: rgb(var(--foreground-rgb));
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --background1-color: rgb(var(--background-start-rgb));
+  --background2-color: rgb(var(--background-end-rgb));
+  --header-dropshadow: 5px 5px 0px rgba(0, 0, 0, 0.75);
+  --header-fallback-gradient: linear-gradient(to right, #fde68a, #fbbf24);
+
+  --theme-switch-on: url("/icons/theme_switch_bg_dark.svg");
+  --theme-switch-off: url("/icons/theme_switch_bg.svg");
+  --theme-switch-thumb-on: url("/icons/theme_switch_thumb_dark.svg");
+  --theme-switch-thumb-off: url("/icons/theme_switch_thumb.svg");
+
+  --global-background-image: url("/solarpunk.png");
+
+  --header-min-height: 46px;
+  --header-current-height: 0;
+}
+
+:root.dark-mode {
+  --shadcn-input-hsl: 217.2 32.6% 17.5%;
+  --shadcn-ring-hsl: 217.2 32.6% 17.5%;
+  
+  --solibrarium-color: rgb(75 85 99);
+  --glow-color: deepskyblue;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 50, 50, 50;
+  --header-dropshadow: 5px 5px 2px rgba(0, 191, 255, 0.5);
+  --header-fallback-gradient: linear-gradient(to right, #2474aa, #101010);
+
+  --global-background-image: url("/solarpunk_night.png");
+}
+
+.global_background_image {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-image: var(--global-background-image);
+  background-repeat: no-repeat;
+  background-size: 100vw;
+  background-attachment: fixed;
+}
+
+.app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: calc(74.7vh - var(--header-current-height));
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: var(--header-current-height);
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+  color: var(--foreground-color);
+  background: linear-gradient(to bottom, transparent, var(--background2-color))
+              var(--background1-color);
+}
+
+.app_backdrop {
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  min-height: 100vh;
+  justify-content: center;
+  margin-top: -8rem;
+  padding: 120px 24px 160px 24px;
+  pointer-events: none;
+}
+
+/* .app_backdrop:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafa 100%);
+  z-index: 2;
+} */
+
+.app_backdrop .gradient {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  max-width: 640px;
+  top: 80px;
+  background-image: 
+    radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 1) 0px, transparent 0%),
+    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
+    radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%),
+    radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 50%),
+    radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
+    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
+    radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
+  filter: blur(100px) saturate(150%);
+  opacity: 0.15;
+  z-index: 3;
+}
+
+.pill_btn_base {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  text-align: center;
+  color: rgb(255 255 255);
+  padding: 6px 20px 6px 20px;
+}
+
+.pill_btn_base:disabled {
+  border-color: rgb(209 213 219);
+  background-color: rgb(156 163 175);
+  color: rgb(243 244 246);
+}
+
+.card {
+  border: 2px solid rgb(209 213 219); /* tailwind-gray-300 */
+  border-radius: 0.5rem;
+  background-color: rgb(var(--background-start-rgb) / 0.2);
+  background-clip: padding-box;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  backdrop-filter: blur(16px);
+}
+
+.card:hover {
+  border-color: var(--solibrarium-color);
+}
+
+.green_btn {
+  border-color: rgb(132 204 22);
+  background-color: rgb(132 204 22);
+}
+
+.green_btn:hover:not(:disabled) {
+  border-color: rgb(163 230 53);
+  background-color: rgb(163 230 53);
+}
+
+.red_btn {
+  border-color: rgb(244 63 94);
+  background-color: rgb(244 63 94);
+}
+
+.red_btn:hover:not(:disabled) {
+  border-color: rgb(251 113 133);
+  background-color: rgb(251 113 133);
+}
+
+.ShoppingCart {
+  background-color: rgb(255 255 255 / 0.3);
+  backdrop-filter: blur(16px);
+  padding-top: 1.2rem;
+  transition-property: all;
+  transition-duration: 500ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cart_item {
+  display: flex;
+  width: 90%;
+  height: 145px;
+  gap: 0.5rem;
+  align-self: center;
+  overflow: hidden;
+  border-left-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-color: rgb(209 213 219);
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 8px rgb(0 0 0 / 0.04), 0 4px 3px rgb(0 0 0 / 0.1);
+}
+
+.cart_item .quantity_text::before {
+  content: "x ";
+}
+
+.star {
+  /* https://codepen.io/sosuke/pen/Pjoqqp */
+  filter: invert(81%) sepia(59%) saturate(2778%) hue-rotate(34deg) brightness(98%) contrast(83%);
+}
+
+.scroll_on_hover:hover {
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--foreground-color) transparent;
+  -webkit-line-clamp: none;
+}
+
+.scroll_on_hover:hover::-webkit-scrollbar {
+  width: 12px;
+  background: transparent;
+}
+
+.scroll_on_hover:hover::-webkit-scrollbar-thumb {
+  width: 12px;
+  background: var(--foreground-color);
+}
+
+@media (min-width: 768px) {
+
+  :root {
+    --header-min-height: 70px;
+  }
+
+  .app {
+    padding-top: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .pill_btn_base {
+    padding: 6px 50px 6px 50px;
+  }
+
+  .settings_btn {
+    padding: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  .app {
+    padding-top: 8rem;
+  }
+}
+
+@media (min-width: 1792px) {
+
+  .app {
+    max-width: 100rem;
+    }
+}  

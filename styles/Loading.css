@@ -1,0 +1,58 @@
+@keyframes ellipsis {
+  to {
+    width: 1.25em;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wind {
+  0% {
+    stroke-dashoffset: 150;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -150;
+  }
+}
+
+.loading_text {
+  color: white;
+  font-size: 30px;
+  padding: 3rem 0;
+}
+
+.loading_text:after {
+  position: absolute;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  width: 0px;
+  overflow: hidden;
+  animation: ellipsis steps(4, end) 900ms infinite;
+}
+
+.windmill_rotator {
+  position: relative;
+  animation: rotation 5s linear infinite;
+}
+
+.wind_spinner {
+  stroke-dasharray: 150;
+  animation: wind 5s linear infinite;
+}
+
+.wind_spinner.short {
+  stroke-dasharray: 50;
+  animation: wind 15s linear infinite;
+}

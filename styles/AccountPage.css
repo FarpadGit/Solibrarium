@@ -1,0 +1,208 @@
+.centerpiece_container {
+    position: relative;
+    width: 95%;
+    height: 450px;
+    border: 2px solid currentColor;
+    border-radius: 35%;
+    overflow: hidden;
+    margin: 20px 20px 10px 20px;
+}
+
+.loyalty_display {
+    position: absolute;
+    top: 27%;
+    left: 10%;
+    padding: 10px;
+    background-color: var(--solibrarium-color);
+    border-radius: 100px;
+}
+
+.userbooks_wrapper {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+/* the wrapper hides the scrollbar for the bookshelf */
+.bookshelf_wrapper {
+    position: relative;
+    width: 400px;
+    overflow: hidden;
+    pointer-events: all;
+    z-index: 2;
+}
+
+.bookshelf_container {
+    box-sizing: content-box;
+    width: 400px;
+    height: 540px;
+    overflow-y: scroll;
+    padding: 86px 17px 0 2px;
+}
+
+/* Rewriting some built-in BookCover styles to look better when skewed */
+.userbook .book::before {
+    width: 32px !important;
+    transform: translateX(47px) rotateY(45deg) !important;
+}
+
+.userbook {
+    transition: transform 600ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        opacity 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.userbook_input {
+    position: absolute;
+    height: 0px;
+    width: 0px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.userbook .book {
+    cursor: pointer;
+}
+
+/* Anti-aliasing jaggy edges */
+.userbook .book::before,
+.userbook .book::after {
+    outline: 1px solid transparent;
+}
+
+.userbook:hover,
+.userbook.selected {
+    transform: translate(0, -70px) skew(3deg, -3deg) scale(1.275);
+    z-index: 10;
+}
+
+.userbook:hover:nth-of-type(odd),
+.userbook.selected:nth-of-type(odd) {
+    transform: translate(0, -70px) skew(-3deg, 3deg) scale(1.275);
+}
+
+.userbook.selected .book {
+    transform: rotateY(-20deg);
+}
+
+.bookcover_image {
+    width:75px;
+    height:112px;
+}
+
+.bookreview_container {
+    position: relative;
+    margin-top: 30px;
+    pointer-events: all;
+    z-index: 2;
+}
+
+.bookreview_card {
+    position: relative;
+    display: grid;
+    grid-template-rows: repeat(1, minmax(0, 1fr));
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 35rem;
+    padding: 6px 12px;
+}
+
+#review_close_btn {
+    background-color: #858585; 
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: -1.5rem;
+    padding: 6px 50px 6px 50px;
+}
+
+.review_close_btn:hover {
+    background-color: #a5a5a5;
+}
+
+.review_text_wrapper {
+    background-image: url('/decor/parchment.png');
+    border: 2px solid currentColor;
+    border-radius: 15%;
+    overflow: hidden;
+    padding: 1.5rem 0;
+}
+
+#ReviewTextArea {
+    resize: none;
+    background-image: url('/decor/parchment.png');
+    color: black;
+    overflow: auto;
+    height: 16rem;
+    padding: 0 1rem;
+    outline: none;
+}
+
+@media (min-width: 640px) {
+
+    .bookreview_card {
+        width: 30rem;
+    }
+}
+
+@media (min-width: 768px) {
+    
+    .centerpiece_container {
+        width: 600px;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .centerpiece_container {
+        width: 750px;
+        height: 790px;
+        margin: 20px 0;
+    }
+
+    .userbooks_wrapper {
+        position: absolute;
+        justify-content: space-between;
+        flex-wrap: unset;
+        width: 100%;
+        min-height: 100%;
+        bottom: 1%;
+        left: 0%;
+        padding: 0 10px;
+        pointer-events: none;
+    }
+}
+
+@media (min-width: 1280px) {
+
+    .bookshelf_wrapper {
+        width: 530px;
+        height: 640px;
+    }
+
+    .bookshelf_container {
+        width: 530px;
+        height: 640px;
+        padding-top: 84px;
+    }
+
+    .userbook .book::before {
+        width: 33px !important;
+        transform: translateX(72px) rotateY(45deg) !important;
+    }
+
+    .bookcover_image {
+        width:100px;
+        height:150px;
+    }
+
+    .bookreview_card {
+        width: 37rem;
+        height: 39rem;
+    }
+}

@@ -1,0 +1,146 @@
+.cover_image_box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, transparent, rgb(255, 255, 255)) rgb(214, 219, 220);
+    width: 100%;
+    height: 430px;
+    filter: drop-shadow(0 0 -5px 8px rgba(0,0,0,0.2));
+    backdrop-filter: blur(16px);
+}
+
+.dark-mode .cover_image_box {
+    background: linear-gradient(to bottom, rgb(45, 72, 99), transparent) rgb(80, 81, 82);
+}
+
+.cover_image_box::before {
+    position: absolute;
+    content: "";
+    width: 103%;
+    height: calc(100% + (100vw - 540px)*0.83);
+    top: -10px;
+    left: -9px;
+    background-image: url("/decor/deatils_book_ivy.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    mask-image: linear-gradient(black calc(100% - max(0px, calc(100vw - 560px))), transparent calc(105% - max(0px, calc(100vw - 560px))));
+    pointer-events: none;
+    z-index: 1;
+}
+
+.dark-mode .cover_image_box::before {
+    filter: brightness(50%);
+}
+
+.star_rating_box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 20%;
+    border-top: 1px;
+    border-color: #ccc;
+    padding: 0.5rem 0;
+}
+
+.star_rating_box::before {
+    position: absolute;
+    content: "";
+}
+
+.dark-mode .star_rating_box::before {
+    filter: drop-shadow(0 5px 5px black) brightness(50%);
+}
+
+.right_column {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    align-items: center;
+    overflow-y: clip;
+    border-radius: 0 76px 0 0/0 45px 0 0;
+    background-image: linear-gradient(to right, transparent, #fde68a);
+}
+
+.dark-mode .right_column {
+    background-image: linear-gradient(to right, transparent, #7f7345);
+}
+
+.right_column .price_text {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgb(75 85 99);
+}
+
+.dark-mode .right_column .price_text {
+    filter: invert(1);
+}
+
+.dark-mode .right_column .curved_window {
+    --imgSizeWidth: 1024px;
+    --imgSizeHeight: 632px;
+    --imgOffsetX: -300px;
+    --imgOffsetY: -100px;
+}
+
+@media (min-width: 540px) {
+    .cover_image_box::before {
+        background-size: cover;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .cover_image_box::before {
+        width: 103%;
+        height: 100%;
+        left: -6px;
+        background-size: contain;
+        mask-image: none;
+    }
+
+    .star_rating_box::before {
+        width: calc(420px*0.9);
+        height: calc(207px*0.9);
+        top: -60%;
+        left: -15%;
+        background-image: url("/decor/details_book_flowers.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        filter: drop-shadow(0 5px 1px rgba(0,0,0,0.3));
+        pointer-events: none;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    .right_column .curved_window {
+        --sizeWidth: calc(2 * 254px / 3);
+        --sizeHeight: calc(2 * 152px / 3);
+    }
+}
+
+@media (min-width: 1280px) {
+    
+    .cover_image_box::before {
+        top: -10px;
+        width: 105%;
+    }
+    
+    .right_column {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: none;
+        overflow-y: clip;
+        border-radius: 0 76px 0 0/0 45px 0 0;
+        background-image: linear-gradient(to right, transparent, #fde68a);
+    }
+    
+    .right_column .price_text {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: rgb(75 85 99);
+    }
+}
