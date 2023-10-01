@@ -95,7 +95,11 @@ export default function Header() {
         >
           <div className="relative md:absolute top-0 left-0 w-full h-full">
             <Image
-              src={`/solibrarium_logo${darkMode ? "_night" : ""}.png`}
+              src={
+                !darkMode
+                  ? "/solibrarium_logo.png"
+                  : "/solibrarium_logo_night.png"
+              }
               alt="logo"
               fill
               className="object-contain"

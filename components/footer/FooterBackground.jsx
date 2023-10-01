@@ -23,12 +23,20 @@ export default function FooterBackground() {
     pointerEvents: "none",
   };
 
-  let src1 = `/decor/header_brick_wall${darkMode ? "_night" : ""}.png`;
-  let src2 = `/decor/header_ivy_overhang${darkMode ? "_night" : ""}.png`;
+  let src1 = !darkMode
+    ? "/decor/header_brick_wall.png"
+    : "/decor/header_brick_wall_night.png";
+  let src2 = !darkMode
+    ? "/decor/header_ivy_overhang.png"
+    : "/decor/header_ivy_overhang_night.png";
 
   useEffect(() => {
-    src1 = `/decor/header_brick_wall${darkMode ? "_night" : ""}.png`;
-    src2 = `/decor/header_ivy_overhang${darkMode ? "_night" : ""}.png`;
+    let src1 = !darkMode
+      ? "/decor/header_brick_wall.png"
+      : "/decor/header_brick_wall_night.png";
+    let src2 = !darkMode
+      ? "/decor/header_ivy_overhang.png"
+      : "/decor/header_ivy_overhang_night.png";
   }, [darkMode]);
 
   return (
