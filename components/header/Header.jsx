@@ -169,7 +169,7 @@ export default function Header() {
         </div>
 
         {/* Right side buttons - Mobile Navigation */}
-        <div className="w-2/12 block md:hidden">
+        <div className="w-1/5 block md:hidden">
           <div
             className={`flex justify-center ${
               showCollapsedButtons ? "mb-[0.8rem]" : ""

@@ -11,20 +11,21 @@ export default function BannerBookCover({ image }) {
   useEffect(() => {
     setShow(true);
   }, []);
+  const width =
+    screenSize >= ScreenENUM.MD ? 300 : screenSize >= ScreenENUM.SM ? 200 : 175;
+  const height =
+    screenSize >= ScreenENUM.MD ? 450 : screenSize >= ScreenENUM.SM ? 300 : 262;
   return (
     <>
       {show && (
-        <BookCover
-          width={screenSize >= ScreenENUM.MD ? 300 : 200}
-          height={screenSize >= ScreenENUM.MD ? 450 : 300}
-        >
+        <BookCover width={width} height={height}>
           <Image
             src={image}
             alt="top book"
             placeholder="blur"
             blurDataURL="/book_loading.jpg"
-            width={screenSize >= ScreenENUM.MD ? 300 : 200}
-            height={screenSize >= ScreenENUM.MD ? 450 : 300}
+            width={width}
+            height={height}
           />
         </BookCover>
       )}

@@ -136,7 +136,7 @@ export default function SearchBar({ id, type: initialType, click }) {
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder={SearchType[type].Text}
-            className="pl-6 outline-none focus:outline-none w-[min(40vw,216px)]"
+            className="pl-6 outline-none focus:outline-none w-[min(33vw,216px)]"
           />
 
           {/* Search clearing X & loading spinner*/}
