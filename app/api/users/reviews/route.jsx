@@ -1,4 +1,5 @@
 import Review from "@/models/review";
+import User from "@/models/user";
 import { connectToDB } from "@/utils/DatabaseConnect";
 
 //GETS [max] random reviews from db or all of them if [max] is not set or 0
@@ -10,6 +11,8 @@ export const GET = async (request) => {
     await connectToDB();
     // get all reviews from database with the authors
     errorProgressMessage = "Error getting reviews in database: ";
+    //without a call to User table the next populate function will fail if we never querried users before
+    await User.exists({});
     const DBReviews = await Review.find().populate("userRef");
 
     if (!DBReviews) {

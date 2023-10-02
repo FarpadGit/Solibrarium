@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 400px;
   break-inside: avoid;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
   
 .book_card .title_text {
