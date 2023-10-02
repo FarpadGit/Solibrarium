@@ -84,7 +84,7 @@ export default function BookReviewCard({ user, bookDetails, close }) {
                 <div className="text-lg py-0.5">{bookDetails.subtitle}</div>
               )}
               {bookDetails.publisher && (
-                <div className="text-xs pt-0.5 pb-7">
+                <div className="text-xs pt-0.5 md:pb-7">
                   {[bookDetails.publisher, bookDetails.publishedDate].join(
                     ", "
                   )}
