@@ -56,10 +56,10 @@ export default function Account() {
       {/* userbooks */}
       <div className="userbooks_wrapper">
         {/* left - bookshelf */}
-        <div className="loyalty_display">
-          Aktuális hűségpontok: <b>{session.user.loyaltyPoints} pont</b>
-        </div>
         <div className="bookshelf_wrapper">
+          <div className="loyalty_display">
+            Aktuális hűségpontok: <b>{session.user.loyaltyPoints} pont</b>
+          </div>
           <div className="bookshelf_container">
             <UserBooks
               selected={selectedBook}

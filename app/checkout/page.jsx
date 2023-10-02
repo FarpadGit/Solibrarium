@@ -76,55 +76,59 @@ export default function Checkout() {
           Teljes kosár törlése
         </a>
       </div>
-      <div className="grid grid-rows-2 grid-flow-col gap-1 justify-between justify-items-center text-center">
-        <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
-          Törzsvásárlói pontok:
-        </p>
-        <p className="font-semibold text-base sm:text-xl">
-          {newLoyaltyPoints} pont
-        </p>
-        <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
-          Eredeti Ár:
-        </p>
-        <p className="font-semibold text-base sm:text-xl">
-          {CurrencyFormatter(totalPrice)}
-        </p>
-        <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
-          Kedvezmény:
-        </p>
-        <p className="font-semibold text-base sm:text-xl">
-          {session?.user?.loyaltyPoints > 0 ? (
-            <>
-              <input
-                type="number"
-                value={discount}
-                onChange={(e) => setDiscount(e.target.value)}
-                min={0}
-                max={session.user.loyaltyPoints}
-                style={{ width: "80px" }}
-              />
-              {" Ft"}
-            </>
-          ) : (
-            CurrencyFormatter(0)
-          )}
-        </p>
-        <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
-          Fizetendő:
-        </p>
-        <p className="font-semibold text-base sm:text-xl">
-          {CurrencyFormatter(totalPrice - discount)}
-        </p>
-        <p className="flex justify-center text-center text-red-600">
-          {error && "Hiba történt a szerveren"}
-        </p>
-        <button
-          className="pill_btn_base green_btn"
-          disabled={cartQuantity === 0}
-          onClick={() => handleConfirm()}
-        >
-          Tovább
-        </button>
+      <div className="flex flex-wrap">
+        <div className="grid grid-rows-2 grid-cols-[repeat(auto-fit,_minmax(100px,_1fr))] grid-flow-col gap-1 justify-between justify-items-center text-center flex-grow">
+          <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
+            Törzsvásárlói pontok:
+          </p>
+          <p className="font-semibold text-base sm:text-xl">
+            {newLoyaltyPoints} pont
+          </p>
+          <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
+            Eredeti Ár:
+          </p>
+          <p className="font-semibold text-base sm:text-xl">
+            {CurrencyFormatter(totalPrice)}
+          </p>
+          <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
+            Kedvezmény:
+          </p>
+          <p className="font-semibold text-base sm:text-xl">
+            {session?.user?.loyaltyPoints > 0 ? (
+              <>
+                <input
+                  type="number"
+                  value={discount}
+                  onChange={(e) => setDiscount(e.target.value)}
+                  min={0}
+                  max={Math.max(session.user.loyaltyPoints, totalPrice)}
+                  style={{ width: "80px" }}
+                />
+                {" Ft"}
+              </>
+            ) : (
+              CurrencyFormatter(0)
+            )}
+          </p>
+          <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
+            Fizetendő:
+          </p>
+          <p className="font-semibold text-base sm:text-xl">
+            {CurrencyFormatter(totalPrice - discount)}
+          </p>
+        </div>
+        <div className="flex flex-col">
+          <p className="flex justify-center text-center text-red-600">
+            {error && "Hiba történt a szerveren"}
+          </p>
+          <button
+            className="pill_btn_base green_btn"
+            disabled={cartQuantity === 0}
+            onClick={() => handleConfirm()}
+          >
+            Tovább
+          </button>
+        </div>
       </div>
     </div>
   );

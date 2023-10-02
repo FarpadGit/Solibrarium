@@ -17,7 +17,7 @@ export default function LoginButton() {
 
   setRememberMe(session?.rememberMe);
   return (
-    <div className="flex flex-col w-[70px] h-[45px] justify-between md:w-[90px] md:h-[55px]">
+    <div className="flex flex-col w-[60px] h-[35px] justify-between md:w-[90px] md:h-[55px]">
       {!session?.user ? (
         <>
           <button

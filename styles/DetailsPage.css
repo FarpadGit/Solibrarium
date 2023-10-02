@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     background: linear-gradient(to bottom, transparent, rgb(255, 255, 255)) rgb(214, 219, 220);
-    width: 100%;
+    width: 80%;
     height: 430px;
     filter: drop-shadow(0 0 -5px 8px rgba(0,0,0,0.2));
     backdrop-filter: blur(16px);
@@ -16,10 +16,10 @@
 .cover_image_box::before {
     position: absolute;
     content: "";
-    width: 103%;
-    height: calc(100% + (100vw - 540px)*0.83);
-    top: -10px;
-    left: -9px;
+    width: 105%;
+    height: max(calc(100% + (100vw - 540px) * 0.83), 105%);
+    top: -13px;
+    left: -8px;
     background-image: url("/decor/deatils_book_ivy.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -86,14 +86,19 @@
 
 @media (min-width: 540px) {
     .cover_image_box::before {
-        background-size: cover;
+        width: 105%;
+        left: -12px;
     }
 }
 
 @media (min-width: 768px) {
 
+    .cover_image_box {
+        width: 100%;
+    }
+
     .cover_image_box::before {
-        width: 103%;
+        width: 104%;
         height: 100%;
         left: -6px;
         background-size: contain;
@@ -122,11 +127,6 @@
 }
 
 @media (min-width: 1280px) {
-    
-    .cover_image_box::before {
-        top: -10px;
-        width: 105%;
-    }
     
     .right_column {
         display: flex;

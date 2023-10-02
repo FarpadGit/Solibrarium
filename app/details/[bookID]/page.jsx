@@ -14,7 +14,7 @@ export default async function Details({ params }) {
   return (
     <div className="flex gap-5 w-full mb-[3.6rem] flex-wrap md:flex-nowrap">
       {/* left */}
-      <div className="flex flex-col w-full h-[450px] justify-end md:min-w-[300px] md:w-[unset] md:h-[480px]">
+      <div className="flex flex-col w-full h-[450px] justify-end items-center md:min-w-[300px] md:w-[unset] md:h-[480px]">
         <div className="cover_image_box">
           <div className="flex justify-center relative h-[80%]">
             <Image
@@ -24,7 +24,7 @@ export default async function Details({ params }) {
               alt="book cover"
               width={215}
               height={355}
-              className="object-contain absolute translate-y-[-14%] drop-shadow-[0_0_10px_var(--glow-color)] z-[2]"
+              className="object-contain absolute translate-y-[-6%] drop-shadow-[0_0_10px_var(--glow-color)] z-[2] md:translate-y-[-14%]"
             />
           </div>
           <div className="star_rating_box">

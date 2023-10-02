@@ -92,10 +92,11 @@
 
 .hero-banner-image {
   position: absolute;
-  width: 175px;
-  height: 262px;
+  width: 150px;
+  height: 225px;
   top: 5%;
-  left: calc(50% + 10px);
+  left: calc(70% + 10px);
+  transform: translateX(-50%);
 }
 
 .hero-banner-button {
@@ -255,6 +256,7 @@
     top: 15%;
     left: unset;
     right: 10%;
+    transform: none;
   }
 }
 

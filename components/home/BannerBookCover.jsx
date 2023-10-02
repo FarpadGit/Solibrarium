@@ -12,9 +12,9 @@ export default function BannerBookCover({ image }) {
     setShow(true);
   }, []);
   const width =
-    screenSize >= ScreenENUM.MD ? 300 : screenSize >= ScreenENUM.SM ? 200 : 175;
+    screenSize >= ScreenENUM.MD ? 300 : screenSize >= ScreenENUM.SM ? 200 : 150;
   const height =
-    screenSize >= ScreenENUM.MD ? 450 : screenSize >= ScreenENUM.SM ? 300 : 262;
+    screenSize >= ScreenENUM.MD ? 450 : screenSize >= ScreenENUM.SM ? 300 : 225;
   return (
     <>
       {show && (
