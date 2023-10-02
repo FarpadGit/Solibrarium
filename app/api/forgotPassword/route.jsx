@@ -126,7 +126,7 @@ export const POST = async (request) => {
       service: "hotmail",
       auth: {
         user: "solibrarium@hotmail.com",
-        pass: "Solib123" /* process.env.NODEMAILER_PASS */,
+        pass: process.env.NODEMAILER_PASS,
       },
     });
 
