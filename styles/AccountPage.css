@@ -16,6 +16,7 @@
     padding: 10px;
     background-color: var(--solibrarium-color);
     border-radius: 100px;
+    white-space: nowrap;
 }
 
 .userbooks_wrapper {
@@ -32,7 +33,7 @@
 /* the wrapper hides the scrollbar for the bookshelf */
 .bookshelf_wrapper {
     position: relative;
-    width: 100%;
+    width: 400px;
     overflow: hidden;
     pointer-events: all;
     z-index: 2;
@@ -49,7 +50,7 @@
 /* Rewriting some built-in BookCover styles to look better when skewed */
 .userbook .book::before {
     width: 32px !important;
-    transform: translateX(47px) rotateY(45deg) !important;
+    transform: translateX(32px) rotateY(45deg) !important;
 }
 
 .userbook {
@@ -146,6 +147,11 @@
 
 @media (min-width: 640px) {
 
+    .userbook .book::before {
+        width: 32px !important;
+        transform: translateX(47px) rotateY(45deg) !important;
+    }
+    
     .bookreview_card {
         width: 30rem;
     }

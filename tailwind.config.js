@@ -28,10 +28,10 @@ module.exports = {
         "theme-switch-thumb-off": "var(--theme-switch-thumb-off)",
       },
       backgroundSize: {
-        "theme-switch-on": "44px, 20px",
-        "theme-switch-off": "44px, 20px",
-        "theme-switch-thumb-on": "16px",
-        "theme-switch-thumb-off": "16px",
+        "theme-switch-on": "var(--theme-switch-size)",
+        "theme-switch-off": "var(--theme-switch-size)",
+        "theme-switch-thumb-on": "var(--theme-switch-thumb-size)",
+        "theme-switch-thumb-off": "var(--theme-switch-thumb-size)",
       },
       backgroundPosition: {
         "theme-switch-on": "center",

@@ -120,7 +120,10 @@ export default function Header() {
             {searchBarArray.map((i) => {
               if (i.id === 0)
                 return (
-                  <div className="flex gap-0 md:gap-2" key={"Filter" + i.id}>
+                  <div
+                    className="relative flex gap-0 md:gap-2"
+                    key={"Filter" + i.id}
+                  >
                     <Popover>
                       <PopoverTrigger asChild>
                         <button

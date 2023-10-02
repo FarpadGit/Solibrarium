@@ -95,7 +95,7 @@
   width: 150px;
   height: 225px;
   top: 5%;
-  left: calc(70% + 10px);
+  left: calc(70% + 25px);
   transform: translateX(-50%);
 }
 

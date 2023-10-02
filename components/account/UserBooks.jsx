@@ -33,6 +33,17 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
     return `${top[BigInt(index) / 4n]} ${left[index % 4]}`;
   }
 
+  const userBookSize = {
+    width:
+      screenSize >= ScreenENUM.XL ? 100 : screenSize >= ScreenENUM.SM ? 75 : 60,
+    height:
+      screenSize >= ScreenENUM.XL
+        ? 150
+        : screenSize >= ScreenENUM.SM
+        ? 112
+        : 90,
+  };
+
   //split user books into chunks of 12 -- one array for each shelf
   const userBooksByShelf = Array.from(
     { length: Math.ceil(userBooks.length / 12) },
@@ -104,8 +115,8 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
                   }}
                 >
                   <BookCover
-                    width={screenSize >= ScreenENUM.XL ? 100 : 75}
-                    height={screenSize >= ScreenENUM.XL ? 150 : 112}
+                    width={userBookSize.width}
+                    height={userBookSize.height}
                     rotate={0}
                     rotateHover={20}
                     shadowColor={
@@ -117,8 +128,8 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
                       alt={book.title}
                       placeholder="blur"
                       blurDataURL="/book_loading.jpg"
-                      width={100}
-                      height={150}
+                      width={userBookSize.width}
+                      height={userBookSize.height}
                       className="bookcover_image outline outline-1 outline-transparent"
                     />
                   </BookCover>

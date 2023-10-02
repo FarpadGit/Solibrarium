@@ -13,7 +13,7 @@ export default function HeaderButtons() {
   const { cartQuantity } = useShoppingCartContext();
 
   return (
-    <div className="grid grid-cols-1 gap-2 items-center justify-center justify-items-center flex-wrap md:flex md:gap-2 md:justify-end lg:gap-3">
+    <div className="grid grid-cols-1 gap-[0.4rem] items-center justify-center justify-items-center flex-wrap md:flex md:gap-2 md:justify-end lg:gap-3">
       {/* Shopping Cart button */}
       <Sheet>
         <SheetTrigger asChild>

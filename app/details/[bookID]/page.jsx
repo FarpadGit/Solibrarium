@@ -22,9 +22,9 @@ export default async function Details({ params }) {
               placeholder="blur"
               blurDataURL="/book_loading.jpg"
               alt="book cover"
-              width={215}
-              height={355}
-              className="object-contain absolute translate-y-[-6%] drop-shadow-[0_0_10px_var(--glow-color)] z-[2] md:translate-y-[-14%]"
+              width={180}
+              height={300}
+              className="object-contain absolute translate-y-[-6%] drop-shadow-[0_0_10px_var(--glow-color)] z-[2] sm:w-[215px] sm:h-[355px] md:translate-y-[-14%]"
             />
           </div>
           <div className="star_rating_box">

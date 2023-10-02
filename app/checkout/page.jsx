@@ -76,20 +76,24 @@ export default function Checkout() {
           Teljes kosár törlése
         </a>
       </div>
-      <div className="flex flex-wrap">
-        <div className="grid grid-rows-2 grid-cols-[repeat(auto-fit,_minmax(100px,_1fr))] grid-flow-col gap-1 justify-between justify-items-center text-center flex-grow">
+      <div className="flex flex-wrap gap-1 justify-between justify-items-center text-center flex-grow">
+        <div className="grid grid-rows-2 grid-flow-col gap-1">
           <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
             Törzsvásárlói pontok:
           </p>
           <p className="font-semibold text-base sm:text-xl">
             {newLoyaltyPoints} pont
           </p>
+        </div>
+        <div className="grid grid-rows-2 grid-flow-col gap-1">
           <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
             Eredeti Ár:
           </p>
           <p className="font-semibold text-base sm:text-xl">
             {CurrencyFormatter(totalPrice)}
           </p>
+        </div>
+        <div className="grid grid-rows-2 grid-flow-col gap-1">
           <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
             Kedvezmény:
           </p>
@@ -110,6 +114,8 @@ export default function Checkout() {
               CurrencyFormatter(0)
             )}
           </p>
+        </div>
+        <div className="grid grid-rows-2 grid-flow-col gap-1">
           <p className="text-base sm:text-xl text-[#555] dark:text-[#CCC]">
             Fizetendő:
           </p>
@@ -117,7 +123,7 @@ export default function Checkout() {
             {CurrencyFormatter(totalPrice - discount)}
           </p>
         </div>
-        <div className="flex flex-col">
+        <div className="grid grid-rows-2 grid-flow-col gap-1">
           <p className="flex justify-center text-center text-red-600">
             {error && "Hiba történt a szerveren"}
           </p>

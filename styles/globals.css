@@ -44,6 +44,8 @@
   --theme-switch-off: url("/icons/theme_switch_bg.svg");
   --theme-switch-thumb-on: url("/icons/theme_switch_thumb_dark.svg");
   --theme-switch-thumb-off: url("/icons/theme_switch_thumb.svg");
+  --theme-switch-size : 40px, 18px;
+  --theme-switch-thumb-size: 12px;
 
   --global-background-image: url("/solarpunk.png");
 
@@ -241,6 +243,8 @@
 
   :root {
     --header-min-height: 70px;
+    --theme-switch-size : 44px, 20px;
+    --theme-switch-thumb-size: 16px;
   }
 
   .app {

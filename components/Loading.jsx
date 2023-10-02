@@ -9,7 +9,9 @@ export default function Loading() {
       </div>
       <div className="flex w-full justify-around">
         <Windmill />
-        <Windmill />
+        <div className="hidden sm:block">
+          <Windmill />
+        </div>
         <Windmill />
       </div>
     </div>

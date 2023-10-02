@@ -31,7 +31,7 @@ export default function ReviewCard({ book, reviewText, rating }) {
           <div>
             <StarRating rating={rating} />
           </div>
-          <div className="text-xs pt-1 h-[5rem] line-clamp-[5] scroll_on_hover">
+          <div className="text-xs pt-1 h-[5.1rem] line-clamp-[5] scroll_on_hover">
             "{reviewText}"
           </div>
           <div className="text-xs pt-1">Online Ár:</div>
