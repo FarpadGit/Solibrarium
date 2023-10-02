@@ -1,4 +1,5 @@
-﻿import User from "@/models/user";
+﻿import { headers } from "next/headers";
+import User from "@/models/user";
 import { connectToDB } from "@/utils/DatabaseConnect";
 import * as crypto from "crypto";
 import nodemailer from "nodemailer";
@@ -55,34 +56,44 @@ export const GET = async (request) => {
   }
 };
 
-const emailBody = (email, token, key) =>
+const emailBody = (host, email, token, key) =>
   `Helló!
   
   Kaptunk egy kérést arra, hogy visszaállítsuk a Solibrarium fiókodhoz tartozó jelszavadat amire a ${email} email címmel regisztráltál.
   Még nem történt semmilyen változás, de ha te kezdeményezted akkor az alábbi linkre kattintva visszaállíthatod a jelszavadat:
   
-  http://localhost:3000/resetPassword/${token}/${key}
+  http://${host}/resetPassword/${token}/${key}
   
   Ha nem te voltál akkor hagyd ezt a levelet figyelmen kívül. Vagy ha gondolod akkor válaszolhatsz is rá, akár más témában is.`;
 
-const emailHtml = (email, token, key) =>
-  `<div style="margin-bottom: 3.6rem;display: flex;gap: 1.25rem;width: 700px;">
-    <div style="display: grid;grid-template-columns: repeat(1, minmax(0, 1fr));padding-left: 0.75rem;flex: 1 1 auto;width: 50%;" flex-auto="" grid="" grid-cols-1="">
-      <h3 style="margin-bottom: 20px;font-size: 40px;color: rgb(55 187 55);">Solibrarium</h3>
-      <div style="width: 100%; height: 1px; align-self: center; border: 1px solid rgb(204 204 204);"></div>
-      <div style="position: relative; display: flex; flex-direction:column; text-align: justify; gap: 10px;margin-top: 30px;font-size: 0.875rem;line-height: 1.25rem;">
+const emailHtml = (host, email, token, key) =>
+  `<div style="width:700px;margin: auto;background:white;">
+  <table role="presentation" border="0" width="100%" cellspacing="0">
+    <tr><td width="75%">
+    <table role="presentation" border="0" width="100%" cellspacing="0">
+      <tr><td bgcolor="#FFFFFF" align="left" style="color:#37BB37">
+        <h3 style="margin-bottom: 20px;font-size: 40px;">Solibrarium</h3>
+      </td></tr>
+    </table>
+    <hr>
+    <table role="presentation" border="0" width="100%" cellspacing="10" style="text-align: justify;font-size: 0.875rem;line-height: 1.25rem;color:#000000">
+      <tr><td>
         <h2>Helló!</h2>
-        <br>
-        <p>Kaptunk egy kérést arra, hogy visszaállítsuk a Solibrarium fiókodhoz tartozó jelszavadat amire a ${email} email címmel regisztráltál.</p>
-        <p>Még nem történt semmilyen változás, de ha te kezdeményezted akkor az alábbi linkre kattintva visszaállíthatod a jelszavadat:</p>
-        
-        <a href="http://localhost:3000/resetPassword/${token}/${key}" style="box-shadow: 0 4px 9px -4px rgb(59 113 202);color: rgb(255 255 255);line-height: 1.5;font-weight: 600;font-size: 0.875rem; padding: 0.5rem 0;background-color: rgb(59 113 202);border-radius: 0.25rem;justify-content: center;width: 100%;display: flex;margin: 5px 0 15px;">Jelszó visszaállítása</a>
-
-        <div style="padding-bottom: 20px;">Ha nem te voltál akkor hagyd ezt a levelet figyelmen kívül. Vagy ha gondolod akkor válaszolhatsz is rá, akár más témában is.</div>
-      </div>
-    </div>
-  <div style="width: 170px;border-radius: 0 76px 0 0/0 45px 0 0;background-image: linear-gradient(to right, transparent, rgb(253 230 138));"></div>
-</div>`;
+      </td></tr>
+      <tr></tr>
+      <tr><td><p>Kaptunk egy kérést arra, hogy visszaállítsuk a Solibrarium fiókodhoz tartozó jelszavadat amire a ${email} email címmel regisztráltál.</p></td></tr>
+      <tr><td><p>Még nem történt semmilyen változás, de ha te kezdeményezted akkor az alábbi linkre kattintva visszaállíthatod a jelszavadat:</p></td></tr>
+      <tr><td align="center" style="text-align: center;">
+        <a href="http://${host}/resetPassword/${token}/${key}" style="color: #FFFFFF;line-height: 1.5;font-weight: 600;font-size: 0.875rem;background-color: #3B71CA;border-radius: 0.25rem;padding: 10px 10.5rem;">Jelszó visszaállítása</a>
+      </td></tr>
+      <tr></tr>
+      <tr><td><p style="padding-bottom: 20px;">Ha nem te voltál akkor hagyd ezt a levelet figyelmen kívül. Vagy ha gondolod akkor válaszolhatsz is rá, akár más témában is.</p></td></tr>
+    </table>
+    </td>
+    <td width="25%" style="width: 170px;background: url('https://solibrarium.vercel.app/_next/image?url=%2Femail_grad.png&w=1920&q=75');border-radius: 0 76px 0 0/0 45px 0 0;"></td>
+    </tr>
+  </table>
+  </div>`;
 
 //POSTS a user email and sends a link to their address to reset password
 export const POST = async (request) => {
@@ -115,16 +126,18 @@ export const POST = async (request) => {
       service: "hotmail",
       auth: {
         user: "solibrarium@hotmail.com",
-        pass: process.env.NODEMAILER_PASS,
+        pass: "Solib123" /* process.env.NODEMAILER_PASS */,
       },
     });
+
+    const host = headers().get("host");
 
     const mailData = {
       from: "solibrarium@hotmail.com",
       to: reqBody.email,
       subject: "Elfelejtett jelszó",
-      text: emailBody(reqBody.email, resetToken, key),
-      html: emailHtml(reqBody.email, resetToken, key),
+      text: emailBody(host, reqBody.email, resetToken, key),
+      html: emailHtml(host, reqBody.email, resetToken, key),
     };
 
     transporter.sendMail(mailData, (error, info) => {
