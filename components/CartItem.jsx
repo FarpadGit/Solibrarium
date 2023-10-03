@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useShoppingCartContext } from "@/contexts/ShoppingCartContext";
-import { CurrencyFormatter } from "@/utils/CurrencyFormatter";
-import { motion } from "framer-motion";
 import { SheetClose } from "@/components/ui/Sheet";
+import { CurrencyFormatter } from "@/utils/CurrencyFormatter";
+import { getPlaceholderDataURL } from "@/utils/DataURL";
+import { motion } from "framer-motion";
 
 export function CartItem({
   bookData,
@@ -37,8 +38,7 @@ export function CartItem({
             <Image
               src={image}
               alt="book_cover"
-              placeholder="blur"
-              blurDataURL="/book_loading.jpg"
+              placeholder={getPlaceholderDataURL()}
               width={outsideCart ? 50 : 100}
               height={outsideCart ? 50 : 100}
               className="image_thumb object-contain"

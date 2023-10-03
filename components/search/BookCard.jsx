@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useFilterContext } from "@/contexts/FilterContext";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import { CurrencyFormatter } from "@/utils/CurrencyFormatter";
+import { getPlaceholderDataURL } from "@/utils/DataURL";
 
 export default function BookCard({ book }) {
   const {
@@ -18,8 +19,7 @@ export default function BookCard({ book }) {
           <Image
             src={book.thumbnail || "/book_placeholder.png"}
             alt="book_cover"
-            placeholder="blur"
-            blurDataURL="/book_loading.jpg"
+            placeholder={getPlaceholderDataURL()}
             width={100}
             height={100}
             className="object-contain md:w-[200px] md:h-[200px]"

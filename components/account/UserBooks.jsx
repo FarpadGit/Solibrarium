@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import useMediaQuery, { ScreenENUM } from "@/hooks/useMediaQuery";
 import { send } from "@/utils/FetchRequest";
+import { getPlaceholderDataURL } from "@/utils/DataURL";
 import { BookCover } from "book-cover-3d";
 import { useSession } from "next-auth/react";
 
@@ -126,8 +127,7 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
                     <Image
                       src={book.image}
                       alt={book.title}
-                      placeholder="blur"
-                      blurDataURL="/book_loading.jpg"
+                      placeholder={getPlaceholderDataURL()}
                       width={userBookSize.width}
                       height={userBookSize.height}
                       className="bookcover_image outline outline-1 outline-transparent"

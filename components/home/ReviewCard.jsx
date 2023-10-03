@@ -3,6 +3,7 @@ import Link from "next/link";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import StarRating from "@/components/ui/StarRating";
 import { CurrencyFormatter } from "@/utils/CurrencyFormatter";
+import { getPlaceholderDataURL } from "@/utils/DataURL";
 
 export default function ReviewCard({ book, reviewText, rating }) {
   if (!book) return;
@@ -14,8 +15,7 @@ export default function ReviewCard({ book, reviewText, rating }) {
           <Image
             src={book.image || "/book_placeholder.png"}
             alt="book_cover"
-            placeholder="blur"
-            blurDataURL="/book_loading.jpg"
+            placeholder={getPlaceholderDataURL()}
             width={170}
             height={260}
             className="absolute object-contain -top-[3rem] drop-shadow-lg"

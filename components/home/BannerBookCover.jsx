@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import useMediaQuery, { ScreenENUM } from "@/hooks/useMediaQuery";
+import { getPlaceholderDataURL } from "@/utils/DataURL";
 import { BookCover } from "book-cover-3d";
 
 export default function BannerBookCover({ image }) {
@@ -22,8 +23,7 @@ export default function BannerBookCover({ image }) {
           <Image
             src={image}
             alt="top book"
-            placeholder="blur"
-            blurDataURL="/book_loading.jpg"
+            placeholder={getPlaceholderDataURL()}
             width={width}
             height={height}
           />

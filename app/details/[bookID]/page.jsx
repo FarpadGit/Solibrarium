@@ -6,6 +6,7 @@ import AddToCartButton from "@/components/ui/AddToCartButton";
 import StarRating from "@/components/ui/StarRating";
 import { CurrencyFormatter } from "@/utils/CurrencyFormatter";
 import CurvedWindow from "@/components/details/CurvedWindow";
+import { getPlaceholderDataURL } from "@/utils/DataURL";
 
 export default async function Details({ params }) {
   const bookDetails = await getBookInfo(params.bookID);
@@ -19,8 +20,7 @@ export default async function Details({ params }) {
           <div className="flex justify-center relative h-[80%]">
             <Image
               src={bookDetails.image || "/book_placeholder.png"}
-              placeholder="blur"
-              blurDataURL="/book_loading.jpg"
+              placeholder={getPlaceholderDataURL()}
               alt="book cover"
               width={180}
               height={300}

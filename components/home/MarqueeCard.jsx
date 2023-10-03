@@ -3,6 +3,7 @@ import Link from "next/link";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import StarRating from "@/components/ui/StarRating";
 import { CurrencyFormatter } from "@/utils/CurrencyFormatter";
+import { getPlaceholderDataURL } from "@/utils/DataURL";
 
 export default function MarqueeCard({ book }) {
   if (!book) return;
@@ -14,14 +15,16 @@ export default function MarqueeCard({ book }) {
           <Image
             src={book.image || "/book_placeholder.png"}
             alt="book_cover"
-            placeholder="blur"
-            blurDataURL="/book_loading.jpg"
+            placeholder={getPlaceholderDataURL()}
             fill
             className="object-contain"
           />
         </div>
         <Link href={`/details/${book.id}`}>
-          <div className="marquee_text font-bold text-sm pt-5 line-clamp-2 hover:underline">
+          <div
+            className="marquee_text font-bold text-sm pt-5 line-clamp-2 hover:underline"
+            onPointerDown={(e) => e.stopPropagation()}
+          >
             {book.title}
           </div>
         </Link>

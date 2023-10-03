@@ -5,6 +5,7 @@ import Image from "next/image";
 import StarRating from "@/components/ui/StarRating";
 import useMediaQuery, { ScreenENUM } from "@/hooks/useMediaQuery";
 import { send } from "@/utils/FetchRequest";
+import { getPlaceholderDataURL } from "@/utils/DataURL";
 import { motion } from "framer-motion";
 
 export default function BookReviewCard({ user, bookDetails, close }) {
@@ -71,8 +72,7 @@ export default function BookReviewCard({ user, bookDetails, close }) {
             <Image
               src={bookDetails.image}
               alt="book cover"
-              placeholder="blur"
-              blurDataURL="/book_loading.jpg"
+              placeholder={getPlaceholderDataURL()}
               width={screenSize >= ScreenENUM.XL ? 150 : 100}
               height={screenSize >= ScreenENUM.XL ? 225 : 150}
               className="outline outline-1 outline-transparent min-w-[100px] min-h-[150px] xl:min-w-[150px] xl:min-h-[225px]"
