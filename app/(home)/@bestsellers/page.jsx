@@ -1,5 +1,5 @@
-﻿import MarqueeCard from "@/components/home/MarqueeCard";
-import HeroBanner from "@/components/home/HeroBanner";
+﻿import HeroBanner from "@/components/home/HeroBanner";
+import Marquee from "@/components/home/Marquee";
 import Loading from "@/components/Loading";
 import { getBestsellers } from "@/app/(home)/@bestsellers/bestsellers";
 
@@ -29,16 +29,7 @@ export default async function BestSellers() {
       <HeroBanner bannerBook={bannerBook} bannerBackground={bannerBackground} />
       <div className="w-full">
         <h2 className="separator_label_text">További kiemelt könyvek</h2>
-        <div className="marquee_container">
-          <div className="marquee_track">
-            {frontPageBooks.map((book) => (
-              <MarqueeCard key={`marqueeCard_${book.id}`} book={book} />
-            ))}
-            {frontPageBooks.map((book) => (
-              <MarqueeCard key={`marqueeCard_2_${book.id}`} book={book} />
-            ))}
-          </div>
-        </div>
+        <Marquee frontPageBooks={frontPageBooks} />
       </div>
     </>
   );

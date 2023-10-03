@@ -149,7 +149,11 @@
   padding-top: 35px;
   white-space: nowrap;
   will-change: transform;
-  animation: marquee 25s linear infinite; 
+  animation: marquee 25s linear infinite;
+}
+
+.marquee_container[dragged=""] .marquee_track {
+  animation: none;
 }
 
 .marquee_track:hover {
