@@ -27,6 +27,10 @@
   font-weight: 500;
   margin-top: 0.75rem;
   color: rgb(55 65 81); /* tailwind-gray-700 */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .dark-mode .book_card .author_text {
@@ -56,6 +60,7 @@
   overflow: hidden;
   font-size: 1.125rem;
   line-height: 1.75rem;
+  word-break: break-word;
   color: rgb(75 85 99); /* tailwind-gray-600 */
 }
 
@@ -97,5 +102,12 @@
   .book_card .price {
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    
+    .book_card .author_text {
+      -webkit-line-clamp: none;
+    }
   }
 }

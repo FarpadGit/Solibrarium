@@ -45,7 +45,7 @@ export default function Search() {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <div>
+      <div className="text-center">
         {isLoading
           ? "Egy pillanat, a majmok mindent megtesznek..."
           : bookResults.length > 0
