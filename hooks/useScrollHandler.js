@@ -8,17 +8,20 @@ import { useThrottle } from "@/hooks/ThrottleDebounce";
 export function useScrollHandler(headerRef) {
   const { isHeaderMinimized, minimizeHeader, maximizeHeader } =
     useHeaderVisibilityContext();
+  const prevScrollY = useRef(0);
   const scrollBlockTimer = useRef(0);
-  const canHandleScroll = useRef(true);
+  const { canHandleScroll, lockHeader, unlockHeader } = useHeaderVisibilityContext();
 
   const handleScroll = () => {
+    if(window.scrollY === 0) unlockHeader();
     if (!canHandleScroll.current) return;
     const throttledScroll = useThrottle(() => {
       if (window.scrollY === 0) maximizeHeader();
-      else minimizeHeader();
+      else if(Math.abs(prevScrollY.current - window.scrollY) > 3) minimizeHeader();
     }, 300);
     throttledScroll();
-  };
+    prevScrollY.current = window.scrollY;
+  };  
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -39,10 +42,10 @@ export function useScrollHandler(headerRef) {
 
   //ignore listening to scrolling for 0.5 seconds (the length of animation) after header size changed
   useEffect(() => {
-    canHandleScroll.current = false;
+    lockHeader();
     clearTimeout(scrollBlockTimer.current);
     scrollBlockTimer.current = setTimeout(
-      () => (canHandleScroll.current = true),
+      () => unlockHeader(),
       500
     );
     return () => clearTimeout(scrollBlockTimer.current);

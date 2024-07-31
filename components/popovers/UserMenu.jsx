@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAppContext } from "@/contexts/AppContext";
 import { Command, CommandGroup, CommandItem } from "@/components/ui/Command";
 import {
@@ -10,15 +10,32 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
-import { signOut } from "next-auth/react";
 
 export default function UserMenu() {
-  const { getRememberMe, deleteRememberMe } = useAppContext();
+  const { getRememberMe, deleteRememberMe, openConfirmModal, logOutUser } =
+    useAppContext();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [lanyardSwing, setLanyardSwing] = useState(false);
   const router = useRouter();
-  const pathName = usePathname();
   const rememberMe = getRememberMe();
+
+  function MenuItem({ label, sublabel = null, click }) {
+    return (
+      <CommandItem
+        className="hover:bg-amber-200 dark:hover:bg-gray-400 text-center justify-center"
+        onSelect={() => {
+          setOpenDropdown(false);
+          click();
+        }}
+      >
+        <span>
+          {label}
+          {sublabel && <p className="text-xs">{sublabel}</p>}
+        </span>
+      </CommandItem>
+    );
+  }
+
   return (
     <Popover open={openDropdown} onOpenChange={setOpenDropdown}>
       <PopoverTrigger asChild>
@@ -34,39 +51,33 @@ export default function UserMenu() {
         <div className="modal flex flex-col gap-2 bg-solibrarium px-1 rounded-[15%] overflow-hidden md:p-2">
           <Command>
             <CommandGroup>
-              <CommandItem
-                className="hover:bg-amber-200 dark:hover:bg-gray-400 text-center justify-center"
-                onSelect={() => {
-                  setOpenDropdown(false);
+              <MenuItem
+                label={"Könyveim"}
+                click={() => {
                   router.push("/account");
                 }}
-              >
-                <span>Könyveim</span>
-              </CommandItem>
+              />
               {rememberMe && (
-                <CommandItem
-                  className="hover:bg-amber-200 dark:hover:bg-gray-400 text-center justify-center"
-                  onSelect={() => {
-                    setOpenDropdown(false);
+                <MenuItem
+                  label={"Felejts el"}
+                  sublabel={"(auto bejelentkezés)"}
+                  click={() => {
                     deleteRememberMe(rememberMe.Key);
                   }}
-                >
-                  <span>
-                    Felejts el
-                    <p className="text-xs">(auto bejelentkezés)</p>
-                  </span>
-                </CommandItem>
+                />
               )}
-              <CommandItem
-                className="hover:bg-amber-200 dark:hover:bg-gray-400 text-center justify-center"
-                onSelect={() => {
-                  setOpenDropdown(false);
-                  signOut({ redirect: false });
-                  if (pathName === "/account") router.push("/");
+              <MenuItem
+                label={"Fiók törlése"}
+                click={() => {
+                  openConfirmModal();
                 }}
-              >
-                <span>Kijelentkezés</span>
-              </CommandItem>
+              />
+              <MenuItem
+                label={"Kijelentkezés"}
+                click={() => {
+                  logOutUser();
+                }}
+              />
             </CommandGroup>
           </Command>
         </div>

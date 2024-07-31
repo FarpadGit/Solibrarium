@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 //on initial prefetch both server and client has to have the same values to build the same html, which means no touchy the localstorage.
 //then the client runs the (client exclusive) useEffects when the server is done and not looking.
 export function useLocalStorage(key, initialValue) {
-  const isInitialized = useRef(undefined);
+  const isInitialized = useRef(false);
 
   const getAppropriateValue = () => {
     //if in first fetch phase skip this part
@@ -25,7 +25,7 @@ export function useLocalStorage(key, initialValue) {
 
   const [value, setValue] = useState(getAppropriateValue);
 
-  //useEffects are async which means we have to guard code to not run them out of order
+  //useEffects are client side only, which means now we can read from Local Storage
   useEffect(() => {
     isInitialized.current = true;
     setValue(getAppropriateValue());

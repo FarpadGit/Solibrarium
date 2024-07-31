@@ -27,10 +27,11 @@ export function lastItem(observer, isLoading, hasMore, callback, dependencies) {
 
 //Observes if an element is in the viewport or not, and fires a callback if so
 //** usecase: **
-//const ref = InViewportItem(*new useRef object*, *callback*, options? = {*only fire once*, *0 to 1 value for how much should be in the viewport*});
+//const ref = inViewportItem(*new useRef object*, *callback*, options?);
+// options = {callOnce: *fire only once*, threshold: *how much should be in the viewport ([0-1] value)*, root: *lower level container instead of viewport*});
 // <div ref={ref}>
-export function InViewportItem(observer, callback, options = {}) {
-  const { callOnce = true, threshold = 0.5 } = options;
+export function inViewportItem(observer, callback, options = {}) {
+  const { callOnce = true, threshold = 0.5, root = undefined } = options;
   const fn = useCallback((item) => {
     observer.current = new IntersectionObserver(
       (entries) => {
@@ -39,10 +40,31 @@ export function InViewportItem(observer, callback, options = {}) {
           if (callOnce) observer.current.disconnect();
         }
       },
-      { threshold: threshold }
+      { threshold: threshold, root: root }
     );
     if (item) observer.current.observe(item);
-  }, []);
+  }, [root]);
 
   return fn;
+}
+
+//Compares two elements if they overlap in the viewport or not, and fires a callback if so
+//** usecase: **
+//const ref = checkIfOverlapping(*first element*, *callback*, *optional delay*);
+// <div ref={ref}>I'm the second element</div>
+export function checkIfOverlapping(element1, callback, delay = 0) {
+  const fn = useCallback((element2) => {
+    if(!element2) return;
+    const a = element1.getBoundingClientRect();
+    const b = element2.getBoundingClientRect();
+
+    const vertical = a.top <= b.top + b.height && a.top + a.height > b.top;
+    const horizontal = a.left <= b.left + b.width && a.left + a.width > b.left;
+
+    if (vertical && horizontal) setTimeout(() => {
+      callback();
+    }, delay); 
+  }, [element1]);
+    
+    return fn;
 }

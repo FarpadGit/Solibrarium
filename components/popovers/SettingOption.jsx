@@ -1,7 +1,57 @@
-﻿import Image from "next/image";
+﻿import { useEffect, useState } from "react";
+import Image from "next/image";
 import { SearchType } from "@/utils/SearchENUM";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/Tooltip";
+import { checkIfOverlapping } from "@/utils/ScrollAndOverlaps";
 
-export default function SettingOption({ id, type, setType, active }) {
+export default function SettingOption({
+  id,
+  type,
+  setType,
+  active,
+  activeTooltip,
+}) {
+  const [hover, setHover] = useState(false);
+  const [tooltipPos, setTooltipPos] = useState("top");
+  const tooltipRef = checkIfOverlapping(
+    activeTooltip.current,
+    () => setTooltipPos("bottom"),
+    active ? 150 : 0
+  );
+
+  const buttonProps = { id, type, setType, active, setHover };
+
+  useEffect(() => {
+    setTooltipPos("top");
+  }, [activeTooltip.current, active]);
+
+  return (
+    <TooltipProvider>
+      <Tooltip open={active || hover}>
+        <TooltipTrigger>
+          <Button {...buttonProps} />
+        </TooltipTrigger>
+        <TooltipContent
+          sideOffset={10}
+          side={tooltipPos}
+          data-active={active ? "" : undefined}
+          ref={active ? activeTooltip : tooltipRef}
+        >
+          <div className="modal border border-current bg-solibrarium-accent p-1 rounded-full">
+            {SearchType[type].Text}
+          </div>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
+function Button({ id, type, setType, active, setHover }) {
   return (
     <div className="relative inline-block">
       <input
@@ -22,8 +72,9 @@ export default function SettingOption({ id, type, setType, active }) {
           width={20}
           height={20}
           className="md:w-[30px] md:h-[30px]"
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
         />
-        <div className="grow">{SearchType[type].Text}</div>
         <Circle />
       </label>
     </div>

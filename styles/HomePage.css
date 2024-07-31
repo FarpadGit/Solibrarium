@@ -26,14 +26,14 @@
 }
 
 .hero-banner-container .hero-banner-sub {
-  font-family: "Book Antiqua"; 
+  font-family: "Book Antiqua";
   text-align: center;
   font-size: 10px;
   margin-top: 10px;
 }
-  
+
 .hero-banner-container .hero-banner-author {
-  font-family: "Futura Book"; 
+  font-family: "Futura Book";
   text-align: center;
   font-size: 1rem;
   margin-top: 10px;
@@ -41,7 +41,7 @@
 }
 
 .hero-banner-container .hero-banner-title {
-  font-family: "Futura Book"; 
+  font-family: "Futura Book";
   text-align: center;
   font-size: 2rem;
   font-weight: bold;
@@ -51,11 +51,13 @@
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
+  line-height: 115%;
 }
 
 .hero-banner-desc {
-  font-family: "Book Antiqua"; 
+  font-family: "Book Antiqua";
   text-align: center;
   font-size: 0.8rem;
   margin-top: 2rem;
@@ -70,6 +72,18 @@
   scrollbar-width: thin;
 }
 
+.hero-banner-desc::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  max-height: 150px;
+  left: 0;
+  background-image: linear-gradient(transparent 0%, bisque 10%, bisque 90%, transparent 100%);
+  z-index: -1;
+  transform: translateY(-0.5rem);
+}
+
 .hero-banner-desc::-webkit-scrollbar {
   width: 12px;
   background: transparent;
@@ -80,21 +94,11 @@
   background: #fccb44;
 }
 
-.hero-banner-backdrop {
-  position: absolute;
-  width: 100%;
-  height: 60%;
-  top: 45%;
-  left: 0;
-  background-image: linear-gradient(transparent 0%, bisque 10%, bisque 90%, transparent 100%);
-  z-index: -1;
-}
-
 .hero-banner-image {
   position: absolute;
   width: 150px;
   height: 225px;
-  top: 5%;
+  top: 12%;
   left: calc(70% + 25px);
   transform: translateX(-50%);
 }
@@ -103,7 +107,7 @@
   position: absolute;
   display: flex;
   bottom: 5%;
-  right:2%;
+  right: 2%;
 }
 
 .separator_label_text {
@@ -117,7 +121,7 @@
   white-space: nowrap;
 }
 
-.separator_label_text::before, 
+.separator_label_text::before,
 .separator_label_text::after {
   content: "";
   width: 100%;
@@ -141,7 +145,7 @@
   /* background: var(--background1-color); */
 }
 
-.marquee_track { 
+.marquee_track {
   position: relative;
   display: flex;
   height: 400px;
@@ -161,8 +165,13 @@
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 .marquee_card {
@@ -198,14 +207,14 @@
 }
 
 .marquee_card:hover .buttons {
-  display: flex; 
+  display: flex;
   justify-content: center;
 }
 
 .marquee_text {
   display: -webkit-box;
   text-align: center;
-  color: rgb(17 24 39);
+  color: rgb(17, 24, 39);
 }
 
 .dark-mode .marquee_text {
@@ -228,36 +237,37 @@
     background-position: center;
     padding: 50px 40px;
   }
-  
+
   .hero-banner-container .hero-banner-sub {
     font-size: 10px;
     margin-top: 10px;
   }
-    
+
   .hero-banner-container .hero-banner-author {
     font-size: 1.5rem;
     margin-top: 10px;
   }
-  
+
   .hero-banner-container .hero-banner-title {
     font-size: 3rem;
     margin-top: 10px;
   }
-  
+
   .hero-banner-desc {
     font-size: 1rem;
     max-height: 160px;
   }
-  
-  .hero-banner-backdrop {
-    top: 45%;
+
+  .hero-banner-desc::before {
+    max-height: 225px;
     background-image: linear-gradient(transparent 0%, bisque 10%, bisque 90%, transparent 100%);
+    transform: translateY(-1rem);
   }
-  
+
   .hero-banner-image {
     width: 200px;
     height: 300px;
-    top: 15%;
+    /* top: 15%; */
     left: unset;
     right: 10%;
     transform: none;
@@ -280,31 +290,31 @@
 }
 
 @media (min-width: 1024px) {
-  
+
   .hero-banner-container .hero-banner-sub {
     font-size: 20px;
     margin-top: 20px;
   }
-    
+
   .hero-banner-container .hero-banner-author {
     font-size: 2.5rem;
     margin-top: 20px;
   }
-  
+
   .hero-banner-container .hero-banner-title {
     font-size: 5rem;
     margin-top: 20px;
   }
-  
+
   .hero-banner-desc {
     max-height: 150px;
   }
-  
-  .hero-banner-backdrop {
-    top: 50%;
-    background-image: linear-gradient(transparent 0%, bisque 20%, bisque 80%, transparent 100%);
+
+  .hero-banner-desc::before {
+    background-image: linear-gradient(transparent 10%, bisque 20%, bisque 85%, transparent 95%);
+    transform: translateY(-3rem);
   }
-  
+
   .hero-banner-image {
     right: 10%;
   }

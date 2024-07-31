@@ -4,8 +4,18 @@ import AppContext from "@/contexts/AppContext";
 import SessionProvider from "@/contexts/SessionProvider";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
+import dynamic from "next/dynamic";
+const LoginModal = dynamic(
+  () => import("@/components/popovers/LoginModal").then((res) => res.default),
+  { ssr: false }
+);
+const ConfirmModal = dynamic(
+  () => import("@/components/popovers/ConfirmModal").then((res) => res.default),
+  { ssr: false }
+);
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
+
 export const metadata = {
   title: "Solibrarium",
   description: "A library of the Sun",
@@ -17,18 +27,20 @@ export default async function RootLayout({ children }) {
     <html lang="hu">
       <body>
         <div className="global_background_image"></div>
-        <AppContext>
-          <SessionProvider session={session}>
+        <SessionProvider session={session}>
+          <AppContext>
             <Header />
             <main className="app">
               <div className="app_backdrop">
                 <div className="gradient" />
               </div>
+              <LoginModal />
+              <ConfirmModal />
               {children}
             </main>
             <Footer />
-          </SessionProvider>
-        </AppContext>
+          </AppContext>
+        </SessionProvider>
       </body>
     </html>
   );

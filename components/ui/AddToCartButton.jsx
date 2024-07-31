@@ -10,9 +10,11 @@ export default function AddToCartButton({ book }) {
   return (
     <button
       ref={ref}
-      className="add_to_cart_btn"
+      className="add_to_cart_btn green_btn pill_btn_base"
       disabled={!book?.price || hasItem(book.id)}
-      onClick={() => {
+      onPointerDown={(e) => e.stopPropagation()}
+      onClick={(e) => {
+        e.stopPropagation();
         if (ref.current) {
           ref.current.style.setProperty(
             "--bottonTop",

@@ -13,13 +13,29 @@
     background-image: var(--header-fallback-gradient);
     z-index: 10;
 }
-  
+
 .header_full {
     max-height: 18rem;
 }
 
 .header_short {
     max-height: var(--header-min-height);
+}
+
+.logo_text {
+    display: none;
+    transition: transform 0.5s ease, left 0.5s ease;
+}
+
+.logo_img {
+    display: none;
+}
+
+.filters_btn {
+    filter: drop-shadow(2px 2px 0px var(--header-dropshadow-color));
+    position: absolute;
+    left: -1.3rem;
+    transform: translateY(25%);
 }
 
 .searchbar_btn_base {
@@ -29,48 +45,67 @@
     text-align: center;
     border: 1px solid transparent;
     border-radius: 9999px;
-    color: rgb(255 255 255);
+    color: rgb(255, 255, 255);
     padding: 0.05rem;
     line-height: 1rem;
 }
 
-.logo_text {
-    display: none;
+.settings_btn {
+    border-radius: 0 1.5rem 1.5rem 0;
+    padding: 0.15rem;
+    outline-offset: -2px;
 }
 
-.logo_img {
-    display: none;
+.add_btn {
+    position: relative;
+    padding: 0;
 }
 
-.header_btn:hover {
+.add_btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/icons/add.svg");
+    background-size: contain;
+}
+
+.add_btn:hover:not(:disabled)::before {
+    transform: rotate(180deg);
+}
+
+.header_btn_base:hover {
     box-shadow: 0 0 10px var(--glow-color);
 }
 
-.header_icon:hover {
+.header_icon_btn:hover {
     filter: drop-shadow(0 0 10px var(--glow-color));
 }
 
-.gold_btn {
+.misc_btn {
     font-size: 0.75rem;
     line-height: 1rem;
-    border-color: gold;
+    border: 1px solid currentColor;
     border-radius: 9999px;
-    background-color: gold;
-    color: rgb(0, 0, 0);
+    background-color: var(--solibrarium-color);
+    color: var(--foreground-color);
     padding: 0.1rem 0.4rem;
+    text-align: center;
 }
 
-.gold_btn:hover:not(:disabled) {
-    background-color: goldenrod;
+.misc_btn:hover:not(:disabled) {
+    background-color: var(--solibrarium-accent-color);
 }
 
 .login_btn {
     font-size: 0.750rem;
     line-height: 1.0rem;
-    border-color: rgb(0 0 0);
+    border-color: rgb(0, 0, 0);
     border-radius: 5px;
-    background-color: rgb(255 255 255);
-    color: rgb(0 0 0);
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     padding: 0.1rem 0.2rem;
     background-image: url("/decor/brick.jpg");
     background-repeat: no-repeat;
@@ -87,46 +122,19 @@
 }
 
 @keyframes slide_in {
-    50%, 75% {
+
+    50%,
+    75% {
         scale: 0.9;
         filter: brightness(50%);
         box-shadow: -1px -2px 1px 1px #333, 1px 2px 1px 1px #999, -2px 0px 1px 1px #333, 2px 0px 1px 1px #999;
     }
+
     100% {
         scale: 1;
         filter: none;
         box-shadow: none;
     }
-}
-
-.add_btn {
-    background-color: rgb(132 204 22);
-    padding: 0;
-}
-
-.add_btn:hover:not(:disabled) {
-    background-color: rgb(163 230 53);
-    transform: rotate(180deg);
-}
-
-.settings_btn {
-    border-color: rgb(132 204 22);
-    border-radius: 0 1.5rem 1.5rem 0;
-    background-color: rgb(132 204 22);
-    padding: 0.15rem;
-    outline-offset: -2px;
-}
-
-.settings_btn:hover:not(:disabled) {
-    border-color: rgb(163 230 53);
-    background-color: rgb(163 230 53);
-}
-
-.filters_btn {
-    filter: drop-shadow(3px 3px 3px rgba(0,0,0,0.5));
-    position: absolute;
-    left: -1.3rem;
-    transform: translateY(25%);
 }
 
 @media (min-width: 768px) {
@@ -150,19 +158,23 @@
         letter-spacing: 0.025em;
     }
 
+    .logo_text[data-indented] {
+        transform: translateX(-50%);
+    }
+
     /* on webkit browsers fonts like GlowBloom that have custom colors/texture don't show properly, so the logo will be an image instead */
     @supports (-webkit-font-smoothing: antialiased) {
         .logo_img {
             position: absolute;
-            width: 125%;
             display: block;
+            top: 20%;
+            left: 50%;
+            width: 125%;
             height: 55px;
             background-image: url(/decor/Logo.png);
             background-size: 100% 100%;
             background-repeat: no-repeat;
             transform: translateX(-50%) translateY(-15px);
-            top: 20%;
-            left: 50%;
         }
 
         .logo_text {
@@ -193,11 +205,21 @@
     .logo_text {
         font-size: 4rem;
     }
+
+    .logo_text[data-indented] {
+        left: 0;
+        transform: translateX(35%);
+    }
 }
 
 @media (min-width: 1280px) {
 
     .logo_text {
         font-size: 5rem;
+    }
+
+    .logo_text[data-indented] {
+        left: 0;
+        transform: translateX(25%);
     }
 }

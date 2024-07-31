@@ -1,27 +1,7 @@
-.add_to_cart_btn {
+button.add_to_cart_btn {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  justify-self: end;
-  text-align: center;
   font-size: small;
-  border: 1px solid transparent;
-  background-color: rgb(132 204 22);
-  border-radius: 9999px;
-  color: rgb(255 255 255);
   padding: 0.5rem 1.75rem;
-}
-
-.add_to_cart_btn:disabled {
-  border-color: rgb(209 213 219);
-  background-color: rgb(156 163 175);
-  color: rgb(243 244 246);
-}
-
-.add_to_cart_btn:hover:not(:disabled) {
-  border-color: rgb(163 230 53);
-  background-color: rgb(163 230 53);
 }
 
 /* Click animation */
@@ -36,24 +16,26 @@
   transition: top 1s ease, left 1s ease, width 1s ease, opacity 1s ease, scale 1s ease;
   --shopping-cart-pos: calc(100vw - 80px);
 }
-  
+
 .add_to_cart_btn[pushed=""]:disabled:before {
   animation: add_to_cart 1s ease;
 }
-  
+
 @keyframes add_to_cart {
   0% {
     top: 0px;
     left: 0px;
     opacity: 1;
   }
-   25% {
+
+  25% {
     top: 0px;
     left: 33%;
     width: 33%;
     opacity: 1;
     scale: 1;
   }
+
   100% {
     top: calc(20px - var(--bottonTop));
     left: calc(var(--shopping-cart-pos) - var(--bottonLeft));

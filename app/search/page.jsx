@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useSearchContext } from "@/contexts/SearchContext";
 import BookCard from "@/components/search/BookCard";
 import BookCardSkeleton from "@/components/search/BookCardSkeleton";
-import { lastItem } from "@/utils/InfiniteScroll";
+import { lastItem } from "@/utils/ScrollAndOverlaps";
 
 export default function Search() {
   const {
@@ -58,7 +58,7 @@ export default function Search() {
             if (id === "error")
               return (
                 <div key="error" className="text-center">
-                  Hiba történt keresés közben
+                  Sajnos valamilyen hiba történt keresés közben
                 </div>
               );
             else if (book.placeholder) return <BookCardSkeleton key={id} />;
@@ -66,7 +66,7 @@ export default function Search() {
           })}
           <div className="self-center py-2" ref={lastItemRef}>
             {isLoading && "Találatok betöltése..."}
-            {!hasMore && "Úgy látszik elérted a végét"}
+            {!hasMore && "Úgy látszik elérted a lista végét"}
           </div>
         </div>
       </div>

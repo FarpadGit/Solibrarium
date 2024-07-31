@@ -13,7 +13,7 @@ const UserMenu = dynamic(
 export default function LoginButton() {
   const [animate, setAnimate] = useState(false);
   const { data: session } = useSession();
-  const { setShowLoginModal } = useAppContext();
+  const { openLoginModal } = useAppContext();
 
   setRememberMe(session?.rememberMe);
   return (
@@ -22,10 +22,10 @@ export default function LoginButton() {
         <>
           <button
             type="button"
-            className="login_btn header_btn"
+            className="login_btn header_btn_base"
             onClick={() => setAnimate(true)}
             onAnimationEnd={() => {
-              setShowLoginModal(true);
+              openLoginModal();
               setAnimate(false);
             }}
             pushed={animate ? "" : undefined}

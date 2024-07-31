@@ -34,13 +34,13 @@ export default ({ children }) => {
   };
 
   const SearchCriteria = {
-    setTitleSearch: setInTitle,
-    setAuthorSearch: setInAuthor,
-    setPublisherSearch: setInPublisher,
-    setSubjectSearch: setSubject,
-    setExcludingSearch: setExcluding,
-    setISBNSearch: setIsbn,
-    setTransientSearch: setTransient,
+    setTitleSearch: (value) => setInTitle(value),
+    setAuthorSearch: (value) => setInAuthor(value),
+    setPublisherSearch: (value) => setInPublisher(value),
+    setSubjectSearch: (value) => setSubject(value),
+    setExcludingSearch: (value) => setExcluding(value),
+    setISBNSearch: (value) => setIsbn(value),
+    setTransientSearch: (value) => setTransient(value),
     shouldClearSearch,
     clearAllFields,
   };

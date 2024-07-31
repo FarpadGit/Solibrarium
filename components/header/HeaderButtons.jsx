@@ -9,7 +9,7 @@ import { Label as FormLabel } from "@/components/ui/FormLabel";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/Sheet";
 
 export default function HeaderButtons() {
-  const { darkMode, setDarkMode } = useAppContext();
+  const { darkMode, toggleDarkMode } = useAppContext();
   const { cartQuantity } = useShoppingCartContext();
 
   return (
@@ -17,10 +17,10 @@ export default function HeaderButtons() {
       {/* Shopping Cart button */}
       <Sheet>
         <SheetTrigger asChild>
-          <button className="header_icon rounded-full w-6 h-6 relative md:w-8 md:h-8 md:mr-2">
+          <button className="header_icon_btn rounded-full w-6 h-6 relative md:w-8 md:h-8 md:mr-2">
             <ShoppingCartIcon />
             {cartQuantity > 0 && (
-              <div className="rounded-full bg-red-500 text-sm text-white w-4 h-4 flex justify-center items-center absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 md:text-base md:w-5 md:h-5">
+              <div className="rounded-full bg-amaranth text-sm text-white w-4 h-4 flex justify-center items-center absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 md:text-base md:w-5 md:h-5">
                 {cartQuantity}
               </div>
             )}
@@ -38,8 +38,8 @@ export default function HeaderButtons() {
         <ThemeSwitch
           id="Theme-toggle"
           checked={darkMode}
-          className="header_btn"
-          onCheckedChange={() => setDarkMode((prev) => !prev)}
+          className="header_btn_base"
+          onCheckedChange={() => toggleDarkMode()}
         />
         <FormLabel htmlFor="Theme-toggle" className="text-white text-xs">
           {darkMode ? "Hold mód" : "Nap mód"}

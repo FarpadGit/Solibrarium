@@ -11,7 +11,9 @@ export function ShoppingCart() {
 
   return (
     <div className="modal">
-      <div className="text-center text-lg mb-16">Bevásárló kosaram</div>
+      <div className="text-center text-lg mb-16 p-5 bg-[#fff3] border-b border-b-white dark:bg-[#0003]">
+        Bevásárló kosaram
+      </div>
       <div className="flex flex-col">
         <div className="flex flex-col gap-3">
           <AnimatePresence>
@@ -25,7 +27,7 @@ export function ShoppingCart() {
           </AnimatePresence>
         </div>
         {cartQuantity > 0 ? (
-          <div className="flex flex-col ms-auto font-bold text-lg mr-16 mt-4">
+          <div className="flex flex-col mx-8 font-bold text-lg mt-4 2xl:w-full 2xl:max-w-[500px] 2xl:mx-auto">
             <div className="self-center">
               Összesen: {CurrencyFormatter(totalPrice)}
             </div>

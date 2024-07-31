@@ -32,7 +32,7 @@ export default function ReviewCard({ book, reviewText, rating }) {
             <StarRating rating={rating} />
           </div>
           <div className="text-xs pt-1 h-[5.1rem] line-clamp-[5] scroll_on_hover">
-            "{reviewText}"
+            {reviewText === "" ? "(nincs leírás)" : `"${reviewText}"`}
           </div>
           <div className="text-xs pt-1">Online Ár:</div>
           {book.price ? (

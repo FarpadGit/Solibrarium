@@ -33,7 +33,6 @@ function decrypt(encryptedData, compositeKey) {
   );
   const decrypted =
     decipher.update(encryptedData, "hex", "utf8") + decipher.final("utf8");
-
   return JSON.parse(decrypted);
 }
 
@@ -43,7 +42,10 @@ export const GET = async (request) => {
   try {
     await connectToDB();
 
+    errorProgressMessage = "Failed to decrypt token key: ";
     const { email, exp } = decrypt(token, key);
+    if(!email || !email.includes("@")) throw new Error("decryption error");
+    
     if (exp > Date.now())
       return new Response(JSON.stringify(email), { status: 200 });
     else return Response.json({ error: "token have expired" }, { status: 500 });
@@ -87,7 +89,7 @@ const emailHtml = (host, email, token, key) =>
         <a href="http://${host}/resetPassword/${token}/${key}" style="color: #FFFFFF;line-height: 1.5;font-weight: 600;font-size: 0.875rem;background-color: #3B71CA;border-radius: 0.25rem;padding: 10px 10.5rem;">Jelszó visszaállítása</a>
       </td></tr>
       <tr></tr>
-      <tr><td><p style="padding-bottom: 20px;">Ha nem te voltál akkor hagyd ezt a levelet figyelmen kívül. Vagy ha gondolod akkor válaszolhatsz is rá, akár más témában is.</p></td></tr>
+      <tr><td><p style="padding-bottom: 20px;">Ha nem te voltál akkor hagyd ezt a levelet figyelmen kívül.</p></td></tr>
     </table>
     </td>
     <td width="25%" style="width: 170px;background: url('https://solibrarium.vercel.app/_next/image?url=%2Femail_grad.png&w=1920&q=75');border-radius: 0 76px 0 0/0 45px 0 0;"></td>

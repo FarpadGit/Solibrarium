@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState, useContext, createContext } from "react";
+import { useState, useContext, createContext, useRef } from "react";
 
 const headerVisibilityContext = createContext();
 export const useHeaderVisibilityContext = () =>
@@ -9,22 +9,30 @@ export const useHeaderVisibilityContext = () =>
 export default ({ children }) => {
   const [isHeaderFull, setIsHeaderFull] = useState(false);
   const [isFullyVisible, setIsFullyVisible] = useState(true);
-  const canHeaderExpand = () => !isHeaderFull;
-  const lockHeader = () => setIsHeaderFull(true);
-  const unlockHeader = () => setIsHeaderFull(false);
-  const isHeaderMinimized = () => !isFullyVisible;
+  const canHandleScroll = useRef(true);
+  const capSearchbars = () => setIsHeaderFull(true);
+  const uncapSearchbars = () => setIsHeaderFull(false);
+  const lockHeader = () => {
+    canHandleScroll.current = false;
+  };
+  const unlockHeader = () => {
+    canHandleScroll.current = true;
+  };
   const minimizeHeader = () => setIsFullyVisible(false);
   const maximizeHeader = () => setIsFullyVisible(true);
   const toggleHeader = () => setIsFullyVisible((prev) => !prev);
 
   const NavVisibility = {
-    canHeaderExpand,
-    lockHeader,
-    unlockHeader,
-    isHeaderMinimized,
+    canHeaderExpand: !isHeaderFull,
+    capSearchbars,
+    uncapSearchbars,
+    isHeaderMinimized: !isFullyVisible,
     minimizeHeader,
     maximizeHeader,
     toggleHeader,
+    canHandleScroll,
+    lockHeader,
+    unlockHeader,
   };
 
   return (

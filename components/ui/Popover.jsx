@@ -36,7 +36,11 @@ const PopoverContent = React.forwardRef(
       >
         {children}
         {arrow === true && (
-          <PopoverPrimitive.Arrow width={20} height={10} fill="white" />
+          <PopoverPrimitive.Arrow
+            width={20}
+            height={10}
+            fill="var(--foreground-color)"
+          />
         )}
       </PopoverPrimitive.Content>
     </PopoverPrimitive.Portal>

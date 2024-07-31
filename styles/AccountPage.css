@@ -2,7 +2,7 @@
     position: relative;
     width: 95%;
     height: 450px;
-    border: 2px solid currentColor;
+    /* border: 2px solid currentColor; */
     border-radius: 35%;
     overflow: hidden;
     margin: 20px 20px 10px 20px;
@@ -92,8 +92,8 @@
 }
 
 .bookcover_image {
-    width:75px;
-    height:112px;
+    width: 75px;
+    height: 112px;
 }
 
 .bookreview_container {
@@ -115,12 +115,11 @@
 }
 
 #review_close_btn {
-    background-color: #858585; 
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
-    margin-top: -1.5rem;
-    padding: 6px 50px 6px 50px;
+    height: 35px;
+    transform: translate(-50%, -50%);
+    color: white;
 }
 
 .review_close_btn:hover {
@@ -128,21 +127,34 @@
 }
 
 .review_text_wrapper {
-    background-image: url('/decor/parchment.png');
-    border: 2px solid currentColor;
-    border-radius: 15%;
+    position: relative;
     overflow: hidden;
     padding: 1.5rem 0;
 }
 
+.review_text_wrapper::before {
+    content: "";
+    position: absolute;
+    background-image: url('/decor/parchment.png');
+    border: 2px solid rgb(0 0 0 / 0.75);
+    border-radius: 15px 50px / 50px 15px;
+    width: 98%;
+    height: 97%;
+    top: 0;
+    left: 0;
+    filter: url('#parchmentBorder');
+    z-index: -1;
+}
+
 #ReviewTextArea {
     resize: none;
-    background-image: url('/decor/parchment.png');
+    background-color: transparent;
     color: black;
     overflow: auto;
     height: 16rem;
     padding: 0 1rem;
     outline: none;
+    transform: scaleX(0.95);
 }
 
 @media (min-width: 640px) {
@@ -151,14 +163,14 @@
         width: 32px !important;
         transform: translateX(47px) rotateY(45deg) !important;
     }
-    
+
     .bookreview_card {
         width: 30rem;
     }
 }
 
 @media (min-width: 768px) {
-    
+
     .centerpiece_container {
         width: 600px;
     }
@@ -204,8 +216,8 @@
     }
 
     .bookcover_image {
-        width:100px;
-        height:150px;
+        width: 100px;
+        height: 150px;
     }
 
     .bookreview_card {

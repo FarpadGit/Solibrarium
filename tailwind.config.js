@@ -17,9 +17,17 @@ module.exports = {
     },
     extend: {
       colors: {
-        solibrarium: "var(--solibrarium-color)",
         shadcn_input: "hsl(var(--shadcn-input-hsl))",
         shadcn_ring: "hsl(var(--shadcn-ring-hsl))",
+        solibrarium: "var(--solibrarium-color)",
+        "solibrarium-accent": "var(--solibrarium-accent-color)",
+        green: "var(--green-color)",
+        lightgreen: "var(--green-hover-color)",
+        amaranth: "var(--red-color)",
+        lightred: "var(--red-hover-color)",
+        sunny: "rgb(0 0 0 / 0.75)",
+        luna: "rgb(0 191 255 / 0.5)",
+        star: "var(--header-dropshadow-color)"
       },
       backgroundImage: {
         "theme-switch-on": "var(--theme-switch-on)",
@@ -38,9 +46,9 @@ module.exports = {
         "theme-switch-off": "center",
       },
       dropShadow: {
-        "sunny": "5px 5px 0px rgba(0, 0, 0, 0.75)",
-        "luna": "5px 5px 2px rgba(0, 191, 255, 0.5)",
-        "star": "var(--header-dropshadow)"
+        sunny: "5px 5px 0px rgb(0 0 0 / 0.75)",
+        luna: "5px 5px 2px rgb(0 191 255 / 0.5)",
+        star: "var(--header-dropshadow)"
       },
     },
   },

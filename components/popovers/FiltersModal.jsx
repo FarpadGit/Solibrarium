@@ -12,7 +12,7 @@ export default function FiltersModal() {
       animate={{ x: 0, opacity: 1 }}
       //exit={{ x: -50, opacity: 0 }}
       transition={{ type: "spring", stiffness: 150 }}
-      className="modal flex flex-col gap-2 bg-solibrarium px-1 rounded-full overflow-hidden md:p-2"
+      className="modal flex flex-col border border-current gap-2 bg-solibrarium px-1 rounded-full overflow-hidden md:p-2"
     >
       <div className="flex">
         <input
@@ -24,7 +24,7 @@ export default function FiltersModal() {
         />
         <label
           htmlFor="priceFilter"
-          className="flex items-center text-xs md:text-base"
+          className="flex items-center text-xs gap-1 md:text-base"
         >
           <Image
             id="priceFilterIcon"

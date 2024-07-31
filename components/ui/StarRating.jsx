@@ -1,14 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 export default function StarRating({ rating, size = 15, setter = null }) {
-  const [hoverRating, setHoverRating] = useState(0);
   const roundedRating = rating ? Math.round(rating * 2) / 2 : 0;
-  const starArray = ratingToArray(
-    hoverRating > 0 ? hoverRating : roundedRating
-  );
+  const [hoverRating, setHoverRating] = useState(0);
+  const [starArray, setStarArray] = useState(ratingToArray(roundedRating));
+
+  useEffect(() => {
+    if (hoverRating !== 0) setStarArray(ratingToArray(hoverRating));
+    else setStarArray(ratingToArray(roundedRating));
+  }, [rating, hoverRating]);
 
   return (
     <span className="flex">

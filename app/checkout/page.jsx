@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useShoppingCartContext } from "@/contexts/ShoppingCartContext";
 import { CartItem } from "@/components/CartItem";
@@ -13,11 +13,21 @@ export default function Checkout() {
   const { cartItems, cartQuantity, totalPrice, emptyCart } =
     useShoppingCartContext();
   const [discount, setDiscount] = useState(0);
+  const [maxDiscount, setMaxDiscount] = useState(0);
   const [error, setError] = useState(false);
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
 
   const newLoyaltyPoints = Math.floor(totalPrice / 250);
+
+  useEffect(() => {
+    const _maxDiscount = Math.min(
+      session?.user?.loyaltyPoints ?? 0,
+      totalPrice
+    );
+    setMaxDiscount(_maxDiscount);
+    if (discount > _maxDiscount) setDiscount(_maxDiscount);
+  }, [totalPrice]);
 
   async function handleConfirm() {
     if (session?.user) {
@@ -43,6 +53,7 @@ export default function Checkout() {
           if (res.error) setError(true);
           else {
             emptyCart();
+            update();
             router.push("/");
           }
         },
@@ -103,9 +114,12 @@ export default function Checkout() {
                 <input
                   type="number"
                   value={discount}
-                  onChange={(e) => setDiscount(e.target.value)}
+                  onChange={(e) => {
+                    if (e.target.value > maxDiscount) setDiscount(maxDiscount);
+                    else setDiscount(e.target.value);
+                  }}
                   min={0}
-                  max={Math.max(session.user.loyaltyPoints, totalPrice)}
+                  max={maxDiscount}
                   style={{ width: "80px" }}
                 />
                 {" Ft"}
@@ -124,7 +138,7 @@ export default function Checkout() {
           </p>
         </div>
         <div className="grid grid-rows-2 grid-flow-col gap-1">
-          <p className="flex justify-center text-center text-red-600">
+          <p className="flex justify-center text-center text-amaranth">
             {error && "Hiba történt a szerveren"}
           </p>
           <button

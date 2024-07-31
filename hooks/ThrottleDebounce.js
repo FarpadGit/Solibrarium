@@ -7,19 +7,24 @@ import { useCallback, useEffect, useRef } from "react";
 export function useDebounce(callback, delay, deps) {
   const callbackRef = useRef(callback);
   const timer = useRef(0);
+  
   useEffect(() => {
     callbackRef.current = callback;
   }, [callback]);
+
   const clear = useCallback(() => {
     timer.current && clearTimeout(timer.current);
   }, []);
+
   const set = useCallback(() => {
     timer.current = setTimeout(() => callbackRef.current(), delay);
   }, [delay]);
+
   useEffect(() => {
     clear();
     set();
   }, [...deps, set, clear]);
+
   useEffect(clear, []);
 }
 

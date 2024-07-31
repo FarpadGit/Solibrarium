@@ -8,7 +8,7 @@
   font-family: Futura Book;
   font-size: small;
   font-weight: 500;
-  text-shadow: -1px -1px rgba(var(--foreground-rgb), 0.4), 1px 1px var(--background1-color);
+  text-shadow: -1px -1px color-mix(in srgb, var(--foreground-color) 40%, transparent), 1px 1px var(--background1-color);
   z-index: 0;
 }
 
@@ -23,7 +23,7 @@
   border: ridge 5px var(--glow-color);
   background-color: rgb(255 255 255 / 0.3);
   backdrop-filter: blur(2px);
-  box-shadow: 10px 20px 10px 0px rgba(0,0,0,0.5);
+  box-shadow: 10px 20px 10px 0px rgb(0 0 0 / 0.5);
 }
 
 .screw {
@@ -31,9 +31,9 @@
   width: 15px;
   height: 15px;
   border-radius: 50px;
-  background: linear-gradient(135deg, #adadad 0%,#e1e1e1 51%,#dddddd 68%,#f6f6f6 100%);
-  box-shadow: 0px 2px 4px #000, -1px -1px 5px rgba(0,0,0,0.2);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: linear-gradient(135deg, #adadad 0%, #e1e1e1 51%, #dddddd 68%, #f6f6f6 100%);
+  box-shadow: 0px 2px 4px #000, -1px -1px 5px rgb(0 0 0 / 0.2);
+  border: 1px solid rgb(255 255 255 / 0.1);
 }
 
 .screw .indent {
@@ -41,10 +41,10 @@
   width: 125%;
   margin-top: 33%;
   box-shadow: inset 0px 1px 8px #222;
-  transform:rotate(150deg);
+  transform: rotate(150deg);
   border-radius: 2px;
-  margin-left:-2px;
-  border-bottom:1px solid rgba(255,255,255,0.3);
+  margin-left: -2px;
+  border-bottom: 1px solid rgb(255 255 255 / 0.3);
 }
 
 .dark-mode .screw {
@@ -67,6 +67,6 @@
 @media (min-width: 1024px) {
 
   .footer_plaque {
-      gap: 10rem;
-    }
+    gap: 10rem;
+  }
 }

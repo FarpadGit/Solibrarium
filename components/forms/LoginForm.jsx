@@ -132,7 +132,7 @@ export default function LoginForm({
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className="text-red-600" />
+                  <FormMessage className="text-amaranth" />
                 </FormItem>
               )}
             />
@@ -151,7 +151,7 @@ export default function LoginForm({
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage className="text-red-600" />
+                  <FormMessage className="text-amaranth" />
                 </FormItem>
               )}
             />
@@ -167,7 +167,7 @@ export default function LoginForm({
                         <FormControl>
                           <div className="flex items-center">
                             <input
-                              className="relative float-left -ml-[1.5rem] mr-[6px] mt-[0.15rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-neutral-300 checked:border-primary checked:bg-primary checked:after:absolute checked:after:-mt-px checked:after:ml-[0.25rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer focus:shadow-none focus:transition-[border-color_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:content-[''] checked:focus:after:-mt-px checked:focus:after:ml-[0.25rem] checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-l-0 checked:focus:after:border-t-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent dark:border-neutral-500 dark:checked:border-primary dark:checked:bg-primary"
+                              className="relative float-left -ml-[1.5rem] mr-[6px] mt-[0.15rem] h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-neutral-300 checked:border-green checked:bg-green checked:after:absolute checked:after:-mt-px checked:after:ml-[0.25rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer focus:shadow-none focus:transition-[border-color_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-[0.875rem] focus:after:w-[0.875rem] focus:after:rounded-[0.125rem] focus:after:content-[''] checked:focus:after:-mt-px checked:focus:after:ml-[0.25rem] checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-[0.125rem] checked:focus:after:border-l-0 checked:focus:after:border-t-0 checked:focus:after:border-solid checked:focus:after:border-white checked:focus:after:bg-transparent dark:border-neutral-500 dark:checked:border-green dark:checked:bg-green"
                               type="checkbox"
                               id="RememberMe"
                               checked={value}
@@ -181,7 +181,7 @@ export default function LoginForm({
                             </label>
                           </div>
                         </FormControl>
-                        <FormMessage className="text-red-600" />
+                        <FormMessage className="text-amaranth" />
                       </FormItem>
                     )}
                   />
@@ -193,7 +193,7 @@ export default function LoginForm({
                 <Link
                   href="/forgotPassword"
                   onClick={() => dismiss()}
-                  className="text-sm w-1/2 text-end lg:text-base lg:w-[unset]"
+                  className="text-sm w-1/2 text-end lg:text-base lg:w-[unset] hover:underline"
                 >
                   Elfelejtetted jelszavadat?
                 </Link>
@@ -205,7 +205,7 @@ export default function LoginForm({
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex justify-center w-full inline-block rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out enabled:hover:bg-primary-600 enabled:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] enabled:focus:bg-primary-600 enabled:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] enabled:focus:outline-none enabled:focus:ring-0 enabled:active:bg-primary-700 enabled:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:enabled:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:enabled:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:enabled:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:enabled:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] disabled:bg-gray-400"
+                className="flex justify-center w-full inline-block rounded green_btn px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white enabled:shadow-[0_4px_9px_-4px_#639912] transition duration-150 ease-in-out enabled:hover:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.3),0_4px_18px_0_rgba(99,153,18,0.2)] enabled:focus:bg-lightgreen enabled:focus:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.3),0_4px_18px_0_rgba(99,153,18,0.2)] enabled:focus:outline-none enabled:focus:ring-0 enabled:active:bg-lightgreen enabled:active:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.3),0_4px_18px_0_rgba(99,153,18,0.2)] dark:enabled:shadow-[0_4px_9px_-4px_rgba(99,153,18,0.5)] dark:enabled:hover:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.2),0_4px_18px_0_rgba(99,153,18,0.1)] dark:enabled:focus:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.2),0_4px_18px_0_rgba(99,153,18,0.1)] dark:enabled:active:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.2),0_4px_18px_0_rgba(99,153,18,0.1)] disabled:bg-gray-400"
               >
                 {isLoading ? (
                   <>
@@ -224,7 +224,7 @@ export default function LoginForm({
 
               {/* Login error message */}
               {hookForm.formState.errors?.root?.loginError?.message && (
-                <div className="flex justify-center text-center text-red-600">
+                <div className="flex justify-center text-center text-amaranth">
                   {hookForm.formState.errors.root.loginError.message}
                 </div>
               )}
@@ -236,7 +236,7 @@ export default function LoginForm({
                   <Link
                     href="/register"
                     onClick={() => dismiss()}
-                    className="text-danger transition duration-150 ease-in-out hover:text-danger-700 focus:text-danger-700 active:text-danger-800"
+                    className="text-green transition duration-150 ease-in-out hover:text-lightgreen hover:underline focus:text-lightgreen active:text-lightgreen"
                   >
                     Regisztrálok
                   </Link>

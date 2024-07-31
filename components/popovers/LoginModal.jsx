@@ -1,3 +1,5 @@
+"use client";
+
 import { useAppContext } from "@/contexts/AppContext";
 import LoginForm from "@/components/forms/LoginForm";
 import dynamic from "next/dynamic";
@@ -19,10 +21,12 @@ const TEModalBody = dynamic(
 );
 
 export default function LoginModal() {
-  const { showLoginModal, setShowLoginModal } = useAppContext();
+  const { isLoginOpen, openLoginModal, closeLoginModal } = useAppContext();
+  const setShowLoginModal = (show) =>
+    show ? openLoginModal() : closeLoginModal();
   return (
     <div className="modal">
-      <TEModal show={showLoginModal} setShow={setShowLoginModal}>
+      <TEModal show={isLoginOpen} setShow={setShowLoginModal}>
         <TEModalDialog theme={{ sizeDefault: "min-[576px]:max-w-[1000px]" }}>
           <TEModalContent>
             <TEModalBody>
@@ -30,12 +34,12 @@ export default function LoginModal() {
                 <button
                   type="button"
                   className="box-content rounded-[25%] border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none self-end pt-5 pr-5"
-                  onClick={() => setShowLoginModal(false)}
+                  onClick={() => closeLoginModal()}
                   aria-label="Close"
                 >
                   {"\u2717"}
                 </button>
-                <LoginForm onDismiss={() => setShowLoginModal(false)} />
+                <LoginForm onDismiss={() => closeLoginModal()} />
               </div>
             </TEModalBody>
           </TEModalContent>

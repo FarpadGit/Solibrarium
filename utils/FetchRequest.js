@@ -9,16 +9,18 @@ export async function send({
 }) {
   const fetchResponse = await fetch(
     url,
-    !params
-      ? null
-      : {
-          method: method,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(params),
-        }
+    params && {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    }
   );
-  const result = await fetchResponse.json().then(callback);
-  return result;
+  try {
+    const result = await fetchResponse.json().then(callback);
+    return result;
+  } catch (error) {
+    return new Error(error);
+  }
 }

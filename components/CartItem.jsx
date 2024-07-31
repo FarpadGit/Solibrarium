@@ -67,8 +67,8 @@ export function CartItem({
             </a>
             <p className="quantity_text text-xs">{quantity}</p>
           </div>
-          <div className="price_text flex flex-col justify-center items-end mr-2">
-            <p className="hidden text-end text-xs sm:text-sm">Online Ár: </p>
+          <div className="price_text gap-1 flex flex-col justify-center items-end mr-2">
+            <p className="text-end text-xs sm:text-sm">Online Ár: </p>
             <p> {CurrencyFormatter(price * quantity)}</p>
           </div>
         </div>

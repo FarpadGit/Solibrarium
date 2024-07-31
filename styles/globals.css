@@ -29,22 +29,25 @@
   --shadcn-input-hsl: 214.3 31.8% 91.4%;
   --shadcn-ring-hsl: 215 20.2% 65.1%;
   /* App variables */
-  --solibrarium-color: rgb(252 211 77);
+  --solibrarium-color: rgb(252, 211, 77);
+  --solibrarium-accent-color: rgb(252, 222, 123);
+  --green-color: rgb(132, 204, 22);
+  --green-hover-color: rgb(163, 230, 53);
+  --red-color: rgb(244, 54, 76);
+  --red-hover-color: rgb(251, 113, 133);
   --glow-color: yellow;
-  --foreground-rgb: 0, 0, 0;
-  --foreground-color: rgb(var(--foreground-rgb));
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-  --background1-color: rgb(var(--background-start-rgb));
-  --background2-color: rgb(var(--background-end-rgb));
-  --header-dropshadow: 5px 5px 0px rgba(0, 0, 0, 0.75);
+  --foreground-color: rgb(0, 0, 0);
+  --background1-color: rgb(214, 219, 220);
+  --background2-color: rgb(255, 255, 255);
+  --header-dropshadow-color: rgb(0 0 0 / 0.75);
+  --header-dropshadow: 5px 5px 0px var(--header-dropshadow-color);
   --header-fallback-gradient: linear-gradient(to right, #fde68a, #fbbf24);
 
   --theme-switch-on: url("/icons/theme_switch_bg_dark.svg");
   --theme-switch-off: url("/icons/theme_switch_bg.svg");
   --theme-switch-thumb-on: url("/icons/theme_switch_thumb_dark.svg");
   --theme-switch-thumb-off: url("/icons/theme_switch_thumb.svg");
-  --theme-switch-size : 40px, 18px;
+  --theme-switch-size: 40px, 18px;
   --theme-switch-thumb-size: 12px;
 
   --global-background-image: url("/solarpunk.png");
@@ -56,13 +59,15 @@
 :root.dark-mode {
   --shadcn-input-hsl: 217.2 32.6% 17.5%;
   --shadcn-ring-hsl: 217.2 32.6% 17.5%;
-  
-  --solibrarium-color: rgb(75 85 99);
+
+  --solibrarium-color: rgb(75, 85, 99);
+  --solibrarium-accent-color: rgb(56, 63, 73);
   --glow-color: deepskyblue;
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 50, 50, 50;
-  --header-dropshadow: 5px 5px 2px rgba(0, 191, 255, 0.5);
+  --foreground-color: rgb(255, 255, 255);
+  --background1-color: rgb(0, 0, 0);
+  --background2-color: rgb(50, 50, 50);
+  --header-dropshadow-color: rgb(123 218 255 / 0.5);
+  --header-dropshadow: 5px 5px 2px var(--header-dropshadow-color);
   --header-fallback-gradient: linear-gradient(to right, #2474aa, #101010);
 
   --global-background-image: url("/solarpunk_night.png");
@@ -94,8 +99,7 @@
   padding-top: 2rem;
   padding-bottom: 4rem;
   color: var(--foreground-color);
-  background: linear-gradient(to bottom, transparent, var(--background2-color))
-              var(--background1-color);
+  background: linear-gradient(to bottom, transparent, var(--background2-color)) var(--background1-color);
 }
 
 .app_backdrop {
@@ -126,7 +130,7 @@
   height: 100%;
   max-width: 640px;
   top: 80px;
-  background-image: 
+  background-image:
     radial-gradient(at 27% 37%, hsla(215, 98%, 61%, 1) 0px, transparent 0%),
     radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
     radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%),
@@ -146,20 +150,21 @@
   border: 1px solid transparent;
   border-radius: 9999px;
   text-align: center;
-  color: rgb(255 255 255);
+  color: rgb(255, 255, 255);
   padding: 6px 20px 6px 20px;
 }
 
 .pill_btn_base:disabled {
-  border-color: rgb(209 213 219);
-  background-color: rgb(156 163 175);
-  color: rgb(243 244 246);
+  border-color: rgb(209, 213, 219);
+  background-color: rgb(156, 163, 175);
+  color: rgb(243, 244, 246);
 }
 
 .card {
-  border: 2px solid rgb(209 213 219); /* tailwind-gray-300 */
+  border: 2px solid rgb(209, 213, 219);
+  /* tailwind-gray-300 */
   border-radius: 0.5rem;
-  background-color: rgb(var(--background-start-rgb) / 0.2);
+  background-color: color-mix(in srgb, var(--background1-color) 20%, transparent);
   background-clip: padding-box;
   filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   backdrop-filter: blur(16px);
@@ -170,47 +175,52 @@
 }
 
 .green_btn {
-  border-color: rgb(132 204 22);
-  background-color: rgb(132 204 22);
+  border-color: var(--green-color);
+  background-color: var(--green-color);
 }
 
 .green_btn:hover:not(:disabled) {
-  border-color: rgb(163 230 53);
-  background-color: rgb(163 230 53);
+  border-color: var(--green-hover-color);
+  background-color: var(--green-hover-color);
 }
 
 .red_btn {
-  border-color: rgb(244 63 94);
-  background-color: rgb(244 63 94);
+  border-color: var(--red-color);
+  background-color: var(--red-color);
 }
 
 .red_btn:hover:not(:disabled) {
-  border-color: rgb(251 113 133);
-  background-color: rgb(251 113 133);
+  border-color: var(--red-hover-color);
+  background-color: var(--red-hover-color);
 }
 
 .ShoppingCart {
-  background-color: rgb(255 255 255 / 0.3);
+  background-color: #fff5;
   backdrop-filter: blur(16px);
-  padding-top: 1.2rem;
   transition-property: all;
   transition-duration: 500ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cart_item {
+  --background-opacity: 40%;
   display: flex;
   width: 90%;
+  max-width: 500px;
   height: 145px;
   gap: 0.5rem;
   align-self: center;
   overflow: hidden;
-  border-left-width: 1px;
-  border-right-width: 1px;
-  border-bottom-width: 1px;
-  border-color: rgb(209 213 219);
+  border-width: 0px 2px 2px 0px;
+  border-color: var(--solibrarium-color);
   border-radius: 0.5rem;
+  background-color: color-mix(in srgb, var(--solibrarium-accent-color) var(--background-opacity), transparent);
   box-shadow: 0 10px 8px rgb(0 0 0 / 0.04), 0 4px 3px rgb(0 0 0 / 0.1);
+}
+
+.dark-mode .cart_item {
+  --background-opacity: 60%;
+  border-color: rgb(209, 213, 219);
 }
 
 .cart_item .quantity_text::before {
@@ -226,6 +236,7 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: var(--foreground-color) transparent;
+  line-clamp: none;
   -webkit-line-clamp: none;
 }
 
@@ -239,11 +250,19 @@
   background: var(--foreground-color);
 }
 
+div[data-radix-popper-content-wrapper] {
+  z-index: 60 !important;
+}
+
+div[data-radix-popper-content-wrapper]:has(div[data-active]) {
+  z-index: 50 !important;
+}
+
 @media (min-width: 768px) {
 
   :root {
     --header-min-height: 70px;
-    --theme-switch-size : 44px, 20px;
+    --theme-switch-size: 44px, 20px;
     --theme-switch-thumb-size: 16px;
   }
 
@@ -273,5 +292,5 @@
 
   .app {
     max-width: 100rem;
-    }
-}  
+  }
+}

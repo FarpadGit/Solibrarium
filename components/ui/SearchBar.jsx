@@ -12,8 +12,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
-import { SearchENUM, SearchType } from "@/utils/SearchENUM";
 import { useDebounce } from "@/hooks/ThrottleDebounce";
+import { SearchENUM, SearchType } from "@/utils/SearchENUM";
 import { useIsPresent, motion, AnimatePresence } from "framer-motion";
 const SettingsModal = dynamic(
   () =>
@@ -24,9 +24,14 @@ const SettingsModal = dynamic(
 export default function SearchBar({ id, type: initialType, click }) {
   const [type, setType] = useState(initialType);
   const [searchText, setSearchText] = useState("");
-  useDebounce(() => searchText !== "" && sendSearch(searchText), 600, [
-    searchText,
-  ]);
+  useDebounce(
+    () => {
+      if (!(pathName !== "/search" && searchText === ""))
+        sendSearch(searchText);
+    },
+    600,
+    [searchText]
+  );
   const {
     SearchCriteria: {
       setTitleSearch,
@@ -39,7 +44,7 @@ export default function SearchBar({ id, type: initialType, click }) {
     },
     SearchResults: { isLoading, resetPagination },
   } = useSearchContext();
-  const { canHeaderExpand, isHeaderMinimized, toggleHeader } =
+  const { canHeaderExpand, isHeaderMinimized, toggleHeader, lockHeader } =
     useHeaderVisibilityContext();
   const { replaceSearchBarType } = useSearchBarContext();
 
@@ -66,7 +71,6 @@ export default function SearchBar({ id, type: initialType, click }) {
 
   function clearSearch() {
     setSearchText("");
-    sendSearch("");
   }
 
   function SetType(newType) {
@@ -76,9 +80,13 @@ export default function SearchBar({ id, type: initialType, click }) {
     if (searchText !== "") sendSearch(searchText, newType);
   }
 
-  async function sendSearch(val, _type = type) {
+  function sendSearch(val, _type = type) {
     if (pathName !== "/search") router.push("/search");
-    else window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    else if (window.scrollY !== 0) {
+      // when scrolling to the top don't let the header minimize. The scroll handling hook will automatically unlock it when it gets to the top
+      lockHeader();
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    }
     resetPagination();
     const safeSearchValue = val.replace(/\s/g, "+");
     Setters[_type](safeSearchValue);
@@ -117,7 +125,7 @@ export default function SearchBar({ id, type: initialType, click }) {
       }}
       className="flex gap-2 h-30px md:h-auto"
     >
-      <div className="flex border rounded-3xl overflow-hidden mb-2 drop-shadow-star">
+      <div className="flex border border-star rounded-3xl overflow-hidden mb-2 drop-shadow-star">
         <div className="relative flex">
           {/* Type icon */}
           <span className="absolute left-1 self-center">
@@ -157,7 +165,10 @@ export default function SearchBar({ id, type: initialType, click }) {
         {/* Settings button */}
         <Popover>
           <PopoverTrigger asChild>
-            <button type="button" className="searchbar_btn_base settings_btn">
+            <button
+              type="button"
+              className="searchbar_btn_base settings_btn green_btn"
+            >
               <Image
                 src="/icons/settings.svg"
                 alt="search option"
@@ -184,19 +195,17 @@ export default function SearchBar({ id, type: initialType, click }) {
         <div className="flex items-start drop-shadow-star">
           <button
             type="button"
-            className={`searchbar_btn_base ${
-              canHeaderExpand() ? "add_btn" : "green_btn"
-            }`}
+            className="searchbar_btn_base add_btn green_btn"
             onClick={handleClick}
             onContextMenu={handleRightClick}
           >
             <Image
-              src="/icons/add.svg"
+              src="/icons/plus.svg"
               alt="add searchbar"
               width={22}
               height={22}
               className={`object-contain md:w-[44px] md:h-[44px] ${
-                !canHeaderExpand() ? "absolute opacity-0" : ""
+                !canHeaderExpand ? "absolute opacity-0" : ""
               }`}
             />
 
@@ -205,9 +214,9 @@ export default function SearchBar({ id, type: initialType, click }) {
               alt="collapse"
               width={20}
               height={20}
-              className={`object-contain transition-transform p-1 md:p-0 ${
-                canHeaderExpand() ? "absolute opacity-0" : ""
-              } ${!isHeaderMinimized() ? "rotate-180" : ""}`}
+              className={`object-contain transition-transform md:w-[44px] md:h-[44px] ${
+                canHeaderExpand ? "absolute opacity-0" : ""
+              } ${!isHeaderMinimized ? "rotate-180" : ""}`}
             />
           </button>
         </div>

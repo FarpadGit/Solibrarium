@@ -2,10 +2,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, transparent, rgb(255, 255, 255)) rgb(214, 219, 220);
+    background: linear-gradient(to bottom, transparent, rgb(255, 255, 255)) rgb(255, 252, 230);
     width: 80%;
     height: 430px;
-    filter: drop-shadow(0 0 -5px 8px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 0 -5px 8px rgb(0 0 0 / 0.2));
     backdrop-filter: blur(16px);
 }
 
@@ -70,7 +70,7 @@
 .right_column .price_text {
     font-size: 0.875rem;
     line-height: 1.25rem;
-    color: rgb(75 85 99);
+    color: rgb(75, 85, 99);
 }
 
 .dark-mode .right_column .price_text {
@@ -113,7 +113,7 @@
         background-image: url("/decor/details_book_flowers.png");
         background-repeat: no-repeat;
         background-size: contain;
-        filter: drop-shadow(0 5px 1px rgba(0,0,0,0.3));
+        filter: drop-shadow(0 5px 1px rgb(0 0 0 / 0.3));
         pointer-events: none;
     }
 }
@@ -127,7 +127,7 @@
 }
 
 @media (min-width: 1280px) {
-    
+
     .right_column {
         display: flex;
         flex-direction: column;
@@ -137,10 +137,10 @@
         border-radius: 0 76px 0 0/0 45px 0 0;
         background-image: linear-gradient(to right, transparent, #fde68a);
     }
-    
+
     .right_column .price_text {
         font-size: 0.875rem;
         line-height: 1.25rem;
-        color: rgb(75 85 99);
+        color: rgb(75, 85, 99);
     }
 }

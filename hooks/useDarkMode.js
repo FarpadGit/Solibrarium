@@ -7,7 +7,7 @@ export default function useDarkMode() {
   const [darkMode, setDarkMode] = useLocalStorage("dark-mode", false);
   //on prefetch we go with light mode
   const [enabled, setEnabled] = useState(false);
-  const isInitialized = useRef(undefined);
+  const isInitialized = useRef(false);
 
   useEffect(() => {
     const prefersDarkMode = window.matchMedia(
@@ -18,7 +18,7 @@ export default function useDarkMode() {
   }, []);
 
   useEffect(() => {
-    //if user changed themes or read from localstorage -> update "enabled", except on first run
+    //if user changed themes or read from localstorage -> update "enabled" except on first (server side) run
     if (isInitialized.current) setEnabled(darkMode);
   }, [darkMode]);
 

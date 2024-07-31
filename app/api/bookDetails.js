@@ -28,9 +28,9 @@ export const getBookDetails = (volumeBody) => {
   }
 };
 
+//sometimes Google Books just returns trash invalid html as the description which I have to sanitize first with this trick (somehow it works)
+//gotta love Google Books
 function getSanitizedDescription(description) {
-  //sometimes Google Books just returns trash invalid html as the description which I have to sanitize first with this trick (somehow it works)
-  //gotta love Google Books
   const parsedDescription = new jsdom.JSDOM(description, "text/html");
   const refactoredDescription =
     parsedDescription.window.document.querySelector("body").innerHTML;

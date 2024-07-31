@@ -144,7 +144,7 @@ export default function RegisterForm({
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-amaranth" />
                   </FormItem>
                 )}
               />
@@ -162,7 +162,7 @@ export default function RegisterForm({
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-amaranth" />
                   </FormItem>
                 )}
               />
@@ -180,12 +180,12 @@ export default function RegisterForm({
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage className="text-red-600" />
+                    <FormMessage className="text-amaranth" />
                   </FormItem>
                 )}
               />
               {hookForm.formState.errors?.root?.serverError?.message && (
-                <div className="flex justify-center text-red-600">
+                <div className="flex justify-center text-amaranth">
                   {hookForm.formState.errors.root.serverError.message}
                 </div>
               )}
@@ -193,7 +193,7 @@ export default function RegisterForm({
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex justify-center w-full inline-block rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out enabled:hover:bg-primary-600 enabled:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] enabled:focus:bg-primary-600 enabled:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] enabled:focus:outline-none enabled:focus:ring-0 enabled:active:bg-primary-700 enabled:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:enabled:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:enabled:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:enabled:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:enabled:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] disabled:bg-gray-400"
+                  className="flex justify-center w-full inline-block rounded green_btn px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white enabled:shadow-[0_4px_9px_-4px_#639912] transition duration-150 ease-in-out enabled:hover:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.3),0_4px_18px_0_rgba(99,153,18,0.2)] enabled:focus:bg-lightgreen enabled:focus:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.3),0_4px_18px_0_rgba(99,153,18,0.2)] enabled:focus:outline-none enabled:focus:ring-0 enabled:active:bg-lightgreen enabled:active:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.3),0_4px_18px_0_rgba(99,153,18,0.2)] dark:enabled:shadow-[0_4px_9px_-4px_rgba(99,153,18,0.5)] dark:enabled:hover:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.2),0_4px_18px_0_rgba(99,153,18,0.1)] dark:enabled:focus:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.2),0_4px_18px_0_rgba(99,153,18,0.1)] dark:enabled:active:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.2),0_4px_18px_0_rgba(99,153,18,0.1)] disabled:bg-gray-400"
                 >
                   {isLoading ? (
                     <>

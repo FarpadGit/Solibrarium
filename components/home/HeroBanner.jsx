@@ -11,10 +11,9 @@ export default function HeroBanner({ bannerBook, bannerBackground }) {
         <p className="hero-banner-sub">Aktuális toplistás</p>
         <h3 className="hero-banner-author">{bannerBook.author}</h3>
         <h1 className="hero-banner-title">{bannerBook.title}</h1>
-        <div className="flex justify-center my-6">
+        <div className="flex justify-center my-3 md:my-6">
           <div className="w-1/2 border border-black" />
         </div>
-        <div className="hero-banner-backdrop" />
         <div className="hero-banner-desc">
           <div
             className="text-[#5f5f5f] font-thin"

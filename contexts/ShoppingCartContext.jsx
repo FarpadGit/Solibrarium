@@ -13,18 +13,23 @@ export default ({ children }) => {
     () => cartItems.reduce((total, item) => total + item.quantity, 0),
     [cartItems]
   );
+
   const hasItem = (id) => {
     return cartItems.find((item) => item.bookData.id === id) ? true : false;
   };
+
   const addToCart = (book) => {
     setCartItems((prev) => [...prev, { bookData: book, quantity: 1 }]);
   };
+
   const removeFromCart = (id) => {
     setCartItems((prev) => prev.filter((item) => item.bookData.id !== id));
   };
+
   const emptyCart = () => {
     setCartItems([]);
   };
+
   const totalPrice = useMemo(
     () =>
       cartItems.reduce(

@@ -60,11 +60,11 @@ export default function BookReviewCard({ user, bookDetails, close }) {
     >
       <button
         id="review_close_btn"
-        className="absolute pill_btn_base"
+        className="absolute pill_btn_base red_btn"
         onClick={close}
         autoFocus
       >
-        V
+        {"\u25bc"}
       </button>
       <form onSubmit={handleSubmit}>
         <div className="flex justify-center self-start">
@@ -97,12 +97,13 @@ export default function BookReviewCard({ user, bookDetails, close }) {
           </div>
         </div>
         <div className="flex flex-col items-center">
-          <p className={`text-center${error ? " text-red-600" : ""}`}>
+          <p className={`text-center${error ? " text-amaranth" : ""}`}>
             {error
               ? "Hiba történt a szerveren"
               : "Írj egy kritikát a könyvről és küldd el, hogy mások is lássák:"}
           </p>
           <div className="review_text_wrapper">
+            <ParchmentBorder />
             <textarea
               name="ReviewTextArea"
               id="ReviewTextArea"
@@ -118,11 +119,31 @@ export default function BookReviewCard({ user, bookDetails, close }) {
               onChange={(e) => setReviewText(e.target.value)}
             ></textarea>
           </div>
-          <button type="submit" className="pill_btn_base green_btn -mt-5">
+          <button
+            type="submit"
+            className="pill_btn_base green_btn -translate-y-1/2 z-1"
+          >
             Mentés
           </button>
         </div>
       </form>
     </motion.div>
+  );
+}
+
+function ParchmentBorder() {
+  return (
+    <svg style={{ width: 0, height: 0 }}>
+      <filter id="parchmentBorder">
+        <feTurbulence
+          x="0"
+          y="0"
+          baseFrequency="0.02"
+          numOctaves="5"
+          seed="1"
+        />
+        <feDisplacementMap in="SourceGraphic" scale="20" />
+      </filter>
+    </svg>
   );
 }

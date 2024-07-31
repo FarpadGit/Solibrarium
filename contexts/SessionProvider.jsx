@@ -6,13 +6,6 @@ import {
   SessionProvider as AuthSessionProvider,
 } from "next-auth/react";
 
-export default function SessionProvider({ children, session }) {
-  handleRememberMe();
-  return (
-    <AuthSessionProvider session={session}>{children}</AuthSessionProvider>
-  );
-}
-
 async function handleRememberMe() {
   if (typeof window === "undefined") return;
   const rememberMeToken = JSON.parse(localStorage.getItem("RememberMe"));
@@ -31,4 +24,11 @@ async function handleRememberMe() {
       },
     });
   });
+}
+
+export default function SessionProvider({ children, session }) {
+  handleRememberMe();
+  return (
+    <AuthSessionProvider session={session}>{children}</AuthSessionProvider>
+  );
 }
