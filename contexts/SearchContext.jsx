@@ -144,6 +144,7 @@ export default ({ children }) => {
           url: `/api/search?${searchquery}`,
         });
         if (returnedBooks.length === 0) tempHasMore = false;
+        if (returnedBooks.error) throw new Error();
         else {
           tempHasMore =
             tempBookResults.length + returnedBooks.length >= targetLength;

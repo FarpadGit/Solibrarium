@@ -26,7 +26,7 @@ export const GET = async (request) => {
     const searchquery = apiParams.filter((i) => i !== "").join("+");
     //sends request to API, processes the response and returns an array of book details
     const books = await send({
-      url: `https://www.googleapis.com/books/v1/volumes?q=${searchquery}&startIndex=${page}`,
+      url: `https://www.googleapis.com/books/v1/volumes?q=${searchquery}&startIndex=${page}&key=${process.env.BOOKS_API_KEY}`,
       callback: (body) => {
         if (!body.items) return [];
         return body.items.map((book) => getBookDetails(book));

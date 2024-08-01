@@ -8,13 +8,15 @@ export const getBestsellers = async () => {
     const books = await Promise.all(
       ids.map(async (id) => {
         const book = await send({
-          url: `https://www.googleapis.com/books/v1/volumes/${id.id}`,
+          url: `https://www.googleapis.com/books/v1/volumes/${id.id}?key=${process.env.BOOKS_API_KEY}`,
           callback: (body) => getBookDetails(body),
         });
+        if(book.error) return null;
         return book;
       })
     );
 
+    if(books.includes(null)) return {error: "error"}
     return books;
   } catch (error) {
     console.error("Error in Bestsellers component", error);

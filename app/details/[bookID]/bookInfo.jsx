@@ -5,7 +5,7 @@ import { send } from "@/utils/FetchRequest";
 export const getBookInfo = async (id) => {
   try {
     const book = await send({
-      url: `https://www.googleapis.com/books/v1/volumes/${id}`,
+      url: `https://www.googleapis.com/books/v1/volumes/${id}?key=${process.env.BOOKS_API_KEY}`,
       callback: (body) => getBookDetails(body),
     });
 

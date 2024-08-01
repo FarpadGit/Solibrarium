@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 
-const emailError = { message: "Írjon be egy érvényes email címet" };
+const emailError = { message: "Írj be egy érvényes email címet" };
 const emailMinError = {
   message: "Az email címnek legalább 6 karakterből kell állnia",
 };
@@ -30,9 +30,9 @@ const weakPasswordError = {
   message: "A jelszóban lennie kell kis- és nagybetűknek is",
 };
 
-const strongPasswordRegex = /(?=.*[a-z])(?=.*[A-Z])/;
-//for extra password security, with digits and special chars:
-//const strongPasswordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?])/;
+const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])((?!#GOOGLE).)*$/;
+//for extra (perceived) password security, with digits and special chars:
+//const strongPasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[-+_!@#$%^&*.,?])((?!#GOOGLE).)*$/;
 
 const formSchema = z
   .object({

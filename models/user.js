@@ -12,8 +12,8 @@ const UserSchema = new Schema({
     type: String,
     required: [true, "Password is required!"],
     match: [
-      /(?=.*[a-z])(?=.*[A-Z])/,
-      "Username password, it should contain uppercase and lowercase letters!",
+      /(?=.*[a-z])(?=.*[A-Z])|#GOOGLE/,
+      "Your password should contain uppercase and lowercase letters!",
     ],
   },
   books: {

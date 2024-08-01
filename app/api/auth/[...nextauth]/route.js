@@ -3,6 +3,7 @@ import RememberMe from "@/models/rememberMe";
 import { connectToDB } from "@/utils/DatabaseConnect";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcrypt";
 
 export const authOptions = {
@@ -77,16 +78,14 @@ export const authOptions = {
         }
       },
     }),
-    // GoogleProvider({
-    //   clientId: process.env.GOOGLE_ID,
-    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    // })
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    })
   ],
   callbacks: {
     async session({ session, token }) {
-      const sessionUser = await User.findOne({
-        _id: token.id,
-      });
+      const sessionUser = await User.findById(token.id);
       session.user.id = sessionUser._id.toString();
       session.user.loyaltyPoints = sessionUser.loyaltyPoints;
 
@@ -98,8 +97,22 @@ export const authOptions = {
     },
 
     async jwt({ token, account, profile, user }) {
+      console.log(token, account, profile, user);
       if (user) {
-        token.id = user.id;
+        if(account && account.provider === "google") {
+          await connectToDB();
+          let dbUser = await User.findOne({ email: profile.email });
+          if(!dbUser) {
+            await User.create({ email: profile.email, password: "#GOOGLE" });
+            dbUser = await User.findOne({ email: profile.email });
+            token.id = dbUser.id;
+          } else {
+            token.id = dbUser.id;
+          }
+        }
+        else {
+          token.id = user.id;
+        }
       }
       return token;
     },

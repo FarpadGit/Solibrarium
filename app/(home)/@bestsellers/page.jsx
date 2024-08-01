@@ -19,6 +19,7 @@ export default async function BestSellers() {
   ];
 
   if (frontPageBooks.length === 0) return <Loading />;
+  if (frontPageBooks.error) return <Loading />;
 
   const bannerBook = frontPageBooks[getRandomIndex(frontPageBooks.length)];
   const bannerBackground =

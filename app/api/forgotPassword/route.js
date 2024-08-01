@@ -36,6 +36,7 @@ function decrypt(encryptedData, compositeKey) {
   return JSON.parse(decrypted);
 }
 
+// GETS the encrypted token key and value from search params, validates them and returns the decrypted email address if everything is valid
 export const GET = async (request) => {
   const { token, key } = Object.fromEntries(request.nextUrl.searchParams);
   let errorProgressMessage = "Failed to connect to database: ";
@@ -97,7 +98,7 @@ const emailHtml = (host, email, token, key) =>
   </table>
   </div>`;
 
-//POSTS a user email and sends a link to their address to reset password
+//POSTS a user email and sends a link to their email address to reset password
 export const POST = async (request) => {
   let errorProgressMessage = "Failed to connect to database: ";
   try {

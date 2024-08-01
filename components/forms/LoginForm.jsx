@@ -16,13 +16,14 @@ import { send } from "@/utils/FetchRequest";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
-const emailError = { message: "Írjon be egy érvényes email címet" };
+const emailError = { message: "Írj be egy érvényes email címet" };
+const passwordError = { message: "Ezt a jelszót nem használhatod" };
 
 const formSchema = z.object({
   email: z.string().email(emailError),
-  password: z.string(),
+  password: z.string().regex(/^((?!#GOOGLE).)*$/, passwordError),
   rememberMe: z.boolean(),
 });
 export default function LoginForm({
@@ -44,6 +45,20 @@ export default function LoginForm({
 
   function dismiss() {
     if (onDismiss) onDismiss();
+  }
+
+  function handleGoogleSignIn() {
+    signIn("google").then((result) => {
+      if (!result?.error) {
+        dismiss();
+        if (redirectURL) router.replace(redirectURL);
+        hookForm.reset({}, { keepErrors: true });
+      } else {
+        hookForm.setError("root.loginError", {
+          message: "Sikertelen bejelentkezés.",
+        });
+      }
+    });
   }
 
   async function handleRememberMe(email) {
@@ -104,9 +119,17 @@ export default function LoginForm({
         } rounded-lg dark:bg-neutral-700`}
       >
         {/* Sign in section */}
-        {/* <div className="flex flex-row items-center justify-center lg:justify-start">
-              <p className="mb-0 mr-4 text-lg">Jelentkezz be az alábbiakkal</p>
-            </div> */}
+        <div className="flex items-center justify-center">
+          <button className="flex" onClick={() => handleGoogleSignIn()}>
+            <Image
+              src="/google_icon.png"
+              width={28}
+              height={28}
+              alt="google icon"
+            />
+            <p className="mb-0 text-lg">Jelentkezz be Google fiókkal</p>
+          </button>
+        </div>
 
         <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
           <p className="mx-4 mb-0 text-center font-semibold">{title}</p>
