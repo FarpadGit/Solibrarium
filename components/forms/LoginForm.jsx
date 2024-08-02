@@ -127,7 +127,9 @@ export default function LoginForm({
               height={28}
               alt="google icon"
             />
-            <p className="mb-0 text-lg">Jelentkezz be Google fiókkal</p>
+            <p className={`"mb-0 ${minimal ? "text-sm" : "text-lg"}"`}>
+              Jelentkezz be Google fiókkal
+            </p>
           </button>
         </div>
 
