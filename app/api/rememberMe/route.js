@@ -19,7 +19,9 @@ export const POST = async (request) => {
     if (reqBody.userEmail) {
       //looking up user with email address
       errorProgressMessage = "Error finding user in database: ";
+      console.log("before findOne - rem");
       const userInDB = await User.findOne({ email: reqBody.userEmail });
+      console.log("after findOne - rem");
       if (!userInDB)
         return Response.json(
           { error: `User with email ${reqBody.userEmail} cannot be found` },
