@@ -10,9 +10,7 @@ export const POST = async (request) => {
     const reqBody = await request.json();
     // check if user already exists
     errorProgressMessage = "Error checking if user exists: ";
-    console.log("before findOne - new");
     const userExists = await User.findOne({ email: reqBody.email });
-    console.log("after findOne - new");
 
     if (userExists) {
       if (reqBody.overwrite) {

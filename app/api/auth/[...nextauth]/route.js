@@ -22,9 +22,7 @@ export const authOptions = {
 
           // check if user exists
           errorProgressMessage = "Error checking if user exists: ";
-          console.log("before findOne - cred");
           const userInDB = await User.findOne({ email: credentials.email });
-          console.log("after findOne - cred");
           if (!userInDB) return null;
 
           // check if password is correct
@@ -102,14 +100,10 @@ export const authOptions = {
       if (user) {
         if(account?.provider === "google" && profile?.email) {
           await connectToDB();
-          console.log("before findOne - jwt1");
           let dbUser = await User.findOne({ email: profile.email });
-          console.log("after findOne - jwt2");
           if(!dbUser) {
             await User.create({ email: profile.email, password: "#GOOGLE" });
-            console.log("before findOne - jwt2");
             dbUser = await User.findOne({ email: profile.email });
-            console.log("after findOne - jwt2");
             token.id = dbUser.id;
           } else {
             token.id = dbUser.id;

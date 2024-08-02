@@ -11,16 +11,14 @@ export const connectToDB = async () => {
   mongoose.set("strictQuery", true);
 
   try {
-    await mongoose
-      .connect(process.env.MONGODB_URI, {
+    await mongoose.connect(process.env.MONGODB_URI, {
         dbName: "Solibrarium",
         useNewUrlParser: true,
         useUnifiedTopology: true,
-      })
-      .then(() => {
-        isConnected = true;
-        console.log("MongoDB connected");
       });
+    isConnected = true;
+    console.log("MongoDB connected");
+      
   } catch (error) {
     console.log("MongoDB error:", error);
   }
