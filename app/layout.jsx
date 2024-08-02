@@ -15,7 +15,6 @@ const ConfirmModal = dynamic(
 );
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import dns from "dns";
 
 export const metadata = {
   title: "Solibrarium",
@@ -24,7 +23,6 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const session = await getServerSession(authOptions);
-  dns.setDefaultResultOrder("ipv4first");
   return (
     <html lang="hu">
       <body>
