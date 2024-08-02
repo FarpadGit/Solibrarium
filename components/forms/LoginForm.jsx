@@ -16,7 +16,7 @@ import { send } from "@/utils/FetchRequest";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 const emailError = { message: "Írj be egy érvényes email címet" };
 const passwordError = { message: "Ezt a jelszót nem használhatod" };
