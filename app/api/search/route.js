@@ -1,4 +1,5 @@
 import { getBookDetails } from "@/app/api/bookDetails";
+import { cacheBook } from "@/utils/cachedBooks";
 import { send } from "@/utils/FetchRequest";
 
 //GETS an array of books as returned by the Google Books Search API and returns a processed version of them
@@ -29,7 +30,9 @@ export const GET = async (request) => {
       url: `https://www.googleapis.com/books/v1/volumes?q=${searchquery}&startIndex=${page}&key=${process.env.BOOKS_API_KEY}`,
       callback: (body) => {
         if (!body.items) return [];
-        return body.items.map((book) => getBookDetails(book));
+        const bookWithDetails = body.items.map((book) => getBookDetails(book));
+        bookWithDetails.forEach(book => cacheBook(book));
+        return bookWithDetails;
       },
     });
 

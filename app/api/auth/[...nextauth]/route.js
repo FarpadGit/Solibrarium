@@ -97,7 +97,6 @@ export const authOptions = {
     },
 
     async jwt({ token, account, profile, user }) {
-      console.log(token, account, profile, user);
       if (user) {
         if(account && account.provider === "google") {
           await connectToDB();
