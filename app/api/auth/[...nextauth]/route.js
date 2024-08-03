@@ -12,7 +12,7 @@ async function handleGoogleSignIn(email) {
   if(dbUser?._id) return dbUser._id;
   await User.create({ email: email, password: "#GOOGLE" });
   dbUser = await User.findOne({ email: email });
-  return dbUser.id;
+  return dbUser._id;
 }
 
 export const authOptions = {
@@ -112,13 +112,12 @@ export const authOptions = {
     },
 
     async jwt({ token, account, profile, user }) {
-      if (user) {
-        if(account?.provider === "google" && profile?.email) {
+      // If signed in with Google then tell the session callback to handle database access (handling it here can cause errors)
+      if(account?.provider === "google" && profile?.email) {
           token.profileEmail = profile.email;
-        }
-        else {
-          token.id = user.id;
-        }
+      }
+      else if(user) {
+        token.id = user.id;
       }
       return token;
     },
