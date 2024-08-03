@@ -134,8 +134,6 @@ export const POST = async (request) => {
     });
 
     const host = headers().get("host");
-    console.log(host, headers());
-    
 
     const mailData = {
       from: "solibrarium@hotmail.com",
@@ -145,10 +143,18 @@ export const POST = async (request) => {
       html: emailHtml(host, reqBody.email, resetToken, key),
     };
 
-    transporter.sendMail(mailData, (error, info) => {
-      if (error) console.error(error);
-      else console.log(info);
+    await new Promise((resolve, reject) => {
+      transporter.sendMail(mailData, (error, info) => {
+      if (error) {
+        console.error(error);
+        reject(error);
+      }
+      else {
+        console.log(info);
+        resolve(info);
+      }
     });
+    })
 
     return Response.json(
       { message: "email sent successfully" },
