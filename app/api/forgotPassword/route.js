@@ -134,6 +134,8 @@ export const POST = async (request) => {
     });
 
     const host = headers().get("host");
+    console.log(host, headers());
+    
 
     const mailData = {
       from: "solibrarium@hotmail.com",
