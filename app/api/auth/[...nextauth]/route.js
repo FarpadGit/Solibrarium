@@ -6,6 +6,15 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcrypt";
 
+async function handleGoogleSignIn(email) {
+  await connectToDB();
+  let dbUser = await User.exists({ email: email });
+  if(dbUser?._id) return dbUser._id;
+  await User.create({ email: email, password: "#GOOGLE" });
+  dbUser = await User.findOne({ email: email });
+  return dbUser.id;
+}
+
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
@@ -83,8 +92,14 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     })
   ],
+  session: {
+    strategy: "jwt"
+    },
   callbacks: {
     async session({ session, token }) {
+      if(token.profileEmail) {
+        token.id = await handleGoogleSignIn(token.profileEmail);
+      }
       const sessionUser = await User.findById(token.id);
       session.user.id = sessionUser._id.toString();
       session.user.loyaltyPoints = sessionUser.loyaltyPoints;
@@ -99,15 +114,7 @@ export const authOptions = {
     async jwt({ token, account, profile, user }) {
       if (user) {
         if(account?.provider === "google" && profile?.email) {
-          await connectToDB();
-          let dbUser = await User.findOne({ email: profile.email });
-          if(!dbUser) {
-            await User.create({ email: profile.email, password: "#GOOGLE" });
-            dbUser = await User.findOne({ email: profile.email });
-            token.id = dbUser.id;
-          } else {
-            token.id = dbUser.id;
-          }
+          token.profileEmail = profile.email;
         }
         else {
           token.id = user.id;
