@@ -136,7 +136,10 @@ export const POST = async (request) => {
     const host = headers().get("host");
 
     const mailData = {
-      from: "solibrarium@hotmail.com",
+      from: {
+        name: "Solibrarium",
+        address: "solibrarium@hotmail.com"
+      },
       to: reqBody.email,
       subject: "Elfelejtett jelszó",
       text: emailBody(host, reqBody.email, resetToken, key),
