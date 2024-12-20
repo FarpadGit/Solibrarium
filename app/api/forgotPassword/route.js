@@ -126,9 +126,11 @@ export const POST = async (request) => {
     //sending email to address
     errorProgressMessage = "Error sending email: ";
     const transporter = nodemailer.createTransport({
-      service: "hotmail",
+      host: process.env.NODEMAILER_HOST,
+      port: Number.parseInt(process.env.NODEMAILER_PORT),
+      secure: process.env.NODEMAILER_PORT === "465",
       auth: {
-        user: "solibrarium@hotmail.com",
+        user: process.env.NODEMAILER_EMAIL,
         pass: process.env.NODEMAILER_PASS,
       },
     });
@@ -138,7 +140,7 @@ export const POST = async (request) => {
     const mailData = {
       from: {
         name: "Solibrarium",
-        address: "solibrarium@hotmail.com"
+        address: process.env.NODEMAILER_EMAIL
       },
       to: reqBody.email,
       subject: "Elfelejtett jelszó",
