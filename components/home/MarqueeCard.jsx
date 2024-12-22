@@ -12,13 +12,15 @@ export default function MarqueeCard({ book }) {
     <div className="marquee_card">
       <div className="marquee_content">
         <div className="relative grid items-start justify-center w-full">
-          <Image
-            src={book.image || "/book_placeholder.png"}
-            alt="book_cover"
-            placeholder={getPlaceholderDataURL()}
-            fill
-            className="object-contain"
-          />
+          <Link href={`/details/${book.id}`}>
+            <Image
+              src={book.image || "/book_placeholder.png"}
+              alt="book_cover"
+              placeholder={getPlaceholderDataURL()}
+              fill
+              className="object-contain"
+            />
+          </Link>
         </div>
         <Link href={`/details/${book.id}`}>
           <div

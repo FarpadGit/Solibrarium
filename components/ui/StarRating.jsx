@@ -40,6 +40,7 @@ export default function StarRating({ rating, size = 15, setter = null }) {
                 setter(0);
               }
         }
+        draggable={false}
         className={`star object-contain ${
           setter === null ? "cursor-default" : "cursor-pointer"
         }`}

@@ -79,7 +79,12 @@
   height: 60%;
   max-height: 150px;
   left: 0;
-  background-image: linear-gradient(transparent 0%, bisque 10%, bisque 90%, transparent 100%);
+  background-image: linear-gradient(
+    transparent 0%,
+    bisque 10%,
+    bisque 90%,
+    transparent 100%
+  );
   z-index: -1;
   transform: translateY(-0.5rem);
 }
@@ -152,25 +157,25 @@
   gap: 1.5rem;
   padding-top: 35px;
   white-space: nowrap;
-  will-change: transform;
-  animation: marquee 25s linear infinite;
+  will-change: transform, translate;
+  animation: marquee 75s linear infinite;
 }
 
+.marquee_track:hover,
 .marquee_container[dragged=""] .marquee_track {
-  animation: none;
-}
-
-.marquee_track:hover {
   animation-play-state: paused;
 }
 
+/* normally a marquee only has to move up to -50% before seamlessly jumping back to its starting position, */
+/* but this marquee is draggable and the goal is to only reset animation and drag offset if the guard pixel after the last item is visible, */
+/* even if the user drags it to the far left with lots of translations */
 @keyframes marquee {
   from {
-    transform: translateX(0);
+    translate: 0 0;
   }
 
   to {
-    transform: translateX(-50%);
+    translate: -200% 0;
   }
 }
 
@@ -180,9 +185,15 @@
 }
 
 .marquee_card:hover {
-  border-width: 1px;
+  border-radius: 0.25rem;
+  background-color: color-mix(
+    in srgb,
+    var(--background2-color) 50%,
+    var(--background1-color) 50%
+  );
   backdrop-filter: blur(16px);
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   overflow: visible;
 }
 
@@ -194,6 +205,7 @@
   justify-content: center;
   justify-items: center;
   white-space: normal;
+  transition: transform 0.1s ease;
 }
 
 .marquee_card:hover .marquee_content {
@@ -224,10 +236,16 @@
 .review_card {
   width: 480px;
   height: 380px;
-  border-width: 1px;
+  border-radius: 0.25rem;
   overflow: visible;
+  background-color: color-mix(
+    in srgb,
+    var(--background2-color) 60%,
+    var(--background1-color) 40%
+  );
   backdrop-filter: blur(16px);
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
+    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   padding: 1.5rem 2.05rem;
 }
 
@@ -260,7 +278,12 @@
 
   .hero-banner-desc::before {
     max-height: 225px;
-    background-image: linear-gradient(transparent 0%, bisque 10%, bisque 90%, transparent 100%);
+    background-image: linear-gradient(
+      transparent 0%,
+      bisque 10%,
+      bisque 90%,
+      transparent 100%
+    );
     transform: translateY(-1rem);
   }
 
@@ -275,7 +298,6 @@
 }
 
 @media (min-width: 768px) {
-
   .hero-banner-container {
     min-height: 500px;
     background-position: center;
@@ -290,7 +312,6 @@
 }
 
 @media (min-width: 1024px) {
-
   .hero-banner-container .hero-banner-sub {
     font-size: 20px;
     margin-top: 20px;
@@ -311,7 +332,12 @@
   }
 
   .hero-banner-desc::before {
-    background-image: linear-gradient(transparent 10%, bisque 20%, bisque 85%, transparent 95%);
+    background-image: linear-gradient(
+      transparent 10%,
+      bisque 20%,
+      bisque 85%,
+      transparent 95%
+    );
     transform: translateY(-3rem);
   }
 
