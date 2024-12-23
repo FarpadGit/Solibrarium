@@ -2,50 +2,87 @@
 
 import MarqueeCard from "@/components/home/MarqueeCard";
 import { inViewportItem } from "@/utils/ScrollAndOverlaps";
-import { motion, useMotionValue } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useAnimationControls, useMotionValue } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 export default function Marquee({ frontPageBooks }) {
-  const [dragged, setDragged] = useState(false);
   const containerRef = useRef();
   const trackRef = useRef();
   const guardPixel = useRef();
-  const x = useMotionValue(0);
+  const x = useMotionValue(0); // this is the drag offset value, can be manipulated
+  const trackControls = useAnimationControls();
 
-  // when the guard pixel after the last item is visible in viewport the track will jump back to the end of the first set of items
-  // (a 50% rewind into seamless transition) and resets the animation CSS property by changing it and then clearing it.
-  // this will reapply the animation defined in the stylesheet and restarts the animation timer.
+  // The marquee uses two CSS properties for locomotion: transform/translateX for dragging offsets and translate for moving to the right.
   //
-  // (important to note that X is just the drag offset value Framer Motion uses.
-  // since this value can also be positive if the user drags to the far left it's important to not let the animation end before it hits the guard pixel.)
-  const guardRef = inViewportItem(
-    guardPixel,
-    () => {
-      console.log("eh");
+  // The track displays 2 repeating sets of items. By default Framer Motion will try to animate the track sliding to the far right but when
+  // the guard pixel after the last item is visible in the viewport the track will jump back to the end of the first set of items (a 50% rewind into seamless transition)
+  //
+  // This is important because we want to enable dragging which has to both exist independently from the sliding (hence the different CSS properties) and
+  // not interfere with the infinite loop by prematurely letting the animation finish.
+  // For this reason the Translate property is "converted" into a drag offset and resets to 0 every time the user starts to drag or the track reached its end and loops back.
+  // This way the sliding animation will never reach its -100% destination and will continue running even with copious amounts of dragging.
+  const guardRef = inViewportItem(guardPixel, () => onLastItemInView(), {
+    callOnce: false,
+    threshold: 0,
+  });
 
-      const halfpoint = trackRef.current.clientWidth / 2;
-      x.jump(-halfpoint + containerRef.current.clientWidth);
-      trackRef.current.style.animation = "none";
-      setTimeout(() => {
-        trackRef.current.style.animation = "";
-      }, 1);
+  function onHoverStart() {
+    // stop sliding on hover
+    trackControls.stop();
+
+    // read translate value from the style properties (yeah..)
+    const translate = Number.parseFloat(
+      trackRef.current.style.translate.slice(0, -4)
+    );
+
+    // convert translate percentage into pixels
+    const inPixels = (trackRef.current.clientWidth * translate) / 100;
+
+    // turn translate value into drag transform value while resetting it to 0
+    x.jump(x.get() + inPixels);
+    trackControls.set({ translate: "0% 0%" });
+  }
+
+  function onLastItemInView() {
+    // percentage of container (visible items) relative to the whole track
+    const containerPercentage =
+      (100 * containerRef.current.clientWidth) / trackRef.current.clientWidth;
+    // the halfway point the track has to rewind to
+    const halfpointPercentage = -50 + containerPercentage;
+    // same but in pixels
+    const inPixels = (trackRef.current.clientWidth * halfpointPercentage) / 100;
+
+    // set drag offset to the halfway point while resetting translate
+    x.jump(inPixels);
+    trackControls.set({ translate: "0% 0%" });
+    trackControls.start("marquee");
+  }
+
+  const variants = {
+    marquee: {
+      translate: "-100% 0%",
+      transition: {
+        duration: 50,
+        ease: "linear",
+      },
     },
-    { callOnce: false, threshold: 0 }
-  );
+  };
+
+  useEffect(() => {
+    trackControls.start("marquee");
+  }, []);
 
   return (
-    <div
-      ref={containerRef}
-      dragged={dragged ? "" : undefined}
-      className="marquee_container"
-    >
+    <div ref={containerRef} className="marquee_container">
       <motion.div
         ref={trackRef}
+        variants={variants}
         drag="x"
         _dragX={x}
         dragConstraints={containerRef}
-        onDragStart={() => setDragged(true)}
-        onDragEnd={() => setDragged(false)}
+        animate={trackControls}
+        onHoverStart={() => onHoverStart()}
+        onHoverEnd={() => trackControls.start("marquee")}
         style={{ x, touchAction: "none" }}
         className="marquee_track"
       >

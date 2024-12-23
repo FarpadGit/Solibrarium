@@ -158,25 +158,6 @@
   padding-top: 35px;
   white-space: nowrap;
   will-change: transform, translate;
-  animation: marquee 75s linear infinite;
-}
-
-.marquee_track:hover,
-.marquee_container[dragged=""] .marquee_track {
-  animation-play-state: paused;
-}
-
-/* normally a marquee only has to move up to -50% before seamlessly jumping back to its starting position, */
-/* but this marquee is draggable and the goal is to only reset animation and drag offset if the guard pixel after the last item is visible, */
-/* even if the user drags it to the far left with lots of translations */
-@keyframes marquee {
-  from {
-    translate: 0 0;
-  }
-
-  to {
-    translate: -200% 0;
-  }
 }
 
 .marquee_card {
