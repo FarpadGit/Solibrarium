@@ -17,7 +17,7 @@ const registerText =
 const loginText =
   "Ooh, hogy jutottál el ide? A checkout oldalon megjelent a login ablak és nyomtál egy frissítést? Vagy csak beírtad a keresősávba, hátha létezik ez az oldal? Úgy más lehetőség nem is igazán jut az eszembe, minden esetre élvezd ezt az elrejtett kincset!";
 const forgotPasswordText =
-  "Ez tényleg ki fog küldeni egy email-t? Igen, van egy erre fenntartott Hotmail-es fiók amin keresztül a NodeMailer könyvtár leveleket képes küldeni az általad megadott email címre. Természetesen először mindig ellenőrzi hogy szerepel-e az illető a regisztráltak adatbázisában, de ha nincs ezt nem fogja elárulni a próbálkozó támadóknak. Viszont ha Gmail-t használsz nos ők sajnos kezdenek egyre háklisabbak lenni mindennemű idegen forrásra és azon túl hogy a spam mappára lökik a levelet még a háttérképeket és kirostázza a forrásból.";
+  "Ez tényleg ki fog küldeni egy email-t? Igen, van egy erre fenntartott fiókom amin keresztül a NodeMailer könyvtár leveleket képes küldeni az általad megadott email címre. Természetesen először mindig ellenőrzi hogy szerepel-e az illető a regisztráltak adatbázisában, de ha nincs ezt nem fogja elárulni a próbálkozó támadóknak. Viszont ha Gmail-t használsz nos ők sajnos kezdenek egyre háklisabbak lenni mindennemű idegen forrásra és szeretik a spam mappába lökni a leveleimet.";
 const resetPasswordText =
   "Bár nem a kriptográfia a szakterületem azért próbáltam egy kis titkosítást vinni a jelszó visszaállító szolgáltatásba, ami meg is látszik a jó ronda URL-en.";
 const defaultText =
@@ -83,7 +83,7 @@ export default function Footer() {
             csinálhatsz egy fiókot is ha kedved tartja, és ha van bármilyen
             kérdésed az itt látottakkal kapcsolatban akkor küldj egy emailt az{" "}
             <Link
-              href="mailto:solibrarium@hotmail.com"
+              href="mailto:farpadmail@gmail.com"
               className="hover:underline"
             >
               itt található címre
@@ -95,7 +95,7 @@ export default function Footer() {
         <div>
           <p className="text-right text-xs min-w-[7rem]">
             <Link
-              href="mailto:solibrarium@hotmail.com"
+              href="mailto:farpadmail@gmail.com"
               className="hover:underline"
             >
               {`©${new Date().getFullYear()} Solibrarium`}
