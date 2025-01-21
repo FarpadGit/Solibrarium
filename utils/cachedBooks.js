@@ -1,10 +1,10 @@
-// The Google Books API has a daily limit of 1000 requests so it would be prudent to cache any books that were already queried
-let cache = [];
+import redis from "@/utils/RedisConnect";
 
-export function cacheBook(book) {
-    if(!cache.find(b => b.id === book.id)) cache = [...cache, book];
+// The Google Books API has a daily limit of 1000 requests so it would be prudent to cache any books that were already queried
+export async function cacheBook(book) {
+    await redis.set(book.id, JSON.stringify(book));
 }
 
-export function getFromCache(id) {
-    return cache.find(b => b.id === id);
+export async function getFromCache(id) {    
+    return await redis.get(id);
 }

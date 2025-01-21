@@ -1,5 +1,5 @@
 import { getBookDetails } from "@/app/api/bookDetails";
-import { cacheBook } from "@/utils/cachedBooks";
+import { cacheBook } from "@/utils/CachedBooks";
 import { send } from "@/utils/FetchRequest";
 
 //GETS an array of books as returned by the Google Books Search API and returns a processed version of them

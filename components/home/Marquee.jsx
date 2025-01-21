@@ -1,9 +1,9 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import MarqueeCard from "@/components/home/MarqueeCard";
 import { inViewportItem } from "@/utils/ScrollAndOverlaps";
 import { motion, useAnimationControls, useMotionValue } from "framer-motion";
-import { useEffect, useRef } from "react";
 
 export default function Marquee({ frontPageBooks }) {
   const containerRef = useRef();

@@ -1,6 +1,6 @@
 import ids from "./Bestsellers.json";
 import { getBookDetails } from "@/app/api/bookDetails";
-import { getFromCache, cacheBook } from "@/utils/cachedBooks";
+import { getFromCache, cacheBook } from "@/utils/CachedBooks";
 import { send } from "@/utils/FetchRequest";
 
 //GETS all the volume data for the books listed in Bestsellers.json and returns the fields specified in getBookDetails
@@ -8,7 +8,7 @@ export const getBestsellers = async () => {
   try {
     const books = await Promise.all(
       ids.map(async (id) => {
-        const cachedBook = getFromCache(id.id);
+        const cachedBook = await getFromCache(id.id);
         if(cachedBook) return cachedBook;
 
         const book = await send({
