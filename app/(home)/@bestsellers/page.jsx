@@ -13,8 +13,13 @@ export default async function BestSellers() {
   const bannerBackgroundImages = [
     "banana_leaves.png",
     "colourful_low_poly.jpg",
+    "engrossed_leaves.jpg",
+    "golden_glitter.jpg",
+    "green-fluid-wave.jpg",
+    "low-poly-rust.jpg",
     "red_and_white.jpg",
     "red-fluid-wave.jpg",
+    "watercolor_flowers.jpg",
     "watercolor-background.jpg",
   ];
 
