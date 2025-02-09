@@ -185,26 +185,35 @@ export default function Header() {
         </div>
 
         {/* Right side buttons - Mobile Navigation */}
-        <div className="w-1/5 block md:hidden">
-          <div
-            className={`flex justify-center ${
-              areButtonsCollapsed ? "mb-[0.8rem]" : ""
-            }`}
-          >
-            <a
+        <div className="block w-1/5 md:hidden">
+          <div className={"flex justify-center"}>
+            <button
               onClick={() => {
                 maximizeHeader();
                 toggleCollapsedButtons();
               }}
-              className="misc_btn drop-shadow-star"
-              role="button"
+              className="misc_btn drop-shadow-star min-w-[50px]"
             >
-              egyéb {"\u25bc"}
-            </a>
+              {"\u25bc"}
+            </button>
           </div>
-          <TECollapse show={areButtonsCollapsed}>
-            <HeaderButtons />
-          </TECollapse>
+          <div className="flex justify-center">
+            <TECollapse
+              className="fixed flex justify-center border border-black overflow-hidden"
+              show={areButtonsCollapsed}
+            >
+              <div className="rounded-2xl z-50">
+                <HeaderBackground
+                  withOverhang={false}
+                  verticalOffset="-5"
+                  className="scale-[200%]"
+                />
+                <div className="px-2 py-4">
+                  <HeaderButtons />
+                </div>
+              </div>
+            </TECollapse>
+          </div>
         </div>
       </div>
     </nav>

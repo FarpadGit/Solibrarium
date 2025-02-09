@@ -4,14 +4,20 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAppContext } from "@/contexts/AppContext";
 
-export default function HeaderBackground() {
+export default function HeaderBackground({
+  withOverhang = true,
+  verticalOffset = "0",
+  className,
+}) {
   const { darkMode } = useAppContext();
   const [bgSource, setBgSource] = useState("/decor/header_brick_wall.png");
   const [afterSource, setAfterSource] = useState(
     "/decor/header_ivy_overhang.png"
   );
   const backgroundStyles = {
-    objectPosition: "right calc(100% + 2vw)",
+    objectPosition: `right calc(100% + ${
+      withOverhang ? "2vw" : `${verticalOffset}vw`
+    })`,
     objectFit: "cover",
     zIndex: -1,
   };
@@ -21,7 +27,7 @@ export default function HeaderBackground() {
     maxWidth: 0,
     height: "10vw",
     left: 0,
-    top: "calc(var(--header-current-height) + 2.0vw)",
+    top: "calc(var(--header-current-height) + 2vw)",
     transform: "translateY(-50%)",
     maskImage: "linear-gradient( black 70%, transparent 100%)",
     zIndex: -1,
@@ -40,14 +46,22 @@ export default function HeaderBackground() {
 
   return (
     <>
-      <Image src={bgSource} alt="" fill style={backgroundStyles} />
       <Image
-        src={afterSource}
+        src={bgSource}
         alt=""
-        width={1400}
-        height={140}
-        style={overhangStyles}
+        fill
+        className={className}
+        style={backgroundStyles}
       />
+      {withOverhang && (
+        <Image
+          src={afterSource}
+          alt=""
+          width={1400}
+          height={140}
+          style={overhangStyles}
+        />
+      )}
     </>
   );
 }

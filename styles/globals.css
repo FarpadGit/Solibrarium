@@ -66,7 +66,7 @@
   --foreground-color: rgb(255, 255, 255);
   --background1-color: rgb(0, 0, 0);
   --background2-color: rgb(50, 50, 50);
-  --header-dropshadow-color: rgb(123 218 255 / 0.5);
+  /* --header-dropshadow-color: rgb(123 218 255 / 0.5); */
   --header-dropshadow: 5px 5px 2px var(--header-dropshadow-color);
   --header-fallback-gradient: linear-gradient(to right, #2474aa, #101010);
 
@@ -96,7 +96,7 @@
   margin-top: var(--header-current-height);
   padding-left: 0.8rem;
   padding-right: 0.8rem;
-  padding-top: 2rem;
+  padding-top: 3rem;
   padding-bottom: 4rem;
   color: var(--foreground-color);
   background: linear-gradient(to bottom, transparent, var(--background2-color)) var(--background1-color);
@@ -284,7 +284,14 @@ div[data-radix-popper-content-wrapper]:has(div[data-active]) {
 @media (min-width: 1024px) {
 
   .app {
-    padding-top: 8rem;
+    padding-top: 5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .app {
+    padding-top: 7rem;
   }
 }
 

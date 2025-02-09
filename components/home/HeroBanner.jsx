@@ -1,12 +1,13 @@
 import Link from "next/link";
+import CardWithBackground from "@/components/home/CardWithBackground";
 import BannerBookCover from "@/components/home/BannerBookCover";
 
 export default function HeroBanner({ bannerBook, bannerBackground }) {
-  const style = {
-    "--background_image_path": `url(/banner/${bannerBackground})`,
-  };
   return (
-    <div className="hero-banner-container" style={style}>
+    <CardWithBackground
+      className="hero-banner-container"
+      backgroundImage={bannerBackground}
+    >
       <div className="relative w-1/2 z-0">
         <p className="hero-banner-sub">Aktuális toplistás</p>
         <h3 className="hero-banner-author">{bannerBook.author}</h3>
@@ -32,6 +33,6 @@ export default function HeroBanner({ bannerBook, bannerBackground }) {
           Érdekel
         </Link>
       </div>
-    </div>
+    </CardWithBackground>
   );
 }

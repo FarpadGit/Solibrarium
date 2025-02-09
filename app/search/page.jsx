@@ -19,10 +19,6 @@ export default function Search() {
     },
   } = useSearchContext();
 
-  const bookKeyValuePairs = bookResults.map((book) =>
-    book.id || book.id === 0 ? [book.id, book] : ["error", "error"]
-  );
-
   //Ref for the element that triggers infinite scrolling
   const observer = useRef();
   const lastItemRef = lastItem(
@@ -54,15 +50,16 @@ export default function Search() {
       </div>
       <div className="flex min-h-screen min-w-full flex-col px-2 pt-4 md:px-12 lg:px-24">
         <div className="flex flex-col gap-2">
-          {bookKeyValuePairs?.map(([id, book]) => {
-            if (id === "error")
+          {bookResults?.map((book) => {
+            if (book.error)
               return (
                 <div key="error" className="text-center">
                   Sajnos valamilyen hiba történt keresés közben
                 </div>
               );
-            else if (book.placeholder) return <BookCardSkeleton key={id} />;
-            else return <BookCard book={book} key={id} />;
+            else if (book.placeholder)
+              return <BookCardSkeleton key={book.id} />;
+            else return <BookCard book={book} key={book.id} />;
           })}
           <div className="self-center py-2" ref={lastItemRef}>
             {isLoading && "Találatok betöltése..."}

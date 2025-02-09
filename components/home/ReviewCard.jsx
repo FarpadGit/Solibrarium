@@ -12,14 +12,16 @@ export default function ReviewCard({ book, reviewText, rating }) {
     <div className="review_card">
       <div className="grid grid-rows-[265px_70px] grid-cols-2 items-start justify-center w-full">
         <div className="relative mr-2">
-          <Image
-            src={book.image || "/book_placeholder.png"}
-            alt="book_cover"
-            placeholder={getPlaceholderDataURL()}
-            width={170}
-            height={260}
-            className="absolute object-contain -top-[3rem] drop-shadow-lg"
-          />
+          <Link href={`/details/${book.id}`}>
+            <Image
+              src={book.image || "/book_placeholder.png"}
+              alt="book_cover"
+              placeholder={getPlaceholderDataURL()}
+              width={170}
+              height={260}
+              className="absolute object-contain -top-[3rem] drop-shadow-lg"
+            />
+          </Link>
         </div>
         <div className="flex flex-col gap-2">
           <Link href={`/details/${book.id}`}>

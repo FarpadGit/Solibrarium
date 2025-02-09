@@ -143,8 +143,8 @@ export default ({ children }) => {
         const returnedBooks = await send({
           url: `/api/search?${searchquery}`,
         });
-        if (returnedBooks.length === 0) tempHasMore = false;
         if (returnedBooks.error) throw new Error();
+        if (returnedBooks.length === 0) tempHasMore = false;
         else {
           tempHasMore =
             tempBookResults.length + returnedBooks.length >= targetLength;
@@ -163,7 +163,7 @@ export default ({ children }) => {
     } catch (error) {
       if (error === "Aborted") return;
       console.error("Error in Search context", error);
-      setBookResults(["error"]);
+      setBookResults([{ error: true }]);
       setHasMore(false);
     } finally {
       setIsLoading(false);

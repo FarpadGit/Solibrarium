@@ -1,4 +1,4 @@
-import ids from "./Bestsellers.json";
+import bestsellers from "./Bestsellers.json";
 import { getBookDetails } from "@/app/api/bookDetails";
 import { getFromCache, cacheBook } from "@/utils/CachedBooks";
 import { send } from "@/utils/FetchRequest";
@@ -7,12 +7,12 @@ import { send } from "@/utils/FetchRequest";
 export const getBestsellers = async () => {
   try {
     const books = await Promise.all(
-      ids.map(async (id) => {
-        const cachedBook = await getFromCache(id.id);
+      bestsellers.map(async (bestseller) => {
+        const cachedBook = await getFromCache(bestseller.id);
         if(cachedBook) return cachedBook;
 
         const book = await send({
-          url: `https://www.googleapis.com/books/v1/volumes/${id.id}?key=${process.env.BOOKS_API_KEY}`,
+          url: `https://www.googleapis.com/books/v1/volumes/${bestseller.id}?key=${process.env.BOOKS_API_KEY}`,
           callback: (body) => getBookDetails(body),
         });
 

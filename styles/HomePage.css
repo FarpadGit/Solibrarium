@@ -8,17 +8,17 @@
   src: local("Futura Book"), url("../public/fonts/Futura Book Regular.otf");
 }
 
-.hero-banner-container {
-  --background_image_path: url("/banner/red_and_white.jpg");
+.banner-container {
   position: relative;
-  /* overflow: clip visible; */
   background-color: #cdcdcd;
-  background-image: var(--background_image_path);
   background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
-  padding: 25px 20px;
   border-radius: 15px;
+}
+
+.hero-banner-container {
+  padding: 25px 20px;
   min-height: 350px;
   line-height: 0.9;
   width: 100%;
@@ -79,12 +79,10 @@
   height: 60%;
   max-height: 150px;
   left: 0;
-  background-image: linear-gradient(
-    transparent 0%,
-    bisque 10%,
-    bisque 90%,
-    transparent 100%
-  );
+  background-image: linear-gradient(transparent 0%,
+      bisque 10%,
+      bisque 90%,
+      transparent 100%);
   z-index: -1;
   transform: translateY(-0.5rem);
 }
@@ -167,14 +165,11 @@
 
 .marquee_card:hover {
   border-radius: 0.25rem;
-  background-color: color-mix(
-    in srgb,
-    var(--background2-color) 50%,
-    var(--background1-color) 50%
-  );
+  background-color: color-mix(in srgb,
+      var(--background2-color) 50%,
+      var(--background1-color) 50%);
   backdrop-filter: blur(16px);
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
-    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   overflow: visible;
 }
 
@@ -215,18 +210,15 @@
 }
 
 .review_card {
-  width: 480px;
+  width: 440px;
   height: 380px;
   border-radius: 0.25rem;
   overflow: visible;
-  background-color: color-mix(
-    in srgb,
-    var(--background2-color) 60%,
-    var(--background1-color) 40%
-  );
+  background-color: color-mix(in srgb,
+      var(--background2-color) 60%,
+      var(--background1-color) 40%);
   backdrop-filter: blur(16px);
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04))
-    drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
   padding: 1.5rem 2.05rem;
 }
 
@@ -259,19 +251,16 @@
 
   .hero-banner-desc::before {
     max-height: 225px;
-    background-image: linear-gradient(
-      transparent 0%,
-      bisque 10%,
-      bisque 90%,
-      transparent 100%
-    );
+    background-image: linear-gradient(transparent 0%,
+        bisque 10%,
+        bisque 90%,
+        transparent 100%);
     transform: translateY(-1rem);
   }
 
   .hero-banner-image {
     width: 200px;
     height: 300px;
-    /* top: 15%; */
     left: unset;
     right: 10%;
     transform: none;
@@ -313,12 +302,10 @@
   }
 
   .hero-banner-desc::before {
-    background-image: linear-gradient(
-      transparent 10%,
-      bisque 20%,
-      bisque 85%,
-      transparent 95%
-    );
+    background-image: linear-gradient(transparent 10%,
+        bisque 20%,
+        bisque 85%,
+        transparent 95%);
     transform: translateY(-3rem);
   }
 

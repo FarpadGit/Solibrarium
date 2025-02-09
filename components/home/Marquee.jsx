@@ -30,7 +30,7 @@ export default function Marquee({ frontPageBooks }) {
     // stop sliding on hover
     trackControls.stop();
 
-    // read translate value from the style properties (yeah..)
+    // read translate value from the style properties (yeah I know...)
     const translate = Number.parseFloat(
       trackRef.current.style.translate.slice(0, -4)
     );

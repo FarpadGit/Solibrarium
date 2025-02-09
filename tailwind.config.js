@@ -30,6 +30,7 @@ module.exports = {
         star: "var(--header-dropshadow-color)"
       },
       backgroundImage: {
+        solibrarium: "linear-gradient(to right, transparent 50%, var(--solibrarium-accent-color))",
         "theme-switch-on": "var(--theme-switch-on)",
         "theme-switch-off": "var(--theme-switch-off)",
         "theme-switch-thumb-on": "var(--theme-switch-thumb-on)",

@@ -29,7 +29,7 @@ export default function SearchBar({ id, type: initialType, click }) {
       if (!(pathName !== "/search" && searchText === ""))
         sendSearch(searchText);
     },
-    600,
+    1000,
     [searchText]
   );
   const {
