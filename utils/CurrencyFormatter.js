@@ -12,6 +12,7 @@ export function CurrencyFormatter(value, currency = "HUF") {
   return Intl.NumberFormat(formatCode, {
     style: "currency",
     currency: currency,
+    useGrouping: true,
     maximumFractionDigits: fractionDigits,
   }).format(value);
 }
