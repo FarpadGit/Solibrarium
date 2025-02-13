@@ -38,10 +38,9 @@ export default ({ children }) => {
     if (!session?.user) return;
     logOutUser();
     localStorage.removeItem("RememberMe");
-    send({
-      url: `/api/users/${session.user.id}`,
-      params: {},
+    send(`/api/users/${session.user.id}`, {
       method: "DELETE",
+      data: {},
     });
   };
 
@@ -53,10 +52,9 @@ export default ({ children }) => {
 
   async function deleteRememberMe(key) {
     localStorage.removeItem("RememberMe");
-    send({
-      url: "/api/rememberMe",
+    send("/api/rememberMe", {
       method: "DELETE",
-      params: {
+      data: {
         tokenKey: key,
       },
     });
