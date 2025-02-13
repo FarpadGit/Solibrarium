@@ -22,7 +22,7 @@ export default function UserMenu() {
   function MenuItem({ label, sublabel = null, click }) {
     return (
       <CommandItem
-        className="hover:bg-amber-200 dark:hover:bg-gray-400 text-center justify-center"
+        className="hover:bg-amber-200 dark:hover:bg-gray-400 text-center justify-center hover:cursor-pointer"
         onSelect={() => {
           setOpenDropdown(false);
           click();
@@ -41,7 +41,7 @@ export default function UserMenu() {
       <PopoverTrigger asChild>
         <button
           type="button"
-          className="login_btn"
+          className="login_btn header_btn_base hover:cursor-default"
           onMouseEnter={() => setOpenDropdown(true)}
         >
           Üdvözlünk!
@@ -52,28 +52,28 @@ export default function UserMenu() {
           <Command>
             <CommandGroup>
               <MenuItem
-                label={"Könyveim"}
+                label="Könyveim"
                 click={() => {
                   router.push("/account");
                 }}
               />
               {rememberMe && (
                 <MenuItem
-                  label={"Felejts el"}
-                  sublabel={"(auto bejelentkezés)"}
+                  label="Felejts el"
+                  sublabel="(auto bejelentkezés)"
                   click={() => {
                     deleteRememberMe(rememberMe.Key);
                   }}
                 />
               )}
               <MenuItem
-                label={"Fiók törlése"}
+                label="Fiók törlése"
                 click={() => {
                   openConfirmModal();
                 }}
               />
               <MenuItem
-                label={"Kijelentkezés"}
+                label="Kijelentkezés"
                 click={() => {
                   logOutUser();
                 }}
