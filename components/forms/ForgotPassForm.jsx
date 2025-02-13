@@ -42,16 +42,15 @@ export default function ForgotPassForm() {
 
   async function onSubmit(values) {
     setIsLoading(true);
-    await send({
-      url: " /api/forgotPassword",
-      params: {
+    await send("/api/forgotPassword", {
+      data: {
         email: values.email,
       },
-      callback: async (res) => {
-        if (res.error) setError(res.status);
-        else setSuccess(true);
-      },
+    }).then((res) => {
+      if (res.error) setError(res.status);
+      else setSuccess(true);
     });
+
     setIsLoading(false);
   }
 

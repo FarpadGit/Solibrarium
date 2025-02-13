@@ -8,21 +8,21 @@ import {
 
 async function handleRememberMe() {
   if (typeof window === "undefined") return;
+
   const rememberMeToken = JSON.parse(localStorage.getItem("RememberMe"));
   if (!rememberMeToken) return;
-  signIn("RememberMeProvider", {
+
+  const signInResult = await signIn("RememberMeProvider", {
     redirect: false,
     tokenKey: rememberMeToken.Key,
     tokenValue: rememberMeToken.Value,
-  }).then(async (result) => {
-    if (result.error) return;
-    send({
-      url: "/api/rememberMe",
-      params: { tokenKey: rememberMeToken.Key },
-      callback: (res) => {
-        if (!res.error) localStorage.setItem("RememberMe", JSON.stringify(res));
-      },
-    });
+  });
+
+  if (signInResult.error) return;
+  send("/api/rememberMe", {
+    data: { tokenKey: rememberMeToken.Key },
+  }).then((res) => {
+    if (!res.error) localStorage.setItem("RememberMe", JSON.stringify(res));
   });
 }
 

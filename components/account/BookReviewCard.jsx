@@ -17,34 +17,33 @@ export default function BookReviewCard({ user, bookDetails, close }) {
   async function handleSubmit(e) {
     e.preventDefault();
     if (reviewText === "" && rating === 0) return;
-    send({
-      url: `/api/users/${user}/collection/reviews/${bookDetails._id}`,
-      params: {
-        review: {
-          reviewText: reviewText,
-          rating: rating,
-        },
+    const payload = {
+      review: {
+        reviewText: reviewText,
+        rating: rating,
       },
-      callback: async (res) => {
-        if (res.error) setError(true);
-        else {
-          close();
-        }
-      },
+    };
+
+    send(`/api/users/${user}/collection/reviews/${bookDetails._id}`, {
+      data: payload,
+    }).then((res) => {
+      if (res.error) setError(true);
+      else {
+        close();
+      }
     });
   }
 
   useEffect(() => {
-    send({
-      url: `/api/users/${user}/collection/reviews/${bookDetails._id}`,
-      callback: async (res) => {
+    send(`/api/users/${user}/collection/reviews/${bookDetails._id}`).then(
+      (res) => {
         if (res.error) setError(true);
         else {
           setReviewText(res.reviewText);
           setRating(res.rating);
         }
-      },
-    });
+      }
+    );
   }, []);
 
   return (

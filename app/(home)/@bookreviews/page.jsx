@@ -6,17 +6,16 @@ import Loading from "@/components/Loading";
 import { inViewportItem } from "@/utils/ScrollAndOverlaps";
 import { send } from "@/utils/FetchRequest";
 
+const maxReviewsPerPage = 6;
+
 export default function ReviewedBooks() {
   const [reviews, setReviews] = useState(null);
   const ViewportObserver = useRef();
   const ref = inViewportItem(ViewportObserver, handleFetch);
   async function handleFetch() {
-    send({
-      url: "/api/users/reviews?max=6",
-      callback: (body) => {
-        if (!body.error) setReviews(body);
-        else setReviews([]);
-      },
+    send(`/api/users/reviews?max=${maxReviewsPerPage}`).then((body) => {
+      if (!body.error) setReviews(body);
+      else setReviews([]);
     });
   }
 

@@ -11,9 +11,9 @@ export default function Register({ params }) {
 
   useEffect(() => {
     const validate = async () => {
-      const response = await send({
-        url: `/api/forgotPassword?token=${params.token}&key=${params.key}`,
-      });
+      const response = await send(
+        `/api/forgotPassword?token=${params.token}&key=${params.key}`
+      );
       if (!response.error) setEmail(response);
       else setEmail("error");
     };

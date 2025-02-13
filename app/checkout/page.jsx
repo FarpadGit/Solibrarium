@@ -30,36 +30,35 @@ export default function Checkout() {
   }, [totalPrice]);
 
   async function handleConfirm() {
-    if (session?.user) {
+    if (!session.user) router.push("/login");
+    else {
       //in case the user tempers with the inputs
       const correctedDiscount = Math.min(session.user.loyaltyPoints, discount);
-      send({
-        url: `/api/users/${session.user.id}/collection`,
-        params: {
-          books: cartItems.map((item) => {
-            return {
-              id: item.bookData.id,
-              title: item.bookData.title,
-              author: item.bookData.author,
-              publisher: item.bookData.publisher,
-              publishedDate: item.bookData.publishedDate,
-              price: item.bookData.price,
-              image: item.bookData.image,
-            };
-          }),
-          loyaltyPoints: newLoyaltyPoints - correctedDiscount,
-        },
-        callback: async (res) => {
+      const payload = {
+        books: cartItems.map((item) => {
+          return {
+            id: item.bookData.id,
+            title: item.bookData.title,
+            author: item.bookData.author,
+            publisher: item.bookData.publisher,
+            publishedDate: item.bookData.publishedDate,
+            price: item.bookData.price,
+            image: item.bookData.image,
+          };
+        }),
+        loyaltyPoints: newLoyaltyPoints - correctedDiscount,
+      };
+
+      send(`/api/users/${session.user.id}/collection`, { data: payload }).then(
+        (res) => {
           if (res.error) setError(true);
           else {
             emptyCart();
             update();
             router.push("/");
           }
-        },
-      });
-    } else {
-      router.push("/login");
+        }
+      );
     }
   }
 

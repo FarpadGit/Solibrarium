@@ -1,7 +1,7 @@
 import bestsellers from "./Bestsellers.json";
 import { getBookDetails } from "@/app/api/bookDetails";
 import { getFromCache, cacheBook } from "@/utils/CachedBooks";
-import { send } from "@/utils/FetchRequest";
+import { sendWithAPIKey } from "@/utils/FetchRequest";
 
 //GETS all the volume data for the books listed in Bestsellers.json and returns the fields specified in getBookDetails
 export const getBestsellers = async () => {
@@ -11,10 +11,8 @@ export const getBestsellers = async () => {
         const cachedBook = await getFromCache(bestseller.id);
         if(cachedBook) return cachedBook;
 
-        const book = await send({
-          url: `https://www.googleapis.com/books/v1/volumes/${bestseller.id}?key=${process.env.BOOKS_API_KEY}`,
-          callback: (body) => getBookDetails(body),
-        });
+        const book = await sendWithAPIKey(`https://www.googleapis.com/books/v1/volumes/${bestseller.id}`)
+          .then((body) => getBookDetails(body));
 
         if(book.error) return null;
         cacheBook(book);

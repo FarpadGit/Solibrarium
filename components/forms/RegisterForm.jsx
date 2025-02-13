@@ -76,25 +76,24 @@ export default function RegisterForm({
 
   async function onSubmit(values) {
     setIsLoading(true);
-    await send({
-      url: " /api/users/new",
-      params: {
+    await send("/api/users/new", {
+      data: {
         email: values.email,
         password: values.password,
         overwrite: overwrite,
       },
-      callback: async (res) => {
-        if (res.error) setError();
-        else {
-          await signIn("SolibrariumProvider", {
-            redirect: false,
-            email: values.email,
-            password: values.password,
-          });
-          router.push("/");
-        }
-      },
+    }).then(async (res) => {
+      if (res.error) setError();
+      else {
+        await signIn("SolibrariumProvider", {
+          redirect: false,
+          email: values.email,
+          password: values.password,
+        });
+      }
+      router.push("/");
     });
+
     setIsLoading(false);
   }
 

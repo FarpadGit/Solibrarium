@@ -15,11 +15,8 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
 
   useEffect(() => {
     if (session) {
-      send({
-        url: `/api/users/${session.user.id}/collection`,
-        callback: (body) => {
-          if (!body.error) setUserBooks(body);
-        },
+      send(`/api/users/${session.user.id}/collection`).then((body) => {
+        if (!body.error) setUserBooks(body);
       });
     } else setUserBooks([]);
   }, []);

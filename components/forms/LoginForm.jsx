@@ -64,12 +64,10 @@ export default function LoginForm({
   async function handleRememberMe(email) {
     if (typeof window === "undefined" || !!localStorage.getItem("RememberMe"))
       return;
-    send({
-      url: `/api/rememberMe`,
-      params: { userEmail: email },
-      callback: (res) => {
-        if (!res.error) localStorage.setItem("RememberMe", JSON.stringify(res));
-      },
+    send("/api/rememberMe", {
+      data: { userEmail: email },
+    }).then((res) => {
+      if (!res.error) localStorage.setItem("RememberMe", JSON.stringify(res));
     });
   }
 
