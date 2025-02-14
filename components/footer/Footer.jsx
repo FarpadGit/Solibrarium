@@ -76,13 +76,13 @@ export default function Footer() {
             <div className="text-center">Üdvözlet a Solibráriumban!</div>
             <br />
             Fabók Árpád webfejlesztő vagyok és ez egy afféle hobbi / portfolió
-            projekt amit azért csináltam hogy megtanítsam magamnak a NextJs
+            projekt amit azért csináltam hogy megtanítsam magamnak a Next.js
             13+-at valamint több egyéb funkciót is mint például a felhasználók
-            hitelesítése vagy a MongoDB adatbázis kezelése. Nyugodtan nézz
-            körbe, kattints arra ami megtetszik, esetleg csinálhatsz egy fiókot
-            is ha kedved tartja (ezt majd kitörölheted ha gondolod), és ha van
-            bármilyen kérdésed az itt látottakkal kapcsolatban akkor küldj egy
-            emailt az{" "}
+            hitelesítése JWT tokennel vagy egy távoli MongoDB adatbázis
+            használata. Nyugodtan nézz körbe, kattints arra ami megtetszik,
+            esetleg csinálhatsz egy fiókot is ha kedved tartja (ezt majd
+            kitörölheted ha gondolod), és ha van bármilyen kérdésed az itt
+            látottakkal kapcsolatban akkor küldj egy emailt az{" "}
             <Link
               href="mailto:farpadmail@gmail.com"
               className="hover:underline"
