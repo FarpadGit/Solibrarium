@@ -1,13 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useAppContext } from "@/contexts/AppContext";
-import { useHeaderVisibilityContext } from "@/contexts/HeaderVisibilityContext";
-import { useSearchBarContext } from "@/contexts/SearchBarContext";
+import { useSelector } from "react-redux";
+import { selector as headerVisibilitySelector } from "@/redux/features/headerVisibility/headerVisibilitySlice";
+import { selector as searchbarsSelector } from "@/redux/features/searchbars/searchbarsSlice";
 
 export default function Logo() {
   const { darkMode } = useAppContext();
-  const { isHeaderMinimized } = useHeaderVisibilityContext();
-  const { currentSearchBarCount } = useSearchBarContext();
+  const { isHeaderMinimized } = useSelector(headerVisibilitySelector);
+  const { currentSearchBarCount } = useSelector(searchbarsSelector);
   return (
     <Link
       href="/"

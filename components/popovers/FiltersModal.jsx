@@ -1,11 +1,17 @@
+import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { useFilterContext } from "@/contexts/FilterContext";
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selector as filtersSelector,
+  reducers as filtersReducers,
+} from "@/redux/features/filters/filtersSlice";
 
 export default function FiltersModal() {
-  const {
-    Price: { isFilterOn, setFilter },
-  } = useFilterContext();
+  const pathName = usePathname();
+  const { isFilterOn } = useSelector(filtersSelector);
+  const dispatch = useDispatch();
+  const { setFilter } = filtersReducers;
   return (
     <motion.div
       initial={{ x: -50, opacity: 0 }}
@@ -19,7 +25,14 @@ export default function FiltersModal() {
           id="priceFilter"
           value="price"
           checked={isFilterOn}
-          onChange={(e) => setFilter(e.target.checked)}
+          onChange={(e) =>
+            dispatch(
+              setFilter({
+                value: e.target.checked,
+                shouldScrollToTop: pathName === "/search",
+              })
+            )
+          }
         />
         <label
           htmlFor="priceFilter"

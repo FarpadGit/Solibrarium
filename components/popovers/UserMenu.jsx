@@ -10,13 +10,18 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
+import { useDispatch } from "react-redux";
+import { reducers as modalsReducers } from "@/redux/features/modals/modalsSlice";
+
 const swingDuration = 1000;
 
 export default function UserMenu() {
-  const { getRememberMe, deleteRememberMe, openConfirmModal, logOutUser } =
-    useAppContext();
+  const { getRememberMe, deleteRememberMe, logOutUser } = useAppContext();
   const [openDropdown, setOpenDropdown] = useState(false);
   const [lanyardSwing, setLanyardSwing] = useState(false);
+  const dispatch = useDispatch();
+  const { openConfirmModal } = modalsReducers;
+
   const router = useRouter();
   const rememberMe = getRememberMe();
 
@@ -70,7 +75,7 @@ export default function UserMenu() {
               <MenuItem
                 label="Fiók törlése"
                 click={() => {
-                  openConfirmModal();
+                  dispatch(openConfirmModal());
                 }}
               />
               <MenuItem

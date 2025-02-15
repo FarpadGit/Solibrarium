@@ -1,14 +1,13 @@
 ﻿import Image from "next/image";
 import Link from "next/link";
-import { useFilterContext } from "@/contexts/FilterContext";
 import AddToCartButton from "@/components/ui/AddToCartButton";
 import { CurrencyFormatter } from "@/utils/CurrencyFormatter";
 import { getPlaceholderDataURL } from "@/utils/DataURL";
+import { useSelector } from "react-redux";
+import { selector as filtersSelector } from "@/redux/features/filters/filtersSlice";
 
 export default function BookCard({ book }) {
-  const {
-    Price: { isFilterOn },
-  } = useFilterContext();
+  const { isFilterOn } = useSelector(filtersSelector);
 
   if (!book) return;
   if (isFilterOn && !book.price) return;

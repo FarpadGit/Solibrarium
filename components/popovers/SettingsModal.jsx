@@ -1,13 +1,14 @@
 import { useId, useRef } from "react";
-import { useSearchBarContext } from "@/contexts/SearchBarContext";
 import SettingOption from "@/components/popovers/SettingOption";
 import { SearchENUM } from "@/utils/SearchENUM";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { selector as searchbarsSelector } from "@/redux/features/searchbars/searchbarsSlice";
 
 export default function SettingsModal({ settingSetter: setType, initialType }) {
   const id = useId();
-  const { hasSearchBarWithType } = useSearchBarContext();
   const types = Object.values(SearchENUM);
+  const { hasSearchBarWithType } = useSelector(searchbarsSelector);
 
   const activeTooltipRef = useRef();
   return (

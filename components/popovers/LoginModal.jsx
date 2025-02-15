@@ -1,7 +1,11 @@
 "use client";
 
-import { useAppContext } from "@/contexts/AppContext";
 import LoginForm from "@/components/forms/LoginForm";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selector as modalsSelector,
+  reducers as modalsReducers,
+} from "@/redux/features/modals/modalsSlice";
 import dynamic from "next/dynamic";
 const TEModal = dynamic(
   () => import("tw-elements-react").then((res) => res.TEModal),
@@ -21,9 +25,13 @@ const TEModalBody = dynamic(
 );
 
 export default function LoginModal() {
-  const { isLoginOpen, openLoginModal, closeLoginModal } = useAppContext();
+  const { isLoginOpen } = useSelector(modalsSelector);
+  const dispatch = useDispatch();
+  const { openLoginModal, closeLoginModal } = modalsReducers;
+
   const setShowLoginModal = (show) =>
-    show ? openLoginModal() : closeLoginModal();
+    show ? dispatch(openLoginModal()) : dispatch(closeLoginModal());
+
   return (
     <div className="modal">
       <TEModal show={isLoginOpen} setShow={setShowLoginModal}>
@@ -34,12 +42,12 @@ export default function LoginModal() {
                 <button
                   type="button"
                   className="box-content rounded-[25%] border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none self-end pt-5 pr-5"
-                  onClick={() => closeLoginModal()}
+                  onClick={() => dispatch(closeLoginModal())}
                   aria-label="Close"
                 >
                   {"\u2717"}
                 </button>
-                <LoginForm onDismiss={() => closeLoginModal()} />
+                <LoginForm onDismiss={() => dispatch(closeLoginModal())} />
               </div>
             </TEModalBody>
           </TEModalContent>

@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { useSearchContext } from "@/contexts/SearchContext";
-import { useHeaderVisibilityContext } from "@/contexts/HeaderVisibilityContext";
-import { useSearchBarContext } from "@/contexts/SearchBarContext";
 import {
   Popover,
   PopoverContent,
@@ -15,81 +12,113 @@ import {
 import { useDebounce } from "@/hooks/ThrottleDebounce";
 import { SearchENUM, SearchType } from "@/utils/SearchENUM";
 import { useIsPresent, motion, AnimatePresence } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selector as searchSelector,
+  reducers as searchReducers,
+} from "@/redux/features/search/searchSlice";
+import {
+  selector as headerVisibilitySelector,
+  reducers as headerVisibilityReducers,
+} from "@/redux/features/headerVisibility/headerVisibilitySlice";
+import { reducers as searchbarsReducers } from "@/redux/features/searchbars/searchbarsSlice";
+import { executeSearch } from "@/redux/features/search/searchAsync";
+import { abortSend } from "@/utils/FetchRequest";
+
 const SettingsModal = dynamic(
   () =>
     import("@/components/popovers/SettingsModal").then((res) => res.default),
   { ssr: false }
 );
 
+const debounceDuration = 1000;
+
 export default function SearchBar({ id, type: initialType, click }) {
   const [type, setType] = useState(initialType);
   const [searchText, setSearchText] = useState("");
-  useDebounce(
-    () => {
-      if (!(pathName !== "/search" && searchText === ""))
-        sendSearch(searchText);
-    },
-    1000,
-    [searchText]
-  );
-  const {
-    SearchCriteria: {
-      setTitleSearch,
-      setAuthorSearch,
-      setPublisherSearch,
-      setSubjectSearch,
-      setExcludingSearch,
-      setISBNSearch,
-      shouldClearSearch,
-    },
-    SearchResults: { isLoading, resetPagination },
-  } = useSearchContext();
-  const { canHeaderExpand, isHeaderMinimized, toggleHeader, lockHeader } =
-    useHeaderVisibilityContext();
-  const { replaceSearchBarType } = useSearchBarContext();
 
-  const Setters = {
-    [SearchENUM.title]: setTitleSearch,
-    [SearchENUM.author]: setAuthorSearch,
-    [SearchENUM.publisher]: setPublisherSearch,
-    [SearchENUM.subject]: setSubjectSearch,
-    [SearchENUM.isbn]: setISBNSearch,
-    [SearchENUM.excluding]: setExcludingSearch,
-  };
+  const {
+    isLoading,
+    inTitle,
+    inAuthor,
+    inPublisher,
+    subject,
+    excluding,
+    isbn,
+  } = useSelector(searchSelector);
+  const { canHeaderExpand, isHeaderMinimized } = useSelector(
+    headerVisibilitySelector
+  );
+  const dispatch = useDispatch();
+  const { setSearchValue, resetPagination } = searchReducers;
+  const { toggleHeader, lockHeader } = headerVisibilityReducers;
+  const { replaceSearchBarType } = searchbarsReducers;
 
   const router = useRouter();
   const pathName = usePathname();
   const isPresent = useIsPresent();
+
+  useDebounce(
+    () => {
+      if (!(pathName !== "/search" && searchText === ""))
+        sendSearch(type, searchText);
+    },
+    debounceDuration,
+    [searchText]
+  );
 
   useEffect(() => {
     if (!isPresent && searchText !== "") clearSearch();
   }, [isPresent]);
 
   useEffect(() => {
-    setSearchText("");
-  }, [shouldClearSearch]);
+    switch (type) {
+      case SearchENUM.title:
+        if (inTitle !== searchText) setSearchText(inTitle);
+        break;
+      case SearchENUM.author:
+        if (inAuthor !== searchText) setSearchText(inAuthor);
+        break;
+      case SearchENUM.publisher:
+        if (inPublisher !== searchText) setSearchText(inPublisher);
+        break;
+      case SearchENUM.subject:
+        if (subject !== searchText) setSearchText(subject);
+        break;
+      case SearchENUM.excluding:
+        if (excluding !== searchText) setSearchText(excluding);
+        break;
+      case SearchENUM.isbn:
+        if (isbn !== searchText) setSearchText(isbn);
+        break;
+      default:
+        break;
+    }
+  }, [inTitle, inAuthor, inPublisher, subject, excluding, isbn]);
 
   function clearSearch() {
     setSearchText("");
+    if (isLoading) abortSend();
   }
 
   function SetType(newType) {
-    Setters[type]("");
+    dispatch(setSearchValue({ type, newValue: "" }));
     setType(newType);
-    replaceSearchBarType(id, newType);
-    if (searchText !== "") sendSearch(searchText, newType);
+    dispatch(replaceSearchBarType({ id, newType }));
+    if (searchText !== "") sendSearch(newType, searchText);
   }
 
-  function sendSearch(val, _type = type) {
+  function sendSearch(type, value) {
     if (pathName !== "/search") router.push("/search");
     else if (window.scrollY !== 0) {
       // when scrolling to the top don't let the header minimize. The scroll handling hook will automatically unlock it when it gets to the top
-      lockHeader();
+      dispatch(lockHeader());
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
-    resetPagination();
-    const safeSearchValue = val.replace(/\s/g, "+");
-    Setters[_type](safeSearchValue);
+    dispatch(resetPagination());
+    const safeSearchValue = value.replace(/\s/g, "+");
+    dispatch(setSearchValue({ type, newValue: safeSearchValue }));
+    dispatch(executeSearch({ isOnSearchPage: pathName === "/search" }));
   }
 
   function handleClick() {
@@ -98,7 +127,7 @@ export default function SearchBar({ id, type: initialType, click }) {
 
   function handleRightClick(e) {
     e.preventDefault();
-    toggleHeader();
+    dispatch(toggleHeader());
   }
 
   return (

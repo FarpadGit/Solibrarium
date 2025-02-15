@@ -1,6 +1,7 @@
 //import "tw-elements-react/dist/css/tw-elements-react.min.css";
 import "@/styles/globals.css";
 import AppContext from "@/contexts/AppContext";
+import ShoppingCartContext from "@/contexts/ShoppingCartContext";
 import SessionProvider from "@/contexts/SessionProvider";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/Footer";
@@ -15,6 +16,7 @@ const ConfirmModal = dynamic(
 );
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
+import ReduxProvider from "@/redux/ReduxProvider";
 
 export const metadata = {
   title: "Solibrarium",
@@ -28,18 +30,22 @@ export default async function RootLayout({ children }) {
       <body>
         <div className="global_background_image"></div>
         <SessionProvider session={session}>
-          <AppContext>
-            <Header />
-            <main className="app">
-              <div className="app_backdrop">
-                <div className="gradient" />
-              </div>
-              <LoginModal />
-              <ConfirmModal />
-              {children}
-            </main>
-            <Footer />
-          </AppContext>
+          <ReduxProvider>
+            <AppContext>
+              <ShoppingCartContext>
+                <Header />
+                <main className="app">
+                  <div className="app_backdrop">
+                    <div className="gradient" />
+                  </div>
+                  <LoginModal />
+                  <ConfirmModal />
+                  {children}
+                </main>
+                <Footer />
+              </ShoppingCartContext>
+            </AppContext>
+          </ReduxProvider>
         </SessionProvider>
       </body>
     </html>

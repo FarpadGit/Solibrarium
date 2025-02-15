@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchContext } from "@/contexts/SearchContext";
 import { SearchENUM } from "@/utils/SearchENUM";
+import { useDispatch } from "react-redux";
+import { reducers as searchReducers } from "@/redux/features/search/searchSlice";
+import { executeSearch } from "@/redux/features/search/searchAsync";
 
 export default function QuickLinks() {
   return (
@@ -20,17 +22,18 @@ export default function QuickLinks() {
 }
 
 function QuickLink({ children, target }) {
-  const {
-    SearchCriteria: { setSubjectSearch, setTransientSearch },
-  } = useSearchContext();
-  function searchCategory(value) {
-    setSubjectSearch(value);
-    setTransientSearch({ [SearchENUM.subject]: true });
+  const dispatch = useDispatch();
+  const { setSearchValue, setTransientSearch } = searchReducers;
+
+  function searchSubject(value) {
+    dispatch(setSearchValue({ type: SearchENUM.subject, newValue: value }));
+    dispatch(setTransientSearch({ [SearchENUM.subject]: true }));
+    dispatch(executeSearch());
   }
   return (
     <Link
       href="/search"
-      onClick={() => searchCategory(target)}
+      onClick={() => searchSubject(target)}
       className="border-b-2 border-b-transparent hover:border-b-green focus-visible:border-b-green focus-visible:outline-none hover:cursor-pointer whitespace-nowrap text-sm md:text-base"
     >
       {children}

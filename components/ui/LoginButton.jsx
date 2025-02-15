@@ -3,17 +3,19 @@
 import { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useAppContext } from "@/contexts/AppContext";
 import { useSession } from "next-auth/react";
 const UserMenu = dynamic(
   () => import("@/components/popovers/UserMenu").then((res) => res.default),
   { ssr: false }
 );
+import { useDispatch } from "react-redux";
+import { reducers as modalsReducers } from "@/redux/features/modals/modalsSlice";
 
 export default function LoginButton() {
   const [animate, setAnimate] = useState(false);
   const { data: session } = useSession();
-  const { openLoginModal } = useAppContext();
+  const dispatch = useDispatch();
+  const { openLoginModal } = modalsReducers;
 
   setRememberMe(session?.rememberMe);
   return (
@@ -25,7 +27,7 @@ export default function LoginButton() {
             className="login_btn header_btn_base"
             onClick={() => setAnimate(true)}
             onAnimationEnd={() => {
-              openLoginModal();
+              dispatch(openLoginModal());
               setAnimate(false);
             }}
             pushed={animate ? "" : undefined}

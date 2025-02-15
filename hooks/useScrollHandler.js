@@ -1,26 +1,36 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useHeaderVisibilityContext } from "@/contexts/HeaderVisibilityContext";
 import { useThrottle } from "@/hooks/ThrottleDebounce";
+import { useSelector, useDispatch } from "react-redux";
+import { 
+  selector as headerVisibilitySelector, 
+  reducers as headerVisibilityReducers, 
+  headerCollapseAnimationDuration 
+} from "@/redux/features/headerVisibility/headerVisibilitySlice";
+
+const minScrollingDelta = 3;
 
 //hook for resizing the header appropriately when the user scrolls
 export function useScrollHandler(headerRef) {
-  const { isHeaderMinimized, minimizeHeader, maximizeHeader } =
-    useHeaderVisibilityContext();
+  const { isHeaderMinimized, canHandleScroll } = useSelector(headerVisibilitySelector);
+  const dispatch = useDispatch();
+  const { minimizeHeader, maximizeHeader, lockHeader, unlockHeader } = headerVisibilityReducers;
+
   const prevScrollY = useRef(0);
   const scrollBlockTimer = useRef(0);
-  const { canHandleScroll, lockHeader, unlockHeader } = useHeaderVisibilityContext();
+  
+  const throttledScroll = useThrottle(() => {
+      if (window.scrollY === 0) dispatch(maximizeHeader());
+      else if(Math.abs(prevScrollY.current - window.scrollY) > minScrollingDelta) dispatch(minimizeHeader());
+      prevScrollY.current = window.scrollY;
+    }, 300);
 
   const handleScroll = () => {
-    if(window.scrollY === 0) unlockHeader();
-    if (!canHandleScroll.current) return;
-    const throttledScroll = useThrottle(() => {
-      if (window.scrollY === 0) maximizeHeader();
-      else if(Math.abs(prevScrollY.current - window.scrollY) > 3) minimizeHeader();
-    }, 300);
-    throttledScroll();
-    prevScrollY.current = window.scrollY;
+    if(window.scrollY === 0) dispatch(unlockHeader());
+    if (canHandleScroll) {
+      throttledScroll();
+    } else prevScrollY.current = window.scrollY;
   };  
 
   useEffect(() => {
@@ -42,11 +52,11 @@ export function useScrollHandler(headerRef) {
 
   //ignore listening to scrolling for 0.5 seconds (the length of animation) after header size changed
   useEffect(() => {
-    lockHeader();
+    dispatch(lockHeader());
     clearTimeout(scrollBlockTimer.current);
     scrollBlockTimer.current = setTimeout(
-      () => unlockHeader(),
-      500
+      () => dispatch(unlockHeader()),
+      headerCollapseAnimationDuration
     );
     return () => clearTimeout(scrollBlockTimer.current);
   }, [isHeaderMinimized]);

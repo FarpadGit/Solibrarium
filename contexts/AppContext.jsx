@@ -2,11 +2,6 @@
 
 import { useContext, createContext, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import HeaderVisibilityContext from "@/contexts/HeaderVisibilityContext";
-import FilterContext from "@/contexts/FilterContext";
-import SearchBarContext from "@/contexts/SearchBarContext";
-import SearchContext from "@/contexts/SearchContext";
-import ShoppingCartContext from "@/contexts/ShoppingCartContext";
 import useDarkMode from "@/hooks/useDarkMode";
 import { send } from "@/utils/FetchRequest";
 import { signOut, useSession } from "next-auth/react";
@@ -16,15 +11,7 @@ export const useAppContext = () => useContext(appContext);
 
 export default ({ children }) => {
   const [darkMode, setDarkMode] = useDarkMode();
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
-  const [showCollapsedButtons, setShowCollapsedButtons] = useState(false);
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
-  const openLoginModal = () => setShowLoginModal(true);
-  const closeLoginModal = () => setShowLoginModal(false);
-  const openConfirmModal = () => setShowConfirmModal(true);
-  const closeConfirmModal = () => setShowConfirmModal(false);
-  const toggleCollapsedButtons = () => setShowCollapsedButtons((prev) => !prev);
   const { data: session } = useSession();
   const router = useRouter();
   const pathName = usePathname();
@@ -64,29 +51,13 @@ export default ({ children }) => {
       value={{
         darkMode,
         toggleDarkMode,
-        isLoginOpen: showLoginModal,
-        openLoginModal,
-        closeLoginModal,
-        isConfirmOpen: showConfirmModal,
-        openConfirmModal,
-        closeConfirmModal,
-        areButtonsCollapsed: showCollapsedButtons,
-        toggleCollapsedButtons,
         logOutUser,
         deleteUser,
         getRememberMe,
         deleteRememberMe,
       }}
     >
-      <HeaderVisibilityContext>
-        <SearchBarContext>
-          <FilterContext>
-            <SearchContext>
-              <ShoppingCartContext>{children}</ShoppingCartContext>
-            </SearchContext>
-          </FilterContext>
-        </SearchBarContext>
-      </HeaderVisibilityContext>
+      {children}
     </appContext.Provider>
   );
 };

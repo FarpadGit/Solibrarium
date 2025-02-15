@@ -1,16 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchContext } from "@/contexts/SearchContext";
 import { SearchENUM } from "@/utils/SearchENUM";
+import { useDispatch } from "react-redux";
+import { reducers as searchReducers } from "@/redux/features/search/searchSlice";
+import { executeSearch } from "@/redux/features/search/searchAsync";
 
 export default function CategoryLinks({ categories }) {
-  const {
-    SearchCriteria: { setSubjectSearch, setTransientSearch },
-  } = useSearchContext();
-  function searchCategory(value) {
-    setSubjectSearch(value);
-    setTransientSearch({ [SearchENUM.subject]: true });
+  const dispatch = useDispatch();
+  const { setSearchValue, setTransientSearch } = searchReducers;
+
+  function searchSubject(value) {
+    dispatch(setSearchValue({ type: SearchENUM.subject, newValue: value }));
+    dispatch(setTransientSearch({ [SearchENUM.subject]: true }));
+    dispatch(executeSearch());
   }
   return (
     <>
@@ -18,7 +21,7 @@ export default function CategoryLinks({ categories }) {
         <p key={category}>
           <Link
             href="/search"
-            onClick={() => searchCategory(category)}
+            onClick={() => searchSubject(category)}
             className="hover:underline"
           >
             {category}

@@ -1,6 +1,11 @@
 "use client";
 
 import { useAppContext } from "@/contexts/AppContext";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selector as modalsSelector,
+  reducers as modalsReducers,
+} from "@/redux/features/modals/modalsSlice";
 import dynamic from "next/dynamic";
 const TEModal = dynamic(
   () => import("tw-elements-react").then((res) => res.TEModal),
@@ -24,10 +29,14 @@ const TEModalBody = dynamic(
 );
 
 export default function ConfirmModal() {
-  const { isConfirmOpen, openConfirmModal, closeConfirmModal, deleteUser } =
-    useAppContext();
+  const { deleteUser } = useAppContext();
+  const { isConfirmOpen } = useSelector(modalsSelector);
+  const dispatch = useDispatch();
+  const { openConfirmModal, closeConfirmModal } = modalsReducers;
+
   const setShowConfirmModal = (show) =>
-    show ? openConfirmModal() : closeConfirmModal();
+    show ? dispatch(openConfirmModal()) : dispatch(closeConfirmModal());
+
   return (
     <div className="modal">
       <TEModal show={isConfirmOpen} setShow={setShowConfirmModal}>
@@ -40,7 +49,7 @@ export default function ConfirmModal() {
               <button
                 type="button"
                 className="absolute top-0 right-0 box-content rounded-[25%] border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none self-end pt-5 pr-5"
-                onClick={() => closeConfirmModal()}
+                onClick={() => dispatch(closeConfirmModal())}
                 aria-label="Close"
               >
                 {"\u2717"}
@@ -58,14 +67,14 @@ export default function ConfirmModal() {
                     className="text-amaranth hover:text-lightred"
                     onClick={() => {
                       deleteUser();
-                      closeConfirmModal();
+                      dispatch(closeConfirmModal());
                     }}
                   >
                     Törlés
                   </button>
                   <button
                     className="hover:opacity-75"
-                    onClick={() => closeConfirmModal()}
+                    onClick={() => dispatch(closeConfirmModal())}
                   >
                     Mégse
                   </button>

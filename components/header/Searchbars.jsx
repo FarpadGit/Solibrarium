@@ -1,27 +1,26 @@
 import { useRef } from "react";
-import { useHeaderVisibilityContext } from "@/contexts/HeaderVisibilityContext";
-import { useSearchBarContext } from "@/contexts/SearchBarContext";
 import FilterButton from "@/components/header/FilterButton";
 import SearchBar from "@/components/ui/SearchBar";
 import { SearchENUM } from "@/utils/SearchENUM";
 import { AnimatePresence } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selector as headerVisibilitySelector,
+  reducers as headerVisibilityReducers,
+} from "@/redux/features/headerVisibility/headerVisibilitySlice";
+import {
+  selector as searchbarsSelector,
+  reducers as searchbarsReducers,
+} from "@/redux/features/searchbars/searchbarsSlice";
 
 export default function Searchbars() {
-  const {
-    capSearchbars,
-    uncapSearchbars,
-    isHeaderMinimized,
-    maximizeHeader,
-    toggleHeader,
-  } = useHeaderVisibilityContext();
-
-  const {
-    addSearchBar,
-    removeSearchBar,
-    currentSearchBarCount,
-    searchBarArray,
-    hasSearchBarWithType,
-  } = useSearchBarContext();
+  const { isHeaderMinimized } = useSelector(headerVisibilitySelector);
+  const { currentSearchBarCount, searchBarArray, hasSearchBarWithType } =
+    useSelector(searchbarsSelector);
+  const dispatch = useDispatch();
+  const { capSearchbars, uncapSearchbars, maximizeHeader, toggleHeader } =
+    headerVisibilityReducers;
+  const { addSearchBar, removeSearchBar } = searchbarsReducers;
 
   const searchBarId = useRef(1);
   const defaultSearchBarOrder = [
@@ -35,24 +34,25 @@ export default function Searchbars() {
 
   function addBar() {
     if (currentSearchBarCount >= 4) {
-      toggleHeader();
+      dispatch(toggleHeader());
       return;
     }
 
-    maximizeHeader();
-    if (currentSearchBarCount >= 3) capSearchbars();
+    dispatch(maximizeHeader());
+    if (currentSearchBarCount >= 3) dispatch(capSearchbars());
 
     const newSearchbarType = defaultSearchBarOrder.find(
       (searchbarType) => !hasSearchBarWithType(searchbarType)
     );
+
     const newSearchbar = { id: searchBarId.current, type: newSearchbarType };
-    addSearchBar(newSearchbar);
+    dispatch(addSearchBar(newSearchbar));
     searchBarId.current++;
   }
 
   function removeBar(barId) {
-    removeSearchBar(barId);
-    uncapSearchbars();
+    dispatch(removeSearchBar(barId));
+    dispatch(uncapSearchbars());
   }
   return (
     <div
