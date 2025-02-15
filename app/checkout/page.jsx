@@ -30,7 +30,7 @@ export default function Checkout() {
   }, [totalPrice]);
 
   async function handleConfirm() {
-    if (!session.user) router.push("/login");
+    if (!session?.user) router.push("/login");
     else {
       //in case the user tempers with the inputs
       const correctedDiscount = Math.min(session.user.loyaltyPoints, discount);
