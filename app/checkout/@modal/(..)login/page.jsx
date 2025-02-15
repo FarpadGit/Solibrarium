@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import LoginForm from "@/components/forms/LoginForm";
@@ -23,9 +23,17 @@ const TEModalBody = dynamic(
 
 export default function Login() {
   const [show, setShow] = useState(true);
+  const shouldGoBack = useRef(true);
   const router = useRouter();
+
   return (
-    <TEModal show={show} setShow={setShow} onHide={() => router.back()}>
+    <TEModal
+      show={show}
+      setShow={setShow}
+      onHide={() => {
+        if (shouldGoBack.current) router.back();
+      }}
+    >
       <TEModalDialog theme={{ sizeDefault: "min-[576px]:max-w-[300px]" }}>
         <TEModalContent>
           <TEModalBody>
@@ -45,6 +53,7 @@ export default function Login() {
                 title="A tovább lépéshez be kell jelentkezned!"
                 onDismiss={() => {
                   setShow(false);
+                  shouldGoBack.current = false;
                 }}
                 redirectURL="/checkout"
               />
