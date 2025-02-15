@@ -11,7 +11,7 @@ export default function BannerCard({ bannerBook, bannerBackground }) {
       backgroundImage={bannerBackground}
       href={`/details/${bannerBook.id}`}
     >
-      <div className="relative flex flex-col w-full sm:w-2/3 items-center z-10">
+      <div className="relative flex flex-col w-full sm:w-2/3 items-center">
         <p className="text-xs md:text-base text-center">Most Érkezett</p>
         <h2 className="text-base md:text-xl lg:text-3xl text-center line-clamp-2">
           {bannerBook.title}
