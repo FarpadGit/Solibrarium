@@ -124,13 +124,13 @@
     background-image: url("/decor/lanyard.png");
     background-repeat: no-repeat;
     background-size: 70px 175px;
-    transition: rotate 1s;
+    transition: rotate var(--swingDuration);
     transform-origin: 50% 0%;
     z-index: -1;
 }
 
-.swing {
-    animation: swing 1s ease-in-out;
+.lanyard.swing {
+    animation: swing var(--swingDuration) ease-in-out;
 }
 
 @keyframes swing {

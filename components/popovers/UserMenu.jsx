@@ -10,6 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/Popover";
+const swingDuration = 1000;
 
 export default function UserMenu() {
   const { getRememberMe, deleteRememberMe, openConfirmModal, logOutUser } =
@@ -88,12 +89,12 @@ export default function UserMenu() {
             width={200}
             height={175}
             onMouseEnter={() => {
-              if (!lanyardSwing) {
-                setLanyardSwing(true);
-                setTimeout(() => setLanyardSwing(false), 1200);
-              }
+              if (lanyardSwing) return;
+              setLanyardSwing(true);
+              setTimeout(() => setLanyardSwing(false), swingDuration + 100);
             }}
             className={`lanyard${lanyardSwing ? " swing" : ""}`}
+            style={{ "--swingDuration": swingDuration + "ms" }}
           ></Image>
         </div>
       </PopoverContent>

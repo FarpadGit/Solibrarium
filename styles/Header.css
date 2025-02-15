@@ -8,7 +8,7 @@
     padding-right: 1.0rem;
     padding-top: 0.75rem;
     transition-property: max-height;
-    transition-duration: 500ms;
+    transition-duration: var(--headerCollapseAnimationDuration);
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     background-image: var(--header-fallback-gradient);
     z-index: 10;
