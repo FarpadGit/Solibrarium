@@ -27,16 +27,16 @@ export function useLocalStorage(key, initialValue) {
 
   //useEffects are client side only, which means now we can read from Local Storage
   useEffect(() => {
-    isInitialized.current = true;
-    setValue(getAppropriateValue());
-  }, []);
-
-  useEffect(() => {
-    const invalid = !key || value === null || value === undefined;
-    if (isInitialized.current && !invalid)
-      localStorage.setItem(key, JSON.stringify(value));
+    if(!isInitialized.current){
+      isInitialized.current = true;
+      setValue(getAppropriateValue);
+      return;
+    }
+    
+    const invalid = !key || value == null || value == undefined;
+    if (!invalid) localStorage.setItem(key, JSON.stringify(value));
     if (value === undefined && key) localStorage.removeItem(key);
-  }, [key, value]);
+  }, [value]);
 
   return [value, setValue];
 }
