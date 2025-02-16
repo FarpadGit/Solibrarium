@@ -66,7 +66,10 @@ export default function Checkout() {
     <div className="flex flex-col gap-5 w-full mb-[3.6rem]">
       <div className="flex justify-between">
         <p className="font-semibold text-[1.1rem]">Kosaram</p>
-        <p className="text-sm">Összesen: {CurrencyFormatter(totalPrice)}</p>
+        <p className="text-sm">
+          Összesen:{" "}
+          <span className="font-bold">{CurrencyFormatter(totalPrice)}</span>
+        </p>
       </div>
       <div className="grid grid-cols-1 gap-2">
         <AnimatePresence>
@@ -80,7 +83,7 @@ export default function Checkout() {
           ))}
         </AnimatePresence>
         <a
-          className="justify-self-end cursor-pointer hover:underline"
+          className="justify-self-end cursor-pointer font-bold hover:underline"
           onClick={() => emptyCart()}
         >
           Teljes kosár törlése

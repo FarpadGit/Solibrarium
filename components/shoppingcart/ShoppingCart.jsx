@@ -33,7 +33,7 @@ export function ShoppingCart() {
             </div>
             <SheetClose asChild>
               <button
-                className="pill_btn_base green_btn my-4 text-base"
+                className="pill_btn_base green_btn my-4 mx-8 text-base"
                 onClick={() => router.push("/checkout")}
               >
                 Tovább a kasszához

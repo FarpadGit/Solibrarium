@@ -48,7 +48,11 @@ export function CartItem({
       </CloseWrapper>
       <div className="grid mr-2 w-full">
         <div className="flex gap-2 max-h-[50px] items-start">
-          <div className="flex flex-col gap-2 text-justify grow">
+          <div
+            className={`flex flex-col gap-2 text-justify ${
+              outsideCart ? "" : "max-w-[65%]"
+            } grow`}
+          >
             <p className="author_text text-xs line-clamp-2">{author}</p>
             <CloseWrapper wrap={!outsideCart}>
               <Link href={`/details/${id}`}>
@@ -58,7 +62,7 @@ export function CartItem({
               </Link>
             </CloseWrapper>
           </div>
-          <div className="flex gap-3 self-center items-center px-2">
+          <div className="flex gap-3 self-end items-center px-2 pb-[5px]">
             <a
               className="remove_link hidden text-xs cursor-pointer hover:underline"
               onClick={() => removeFromCart(id)}

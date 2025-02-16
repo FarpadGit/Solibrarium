@@ -22,6 +22,11 @@
   src: local("Source Sans Pro"), url("../public/fonts/SourceSansPro-Regular.ttf");
 }
 
+@font-face {
+  font-family: CartoGothic;
+  src: local("Source Sans Pro"), url("../public/fonts/CartoGothicStd-Book.otf");
+}
+
 :root {
   overflow-x: hidden;
   font-family: Source Sans Pro;
@@ -195,6 +200,7 @@
 }
 
 .ShoppingCart {
+  font-family: CartoGothic;
   background-color: #fff5;
   backdrop-filter: blur(16px);
   transition-property: all;
