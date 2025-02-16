@@ -6,12 +6,12 @@ const resultsPerPage = 10;
 //Puts together a search query string for the server API
 function getSearchQueryForServer(state) {
     return [
-        state.inTitle === "" ? "" : `inTitle=${state.inTitle}`,
-        state.inAuthor === "" ? "" : `inAuthor=${state.inAuthor}`,
-        state.inPublisher === "" ? "" : `inPublisher=${state.inPublisher}`,
-        state.subject === "" ? "" : `subject=${state.subject}`,
-        state.excluding === "" ? "" : `excluding=${state.excluding}`,
-        state.isbn === "" ? "" : `isbn=${state.isbn}`,
+        state.inTitle === "" ? "" : `inTitle=${state.inTitle.replace(/\s/g, "+")}`,
+        state.inAuthor === "" ? "" : `inAuthor=${state.inAuthor.replace(/\s/g, "+")}`,
+        state.inPublisher === "" ? "" : `inPublisher=${state.inPublisher.replace(/\s/g, "+")}`,
+        state.subject === "" ? "" : `subject=${state.subject.replace(/\s/g, "+")}`,
+        state.excluding === "" ? "" : `excluding=${state.excluding.replace(/\s/g, "+")}`,
+        state.isbn === "" ? "" : `isbn=${state.isbn.replace(/\s/g, "+")}`,
       `page=${state.pageOffset}`,
     ]
       .filter((i) => i !== "")

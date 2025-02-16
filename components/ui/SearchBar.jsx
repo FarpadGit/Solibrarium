@@ -60,8 +60,8 @@ export default function SearchBar({ id, type: initialType, click }) {
 
   useDebounce(
     () => {
-      if (!(pathName !== "/search" && searchText === ""))
-        sendSearch(type, searchText);
+      if (pathName !== "/search" && searchText === "") return;
+      sendSearch(type, searchText);
     },
     debounceDuration,
     [searchText]
@@ -116,8 +116,7 @@ export default function SearchBar({ id, type: initialType, click }) {
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     }
     dispatch(resetPagination());
-    const safeSearchValue = value.replace(/\s/g, "+");
-    dispatch(setSearchValue({ type, newValue: safeSearchValue }));
+    dispatch(setSearchValue({ type, newValue: value }));
     dispatch(executeSearch({ isOnSearchPage: pathName === "/search" }));
   }
 
