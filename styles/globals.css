@@ -238,10 +238,14 @@
   filter: invert(81%) sepia(59%) saturate(2778%) hue-rotate(34deg) brightness(98%) contrast(83%);
 }
 
-.scroll_on_hover:hover {
-  overflow-y: scroll;
+.scroll_on_hover {
+  scrollbar-gutter: stable both-edges;
   scrollbar-width: thin;
   scrollbar-color: var(--foreground-color) transparent;
+}
+
+.scroll_on_hover:hover {
+  overflow-y: scroll;
   line-clamp: none;
   -webkit-line-clamp: none;
 }
