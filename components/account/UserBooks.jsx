@@ -10,14 +10,17 @@ import { useSession } from "next-auth/react";
 
 const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
   const [userBooks, setUserBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const screenSize = useMediaQuery();
   const { data: session } = useSession();
 
   useEffect(() => {
     if (session) {
+      setIsLoading(true);
       send(`/api/users/${session.user.id}/collection`).then((body) => {
         if (!body.error) setUserBooks(body);
       });
+      setIsLoading(false);
     } else setUserBooks([]);
   }, []);
 
@@ -54,7 +57,7 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
       {userBooksByShelf.length === 0 ? (
         <div key={`bookshelf0`} className="relative">
           <p className="absolute top-[15%] left-1/2 -translate-x-1/2">
-            Könyvespolcod még üres
+            {isLoading ? "Könyveid lekérdezése..." : "Könyvespolcod még üres"}
           </p>
           <Image
             src="/decor/bookshelf.png"
