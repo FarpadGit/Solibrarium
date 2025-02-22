@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import LoginForm from "@/components/forms/LoginForm";
@@ -24,13 +24,19 @@ const TEModalBody = dynamic(
 export default function Login() {
   const [show, setShow] = useState(true);
   const router = useRouter();
+  // mostly to guard against react strict mode so I dont't have to turn it off in dev :|
+  const ranOnce = useRef(false);
 
   return (
     <TEModal
       show={show}
       setShow={setShow}
       onHide={() => {
-        router.back();
+        if (!ranOnce.current) {
+          // use back instead of push/replace to unmount component and reset properties
+          router.back();
+          ranOnce.current = true;
+        }
       }}
     >
       <TEModalDialog theme={{ sizeDefault: "min-[576px]:max-w-[300px]" }}>
@@ -45,6 +51,7 @@ export default function Login() {
                 }}
                 aria-label="Close"
               >
+                {/* X button */}
                 {"\u2717"}
               </button>
               <LoginForm
