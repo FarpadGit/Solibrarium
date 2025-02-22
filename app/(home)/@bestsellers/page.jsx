@@ -32,7 +32,7 @@ export default async function BestSellers() {
           bannerBook={bannerBooks[0]}
           bannerBackground={getRandomBackgroundImage()}
         />
-        <div className="flex w-full gap-5">
+        <div className="flex flex-col sm:flex-row w-full gap-5">
           <BannerCard
             bannerBook={bannerBooks[1]}
             bannerBackground={getRandomBackgroundImage()}

@@ -67,18 +67,20 @@ export default function BookReviewCard({ user, bookDetails, close }) {
       </button>
       <form onSubmit={handleSubmit}>
         <div className="flex justify-center self-start">
-          <div className="flex gap-5 pt-4 pb-2">
+          <div className="flex w-10/12 gap-5 pt-4 pb-2">
             <Image
               src={bookDetails.image}
               alt="book cover"
               placeholder={getPlaceholderDataURL()}
               width={screenSize >= ScreenENUM.XL ? 150 : 100}
               height={screenSize >= ScreenENUM.XL ? 225 : 150}
-              className="outline outline-1 outline-transparent min-w-[100px] min-h-[150px] xl:min-w-[150px] xl:min-h-[225px]"
+              className="outline outline-1 outline-transparent min-w-[100px] h-[150px] xl:min-w-[150px] xl:min-h-[225px]"
             />
-            <div className="flex flex-col gap-2 items-center text-center">
+            <div className="flex flex-col gap-2 items-center text-center w-full">
               <div className="text-sm py-0.5">{bookDetails.author}</div>
-              <div className="text-3xl">{bookDetails.title}</div>
+              <div className="text-3xl line-clamp-3 scroll_on_hover h-[6.75rem]">
+                {bookDetails.title}
+              </div>
               {bookDetails.subtitle && (
                 <div className="text-lg py-0.5">{bookDetails.subtitle}</div>
               )}

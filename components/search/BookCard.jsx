@@ -28,11 +28,13 @@ export default function BookCard({ book }) {
       <div className="p-5 grid grow relative">
         <div className="">
           <div className="lesser_text">ISBN: {book.ISBN10}</div>
-          <div className="author_text">{book.author}</div>
+          <div className="author_text line-clamp-2 md:line-clamp-none">
+            {book.author}
+          </div>
           <Link href={`/details/${book.id}`}>
             <div className="title_text">{book.title}</div>
           </Link>
-          <div className="desc scroll_on_hover">
+          <div className="desc line-clamp-4 scroll_on_hover">
             {book.description || "Nincs elérhető leírás"}
           </div>
         </div>

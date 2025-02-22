@@ -11,7 +11,7 @@ export default function HeroBanner({ bannerBook, bannerBackground }) {
       <div className="relative w-1/2 z-0">
         <p className="hero-banner-sub">Aktuális toplistás</p>
         <h3 className="hero-banner-author">{bannerBook.author}</h3>
-        <h1 className="hero-banner-title">{bannerBook.title}</h1>
+        <h1 className="hero-banner-title line-clamp-2">{bannerBook.title}</h1>
         <div className="flex justify-center my-3 md:my-6">
           <div className="w-1/2 border border-black" />
         </div>
@@ -22,7 +22,10 @@ export default function HeroBanner({ bannerBook, bannerBackground }) {
           ></div>
         </div>
       </div>
-      <Link href={`/details/${bannerBook.id}`} className="hero-banner-image">
+      <Link
+        href={`/details/${bannerBook.id}`}
+        className="hero-banner-book-cover"
+      >
         <BannerBookCover image={bannerBook.image} />
       </Link>
       <div className="hero-banner-button">

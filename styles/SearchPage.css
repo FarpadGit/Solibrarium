@@ -30,10 +30,6 @@
   color: rgb(55, 65, 81);
   /* tailwind-gray-700 */
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
 }
 
 .dark-mode .book_card .author_text {
@@ -54,10 +50,6 @@
 }
 
 .book_card .desc {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
   height: calc(4 * 1.75rem);
   margin-top: 1.25rem;
   margin-bottom: 1rem;
@@ -108,13 +100,5 @@
   .book_card .price {
     font-size: 1.5rem;
     line-height: 2rem;
-  }
-
-  @media (min-width: 768px) {
-
-    .book_card .author_text {
-      -webkit-line-clamp: none;
-      line-clamp: none;
-    }
   }
 }

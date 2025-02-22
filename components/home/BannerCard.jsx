@@ -7,23 +7,24 @@ export default function BannerCard({ bannerBook, bannerBackground }) {
   return (
     <CardWithBackground
       asLink
-      className="relative w-1/2 h-52 sm:h-48 rounded-[15px] overflow-hidden p-[25px_20px]"
+      className="relative w-full h-52 sm:h-48 rounded-[15px] overflow-hidden p-[25px_20px]"
       backgroundImage={bannerBackground}
       href={`/details/${bannerBook.id}`}
     >
-      <div className="relative flex flex-col w-full sm:w-2/3 items-center">
-        <p className="text-xs md:text-base text-center">Most Érkezett</p>
-        <h2 className="text-base md:text-xl lg:text-3xl text-center line-clamp-2">
+      <div className="relative flex flex-col gap-2 w-2/3 items-center text-black min-h-full max-h-[110%] line-clamp-5">
+        <p className="banner-sub">Most Érkezett</p>
+        <h2 className="banner-title line-clamp-2 outlined">
           {bannerBook.title}
         </h2>
-        <h3 className="text-sm md:text-lg lg:text-2xl line-clamp-1">
-          {bannerBook.author}
-        </h3>
+        <h3 className="banner-author outlined">{bannerBook.author}</h3>
+        {bannerBook.subtitle && (
+          <h3 className="banner-tagline">{bannerBook.subtitle}</h3>
+        )}
       </div>
 
       <Image
         src={bannerBook.image}
-        className="relative sm:absolute top-1/2 -translate-y-1/2 scale-150 lg:scale-100 rotate-12 -right-1/2 -translate-x-1/2 sm:right-[15%] sm:translate-x-0 w-[47px] h-[94px] sm:w-[60px] sm:h-[120px] lg:w-[94px] lg:h-[188px]"
+        className="absolute top-1/2 -translate-y-1/2 scale-150 sm:scale-125 lg:scale-100 rotate-12 -translate-x-1/2 right-[7.5%] md:right-[15%] sm:translate-x-0 w-[47px] h-[94px] sm:w-[60px] sm:h-[120px] lg:w-[94px] lg:h-[188px]"
         alt="recommended book"
         placeholder={getPlaceholderDataURL()}
         width={94}

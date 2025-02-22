@@ -23,8 +23,18 @@
 }
 
 @font-face {
+  font-family: Book Antiqua;
+  src: local("Book Antiqua"), url("../public/fonts/Book Antiqua Font.ttf");
+}
+
+@font-face {
+  font-family: Futura Book;
+  src: local("Futura Book"), url("../public/fonts/Futura Book Regular.otf");
+}
+
+@font-face {
   font-family: CartoGothic;
-  src: local("Source Sans Pro"), url("../public/fonts/CartoGothicStd-Book.otf");
+  src: local("CartoGothic"), url("../public/fonts/CartoGothicStd-Book.otf");
 }
 
 :root {
@@ -41,6 +51,8 @@
   --red-color: rgb(244, 54, 76);
   --red-hover-color: rgb(251, 113, 133);
   --glow-color: yellow;
+  --banner-color-1: #ffe4c4;
+  --banner-color-2: #fccb44;
   --foreground-color: rgb(0, 0, 0);
   --background1-color: rgb(214, 219, 220);
   --background2-color: rgb(255, 255, 255);
@@ -258,6 +270,11 @@
 .scroll_on_hover:hover::-webkit-scrollbar-thumb {
   width: 12px;
   background: var(--foreground-color);
+}
+
+.outlined {
+  color: white;
+  filter: drop-shadow(1px 1px black) drop-shadow(-1px 1px black) drop-shadow(1px -1px black) drop-shadow(-1px -1px black);
 }
 
 div[data-radix-popper-content-wrapper] {
