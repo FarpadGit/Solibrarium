@@ -1,5 +1,8 @@
 import { Schema, model, models } from "mongoose";
 
+// 7 days
+const RememberMeExpirationInSeconds = 7*24*60*60;
+
 const RememberMeSchema = new Schema({
   userRef: {
     type: Schema.Types.ObjectId,
@@ -15,7 +18,14 @@ const RememberMeSchema = new Schema({
     type: String,
     required: [true, "Token value is required!"],
   },
+  createdAt: { 
+    type: Date, 
+    expires: RememberMeExpirationInSeconds, 
+    default: Date.now()
+   }
 });
+
+RememberMeSchema.index({ createdAt: 1 },{ expireAfterSeconds: RememberMeExpirationInSeconds });
 
 const RememberMe = models.RememberMe || model("RememberMe", RememberMeSchema);
 
