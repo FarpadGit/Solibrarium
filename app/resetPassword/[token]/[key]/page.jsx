@@ -1,18 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import RegisterForm from "@/components/forms/RegisterForm";
 import { send } from "@/utils/FetchRequest";
 
 export default function Register({ params }) {
+  const { token, key } = use(params);
   const [email, setEmail] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
     const validate = async () => {
       const response = await send(
-        `/api/forgotPassword?token=${params.token}&key=${params.key}`
+        `/api/forgotPassword?token=${token}&key=${key}`
       );
       if (!response.error) setEmail(response);
       else setEmail("error");

@@ -8,11 +8,11 @@ import Footer from "@/components/footer/Footer";
 import dynamic from "next/dynamic";
 const LoginModal = dynamic(
   () => import("@/components/popovers/LoginModal").then((res) => res.default),
-  { ssr: false }
+  { ssr: true }
 );
 const ConfirmModal = dynamic(
   () => import("@/components/popovers/ConfirmModal").then((res) => res.default),
-  { ssr: false }
+  { ssr: true }
 );
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";

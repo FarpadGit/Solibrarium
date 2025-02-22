@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "@/contexts/AppContext";
 import TEInput from "@/components/ui/TEInput";
 import {
   Form,
@@ -16,7 +16,6 @@ import { send } from "@/utils/FetchRequest";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
 
 const emailError = { message: "Írj be egy érvényes email címet" };
 const passwordError = { message: "Ezt a jelszót nem használhatod" };
@@ -32,7 +31,7 @@ export default function LoginForm({
   onDismiss = null,
   redirectURL = null,
 }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const { loginUser, loginUserWithGoogle, isLoggingIn } = useAppContext();
   const router = useRouter();
   const hookForm = useForm({
     resolver: zodResolver(formSchema),
@@ -48,7 +47,7 @@ export default function LoginForm({
   }
 
   function handleGoogleSignIn() {
-    signIn("google").then((result) => {
+    loginUserWithGoogle().then((result) => {
       if (!result?.error) {
         dismiss();
         if (redirectURL) router.replace(redirectURL);
@@ -64,35 +63,30 @@ export default function LoginForm({
   async function handleRememberMe(email) {
     if (typeof window === "undefined" || !!localStorage.getItem("RememberMe"))
       return;
-    send("/api/rememberMe", {
+    const response = await send("/api/rememberMe", {
       data: { userEmail: email },
-    }).then((res) => {
-      if (!res.error) localStorage.setItem("RememberMe", JSON.stringify(res));
     });
+    if (!response.error)
+      localStorage.setItem("RememberMe", JSON.stringify(response));
   }
 
   function onSubmit(values) {
-    setIsLoading(true);
-    signIn("SolibrariumProvider", {
+    loginUser({
       redirect: false,
       email: values.email,
       password: values.password,
-    })
-      .then((result) => {
-        if (!result.error) {
-          if (values.rememberMe) handleRememberMe(values.email);
-          dismiss();
-          if (redirectURL) router.replace(redirectURL);
-          hookForm.reset({}, { keepErrors: true });
-        } else {
-          hookForm.setError("root.loginError", {
-            message: "Sikertelen bejelentkezés. Jól adtad meg az adataidat?",
-          });
-        }
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    }).then((result) => {
+      if (!result.error) {
+        if (values.rememberMe) handleRememberMe(values.email);
+        dismiss();
+        if (redirectURL) router.replace(redirectURL);
+        hookForm.reset({}, { keepErrors: true });
+      } else {
+        hookForm.setError("root.loginError", {
+          message: "Sikertelen bejelentkezés. Jól adtad meg az adataidat?",
+        });
+      }
+    });
   }
 
   return (
@@ -227,10 +221,10 @@ export default function LoginForm({
             <div className="text-center lg:text-left">
               <button
                 type="submit"
-                disabled={isLoading}
+                disabled={isLoggingIn}
                 className="flex justify-center w-full rounded green_btn px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white enabled:shadow-[0_4px_9px_-4px_#639912] transition duration-150 ease-in-out enabled:hover:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.3),0_4px_18px_0_rgba(99,153,18,0.2)] enabled:focus:bg-lightgreen enabled:focus:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.3),0_4px_18px_0_rgba(99,153,18,0.2)] enabled:focus:outline-none enabled:focus:ring-0 enabled:active:bg-lightgreen enabled:active:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.3),0_4px_18px_0_rgba(99,153,18,0.2)] dark:enabled:shadow-[0_4px_9px_-4px_rgba(99,153,18,0.5)] dark:enabled:hover:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.2),0_4px_18px_0_rgba(99,153,18,0.1)] dark:enabled:focus:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.2),0_4px_18px_0_rgba(99,153,18,0.1)] dark:enabled:active:shadow-[0_8px_9px_-4px_rgba(99,153,18,0.2),0_4px_18px_0_rgba(99,153,18,0.1)] disabled:bg-gray-400"
               >
-                {isLoading ? (
+                {isLoggingIn ? (
                   <>
                     <img
                       src="/icons/spinner.gif"

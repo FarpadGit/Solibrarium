@@ -6,7 +6,12 @@ import { ShoppingCart } from "@/components/shoppingcart/ShoppingCart";
 import LoginButton from "@/components/ui/LoginButton";
 import { ThemeSwitch } from "@/components/ui/ThemeSwitch";
 import { Label as FormLabel } from "@/components/ui/FormLabel";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/Sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/Sheet";
 
 export default function HeaderButtons() {
   const { darkMode, toggleDarkMode } = useAppContext();
@@ -26,7 +31,8 @@ export default function HeaderButtons() {
             )}
           </button>
         </SheetTrigger>
-        <SheetContent className="ShoppingCart">
+        <SheetContent className="ShoppingCart" aria-describedby={null}>
+          <SheetTitle />
           <ShoppingCart />
         </SheetContent>
       </Sheet>

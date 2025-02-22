@@ -9,44 +9,41 @@ export const GET = async (request) => {
   let errorProgressMessage = "Failed to connect to database: ";
   try {
     await connectToDB();
-    // get all reviews from database with the authors
-    errorProgressMessage = "Error getting reviews in database: ";
-    //without a call to User table the next populate function will fail if we never querried users before
-    await User.exists({});
-    const DBReviews = await Review.find().populate("userRef");
-
-    if (!DBReviews) {
-      return Response.json({}, { status: 500 });
-    }
-
+    
+    // if max is falsy then get all reviews from database with the authors
     if (!max) {
+      errorProgressMessage = "Error getting reviews in database: ";
+
+      //without a call to User table the next populate function will fail if we never querried users before
+      await User.exists({});
+      const DBReviews = await Review.find().populate("userRef");
+      
+      if (!DBReviews) {
+        return Response.json({}, { status: 500 });
+      }
+
       return new Response(JSON.stringify(DBReviews), { status: 200 });
     }
 
-    let results = [];
-
     // pick a random number up to [max] times and add that review to results if it's not there already
     errorProgressMessage = "Error picking random reviews: ";
-    while (
-      (DBReviews.length > max && results.length < max) ||
-      (DBReviews.length <= max && results.length < DBReviews.length)
-    ) {
-      const randomNumber = Math.floor(Math.random() * DBReviews.length);
-      const randomReview = DBReviews[randomNumber];
-      //if not in the results already than add it
-      if (
-        results.findIndex((rev) => rev.id === randomReview._id.toString()) ===
-        -1
-      )
-        results.push({
-          id: randomReview._id.toString(),
-          book: randomReview.userRef.books.find(
+
+    const reviewCount = await Review.count();
+    const resultSize = reviewCount > Number(max) ? Number(max) : reviewCount;
+
+    const aggregate = await Review.aggregate([{ $sample: { size: resultSize } }]);
+    const populatedAggregate = await Review.populate(aggregate, { path: "userRef" });
+    
+    const results = populatedAggregate.map(randomReview => {
+      return {
+        id: randomReview._id.toString(),
+        book: randomReview.userRef.books.find(
             (book) => book._id.toString() === randomReview.bookID.toString()
-          ),
-          reviewText: randomReview.reviewText,
-          rating: randomReview.rating,
-        });
-    }
+        ),
+        reviewText: randomReview.reviewText,
+        rating: randomReview.rating,
+      }
+    });
 
     return new Response(JSON.stringify(results), { status: 200 });
   } catch (error) {

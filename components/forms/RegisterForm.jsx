@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "@/contexts/AppContext";
 import TEInput from "@/components/ui/TEInput";
 import {
   Form,
@@ -15,7 +16,6 @@ import { send } from "@/utils/FetchRequest";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
 
 const emailError = { message: "Írj be egy érvényes email címet" };
 const emailMinError = {
@@ -62,6 +62,7 @@ export default function RegisterForm({
   emailField = "",
   overwrite = false,
 }) {
+  const { loginUser } = useAppContext();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -85,7 +86,7 @@ export default function RegisterForm({
     }).then(async (res) => {
       if (res.error) setError();
       else {
-        await signIn("SolibrariumProvider", {
+        await loginUser({
           redirect: false,
           email: values.email,
           password: values.password,

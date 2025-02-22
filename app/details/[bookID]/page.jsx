@@ -9,7 +9,7 @@ import CurvedWindow from "@/components/details/CurvedWindow";
 import { getPlaceholderDataURL } from "@/utils/DataURL";
 
 export default async function Details({ params }) {
-  const bookDetails = await getBookInfo(params.bookID);
+  const bookDetails = await getBookInfo((await params).bookID);
 
   if (!bookDetails.id) notFound();
   return (

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useAppContext } from "@/contexts/AppContext";
 import { useSession } from "next-auth/react";
 const UserMenu = dynamic(
   () => import("@/components/popovers/UserMenu").then((res) => res.default),
@@ -12,12 +13,14 @@ import { useDispatch } from "react-redux";
 import { reducers as modalsReducers } from "@/redux/features/modals/modalsSlice";
 
 export default function LoginButton() {
+  const { isLoggingIn } = useAppContext();
   const [animate, setAnimate] = useState(false);
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const { openLoginModal } = modalsReducers;
 
-  setRememberMe(session?.rememberMe);
+  setNewRememberMe(session?.rememberMe);
+
   return (
     <div className="flex flex-col w-[60px] h-[35px] justify-between md:w-[90px] md:h-[55px]">
       {!session?.user ? (
@@ -25,6 +28,7 @@ export default function LoginButton() {
           <button
             type="button"
             className="login_btn header_btn_base"
+            disabled={isLoggingIn}
             onClick={() => setAnimate(true)}
             onAnimationEnd={() => {
               dispatch(openLoginModal());
@@ -32,7 +36,7 @@ export default function LoginButton() {
             }}
             pushed={animate ? "" : undefined}
           >
-            Belépés
+            {isLoggingIn ? "Egy pillanat..." : "Belépés"}
           </button>
           <Link
             href="/register"
@@ -48,7 +52,7 @@ export default function LoginButton() {
   );
 }
 
-function setRememberMe(rememberMeToken) {
+function setNewRememberMe(rememberMeToken) {
   const { RememberMeKey = null, RememberMeValue = null } =
     rememberMeToken || {};
   if (RememberMeKey && RememberMeValue && typeof window !== "undefined")

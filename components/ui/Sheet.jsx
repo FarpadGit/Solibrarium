@@ -1,6 +1,7 @@
 "use client";
 import * as React from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { cva } from "class-variance-authority";
 import { X } from "lucide-react";
 
@@ -88,11 +89,13 @@ const SheetFooter = ({ className, ...props }) => (
 SheetFooter.displayName = "SheetFooter";
 
 const SheetTitle = React.forwardRef(({ className, ...props }, ref) => (
-  <SheetPrimitive.Title
-    ref={ref}
-    className={cn("text-lg font-semibold text-[#f8fafc]", className)}
-    {...props}
-  />
+  <VisuallyHidden>
+    <SheetPrimitive.Title
+      ref={ref}
+      className={cn("text-lg font-semibold text-[#f8fafc]", className)}
+      {...props}
+    />
+  </VisuallyHidden>
 ));
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
 

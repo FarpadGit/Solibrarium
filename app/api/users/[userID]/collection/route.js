@@ -3,16 +3,17 @@ import { connectToDB } from "@/utils/DatabaseConnect";
 
 //GETS all books in users collection
 export const GET = async (request, { params }) => {
+  const { userID } = await params;
   let errorProgressMessage = "Failed to connect to database: ";
   try {
     await connectToDB();
     // get user from database
     errorProgressMessage = "Error finding user in database: ";
-    const dbUser = await User.findById(params.userID);
+    const dbUser = await User.findById(userID);
 
     if (!dbUser) {
       return Response.json(
-        { error: `couldn't find user ID ${params.userID} in database` },
+        { error: `couldn't find user ID ${userID} in database` },
         {
           status: 404,
         }
@@ -28,17 +29,18 @@ export const GET = async (request, { params }) => {
 
 //POSTS many books and adds to users collection
 export const POST = async (request, { params }) => {
+  const { userID } = await params;
   let errorProgressMessage = "Failed to connect to database: ";
   try {
     await connectToDB();
     const reqBody = await request.json();
     // get user from database
     errorProgressMessage = "Error finding user in database: ";
-    const dbUser = await User.findById(params.userID);
+    const dbUser = await User.findById(userID);
 
     if (!dbUser) {
       return Response.json(
-        { error: `couldn't find user ID ${params.userID} in database` },
+        { error: `couldn't find user ID ${userID} in database` },
         {
           status: 404,
         }

@@ -3,18 +3,19 @@ import { connectToDB } from "@/utils/DatabaseConnect";
 
 //DELETES one user from db
 export const DELETE = async (request, { params }) => {
+  const { userID } = await params;
   let errorProgressMessage = "Failed to connect to database: ";
   try {
     await connectToDB();
     // check if user already exists
     errorProgressMessage = "Error checking if user exists: ";
-    const dbUser = await User.findById(params.userID);
+    const dbUser = await User.findById(userID);
 
     errorProgressMessage = "Error deleting user: ";
-    await User.deleteOne({_id: params.userID});
+    await User.deleteOne({_id: userID});
 
     return Response.json(
-      { message: `user id ${params.userID} deleted successfully` },
+      { message: `user id ${userID} deleted successfully` },
       {
         status: 200,
       }

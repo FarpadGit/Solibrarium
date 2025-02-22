@@ -4,16 +4,17 @@ import { connectToDB } from "@/utils/DatabaseConnect";
 
 //GETS a review for one of the user's books or a default empty response
 export const GET = async (request, { params }) => {
+  const { userID, bookID } = await params;
   let errorProgressMessage = "Failed to connect to database: ";
   try {
     await connectToDB();
     // get user from database
     errorProgressMessage = "Error finding user in database: ";
-    const dbUser = await User.findById(params.userID).populate("reviews");
+    const dbUser = await User.findById(userID).populate("reviews");
 
     if (!dbUser) {
       return Response.json(
-        { error: `couldn't find user ID ${params.userID} in database` },
+        { error: `couldn't find user ID ${userID} in database` },
         { status: 404 }
       );
     }
@@ -21,12 +22,12 @@ export const GET = async (request, { params }) => {
     //get review from user's reviews
     errorProgressMessage = "Error finding review in user's database: ";
     const review = dbUser.reviews.find(
-      (review) => review.bookID.toString() === params.bookID
+      (review) => review.bookID.toString() === bookID
     );
     return Response.json(
       review ?? {
-        userRef: params.userID,
-        bookID: params.bookID,
+        userRef: userID,
+        bookID: bookID,
         reviewText: "",
         rating: 0,
       },
@@ -40,17 +41,18 @@ export const GET = async (request, { params }) => {
 
 //POSTS one review and adds it to db
 export const POST = async (request, { params }) => {
+  const { userID, bookID } = await params;
   let errorProgressMessage = "Failed to connect to database: ";
   try {
     await connectToDB();
     const reqBody = await request.json();
     // get user from database
     errorProgressMessage = "Error finding user in database: ";
-    const dbUser = await User.findById(params.userID);
+    const dbUser = await User.findById(userID);
 
     if (!dbUser) {
       return Response.json(
-        { error: `couldn't find user ID ${params.userID} in database` },
+        { error: `couldn't find user ID ${userID} in database` },
         { status: 404 }
       );
     }
@@ -58,8 +60,8 @@ export const POST = async (request, { params }) => {
     // check if review exists in database
     errorProgressMessage = "Error looking up review in database: ";
     const dbReview = await Review.findOne({
-      userRef: params.userID,
-      bookID: params.bookID,
+      userRef: userID,
+      bookID: bookID,
     });
     //if it exists, update it
     if (dbReview) {
@@ -71,8 +73,8 @@ export const POST = async (request, { params }) => {
       // else add a new review to collection
       errorProgressMessage = "Error adding review to collection: ";
       await Review.create({
-        userRef: params.userID,
-        bookID: params.bookID,
+        userRef: userID,
+        bookID: bookID,
         reviewText: reqBody.review.reviewText,
         rating: reqBody.review.rating,
       });
