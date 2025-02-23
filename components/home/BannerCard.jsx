@@ -18,7 +18,7 @@ export default function BannerCard({ bannerBook, bannerBackground }) {
         </h2>
         <h3 className="banner-author outlined">{bannerBook.author}</h3>
         {bannerBook.subtitle && (
-          <h3 className="banner-tagline">{bannerBook.subtitle}</h3>
+          <h3 className="banner-tagline line-clamp-3">{bannerBook.subtitle}</h3>
         )}
       </div>
 
