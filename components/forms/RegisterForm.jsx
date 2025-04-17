@@ -106,7 +106,7 @@ export default function RegisterForm({
   }
 
   return (
-    <div className="h-full w-full md:w-[unset]">
+    <div className="h-full w-full md:w-[unset] lg:w-4/5 xl:w-3/4">
       {/* Left column with image */}
       <div className="gap-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
         <div className="hidden w-0 shrink-1 mb-12 grow-0 basis-auto overflow-hidden md:mb-0 md:w-9/12 md:shrink-0 md:flex md:rounded-[10%] lg:w-6/12 xl:w-6/12">
