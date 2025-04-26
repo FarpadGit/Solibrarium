@@ -15,7 +15,7 @@ export const getBestsellers = async () => {
           .then((body) => getBookDetails(body));
 
         if(book.error) return null;
-        cacheBook(book);
+        await cacheBook(book);
         return book;
       })
     );
