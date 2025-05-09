@@ -3,8 +3,8 @@
 import { useAppContext } from "@/contexts/AppContext";
 import { useShoppingCartContext } from "@/contexts/ShoppingCartContext";
 import { ShoppingCart } from "@/components/shoppingcart/ShoppingCart";
-import LoginButton from "@/components/ui/LoginButton";
 import { ThemeSwitch } from "@/components/ui/ThemeSwitch";
+import LoginButton from "@/components/header/LoginButton";
 import { Label as FormLabel } from "@/components/ui/FormLabel";
 import {
   Sheet,
