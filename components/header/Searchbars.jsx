@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import FilterButton from "@/components/header/FilterButton";
-import SearchBar from "@/components/ui/SearchBar";
+import SearchBar from "@/components/header/SearchBar";
 import { SearchENUM } from "@/utils/SearchENUM";
 import { AnimatePresence } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
