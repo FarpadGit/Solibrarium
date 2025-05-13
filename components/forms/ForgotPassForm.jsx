@@ -59,7 +59,7 @@ export default function ForgotPassForm() {
       message:
         errorStatus === 404
           ? "Ezt az email címet nem találjuk!"
-          : "Hiba történt a szerveren, próbáld később!",
+          : "Sajnos hiba történt a szerveren, próbáld később!",
     });
     hookForm.reset({}, { keepErrors: true });
   }
@@ -91,7 +91,11 @@ export default function ForgotPassForm() {
       {/* Form input */}
       <div className="p-5 mb-5 w-7/12 lg:pr-20 rounded-lg z-[1]">
         <Form {...hookForm}>
-          <form onSubmit={hookForm.handleSubmit(onSubmit)} className="">
+          <form
+            id="ForgotForm"
+            onSubmit={hookForm.handleSubmit(onSubmit)}
+            className=""
+          >
             <FormField
               control={hookForm.control}
               name="email"
