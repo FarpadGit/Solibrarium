@@ -51,7 +51,7 @@ export default function LoginForm({
       if (!result?.error) {
         dismiss();
         if (redirectURL) router.replace(redirectURL);
-        hookForm.reset({}, { keepErrors: true });
+        hookForm.reset({}, { keepErrors: false });
       } else {
         hookForm.setError("root.loginError", {
           message: "Sikertelen bejelentkezés.",
@@ -80,7 +80,7 @@ export default function LoginForm({
         if (values.rememberMe) handleRememberMe(values.email);
         dismiss();
         if (redirectURL) router.replace(redirectURL);
-        hookForm.reset({}, { keepErrors: true });
+        hookForm.reset({}, { keepErrors: false });
       } else {
         hookForm.setError("root.loginError", {
           message: "Sikertelen bejelentkezés. Jól adtad meg az adataidat?",
@@ -131,6 +131,7 @@ export default function LoginForm({
 
         <Form {...hookForm}>
           <form
+            id="LoginForm"
             onSubmit={hookForm.handleSubmit(onSubmit)}
             className="space-y-8"
           >
