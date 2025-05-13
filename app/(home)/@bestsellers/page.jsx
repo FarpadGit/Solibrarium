@@ -22,6 +22,20 @@ export default async function BestSellers() {
       .name;
   }
 
+  function getRandomIndex(length) {
+    return Math.floor(Math.random() * length);
+  }
+
+  function getUniqueRandomIndices(count, length) {
+    let results = [];
+    while (results.length < count) {
+      const index = getRandomIndex(length);
+      if (!results.includes(index)) results.push(index);
+    }
+
+    return results;
+  }
+
   const bannerBooks = getRandomBannerBook(3);
 
   return (
@@ -43,24 +57,10 @@ export default async function BestSellers() {
           />
         </div>
         <div className="w-full">
-          <h2 className="separator_label_text">További kiemelt könyvek</h2>
+          <h3 className="separator_label_text">További kiemelt könyvek</h3>
           <Marquee frontPageBooks={frontPageBooks} />
         </div>
       </div>
     </>
   );
-}
-
-function getRandomIndex(length) {
-  return Math.floor(Math.random() * length);
-}
-
-function getUniqueRandomIndices(count, length) {
-  let results = [];
-  while (results.length < count) {
-    const index = getRandomIndex(length);
-    if (!results.includes(index)) results.push(index);
-  }
-
-  return results;
 }
