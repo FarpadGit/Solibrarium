@@ -29,7 +29,7 @@ export default function Checkout() {
     if (discount > _maxDiscount) setDiscount(_maxDiscount);
   }, [totalPrice]);
 
-  async function handleConfirm() {
+  function handleConfirm() {
     if (!session?.user) router.push("/login");
     else {
       //in case the user tempers with the inputs
