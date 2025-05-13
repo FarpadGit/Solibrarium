@@ -6,7 +6,7 @@ import Loading from "@/components/Loading";
 import { inViewportItem } from "@/utils/ScrollAndOverlaps";
 import { send } from "@/utils/FetchRequest";
 
-const maxReviewsPerPage = 6;
+const maxReviewsPerPage = 9;
 
 export default function ReviewedBooks() {
   const [reviews, setReviews] = useState(null);
