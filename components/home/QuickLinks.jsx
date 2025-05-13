@@ -9,7 +9,10 @@ import Image from "next/image";
 
 export default function QuickLinks() {
   return (
-    <div className="w-full flex justify-between overflow-x-auto gap-4 mb-4 md:mb-10">
+    <div
+      id="QuickLinks"
+      className="w-full flex justify-between overflow-x-auto gap-4 mb-4 md:mb-10"
+    >
       <QuickLink target="Audiobook">Hangoskönyvek</QuickLink>
       <Separator />
       <QuickLink target="Juvenile Fiction">Gyerekek</QuickLink>
