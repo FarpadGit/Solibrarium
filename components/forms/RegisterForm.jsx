@@ -100,7 +100,7 @@ export default function RegisterForm({
 
   function setError() {
     hookForm.setError("root.serverError", {
-      message: "Hiba történt a szerveren, próbáld később!",
+      message: "Sajnos hiba történt a szerveren, próbáld később!",
     });
     hookForm.reset({}, { keepErrors: true });
   }
@@ -126,6 +126,7 @@ export default function RegisterForm({
           </div>
           <Form {...hookForm}>
             <form
+              id="RegForm"
               onSubmit={hookForm.handleSubmit(onSubmit)}
               className="space-y-8"
             >
