@@ -159,7 +159,7 @@ export default function SearchBar({ id, type: initialType, click }) {
           <span className="absolute left-1 self-center">
             <Image
               src={SearchType[type].Icon}
-              alt="search icon"
+              alt={`icon for search ${SearchType[type].Alt}`}
               width={15}
               height={15}
               className="object-contain"
@@ -199,7 +199,7 @@ export default function SearchBar({ id, type: initialType, click }) {
             >
               <Image
                 src="/icons/settings.svg"
-                alt="search option"
+                alt="icon for search options"
                 width={15}
                 height={15}
                 className="object-contain md:w-[20px] md:h-[20px]"
@@ -227,25 +227,25 @@ export default function SearchBar({ id, type: initialType, click }) {
             onClick={handleClick}
             onContextMenu={handleRightClick}
           >
-            <Image
-              src="/icons/plus.svg"
-              alt="add searchbar"
-              width={22}
-              height={22}
-              className={`object-contain md:w-[44px] md:h-[44px] ${
-                !canHeaderExpand ? "absolute opacity-0" : ""
-              }`}
-            />
-
-            <Image
-              src="/icons/arrow-collapse.svg"
-              alt="collapse"
-              width={20}
-              height={20}
-              className={`object-contain transition-transform md:w-[44px] md:h-[44px] ${
-                canHeaderExpand ? "absolute opacity-0" : ""
-              } ${!isHeaderMinimized ? "rotate-180" : ""}`}
-            />
+            {canHeaderExpand ? (
+              <Image
+                src="/icons/plus.svg"
+                alt="add searchbar"
+                width={22}
+                height={22}
+                className="object-contain md:w-[44px] md:h-[44px]"
+              />
+            ) : (
+              <Image
+                src="/icons/arrow-collapse.svg"
+                alt="collapse searchbars"
+                width={20}
+                height={20}
+                className={`object-contain transition-transform md:w-[44px] md:h-[44px] ${
+                  !isHeaderMinimized ? "rotate-180" : ""
+                }`}
+              />
+            )}
           </button>
         </div>
       ) : (
@@ -253,7 +253,7 @@ export default function SearchBar({ id, type: initialType, click }) {
           <button className="searchbar_btn_base red_btn" onClick={handleClick}>
             <Image
               src="/icons/remove.svg"
-              alt="remove"
+              alt="remove searchbar"
               width={20}
               height={20}
               className="object-contain"
