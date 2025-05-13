@@ -18,6 +18,7 @@ export default function StarRating({ rating, size = 15, setter = null }) {
       {starArray.map((star, index) => (
         <Star key={`star${index}`} src={star} value={index + 1} />
       ))}
+      <span className="sr-only">{rating ?? 0} csillag</span>
     </span>
   );
 
