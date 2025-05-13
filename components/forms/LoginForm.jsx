@@ -242,7 +242,10 @@ export default function LoginForm({
 
               {/* Login error message */}
               {hookForm.formState.errors?.root?.loginError?.message && (
-                <div className="flex justify-center text-center text-amaranth">
+                <div
+                  data-testid="error_msg"
+                  className="flex justify-center text-center text-amaranth"
+                >
                   {hookForm.formState.errors.root.loginError.message}
                 </div>
               )}

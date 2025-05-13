@@ -118,15 +118,21 @@ export default function ForgotPassForm() {
             <div className="h-64 pt-8">
               {!success &&
                 hookForm.formState.errors?.root?.serverError?.message && (
-                  <div className="flex text-center justify-center text-amaranth">
+                  <div
+                    data-testid="error_msg"
+                    className="flex text-center justify-center text-amaranth"
+                  >
                     {hookForm.formState.errors.root.serverError.message}
                   </div>
                 )}
               {success &&
                 !hookForm.formState.errors?.root?.serverError?.message && (
-                  <div className="flex text-center justify-center text-green dark:text-lightgreen dark:bg-neutral-500 dark:bg-opacity-75">
-                    A levelet sikeresen elküldtük. Nézd meg a fiókodban, hogy
-                    megkaptad-e.
+                  <div
+                    data-testid="success-msg"
+                    className="flex text-center justify-center text-green dark:text-lightgreen dark:bg-neutral-500 dark:bg-opacity-75"
+                  >
+                    A levelet sikeresen elküldtük. Nézd meg az email fiókodban,
+                    hogy megkaptad-e.
                   </div>
                 )}
             </div>

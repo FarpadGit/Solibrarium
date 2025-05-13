@@ -28,7 +28,10 @@ export default function Account() {
             className="grayscale"
           />
           <div className="absolute flex flex-col w-full px-[20%] py-3 top-[2%] left-[50%] items-center text-center -translate-x-1/2 gap-3 bg-solibrarium">
-            <div className="text-xs md:text-sm lg:text-base">
+            <div
+              data-testid="loggedOutText"
+              className="text-xs md:text-sm lg:text-base"
+            >
               Valami rejtélyes erő védheti a titkos szobát, mert amint
               kijelentkeztél sehogy sem tudod megtalálni az oda vezető utat!
             </div>

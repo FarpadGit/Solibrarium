@@ -26,6 +26,7 @@ export default function LoginButton() {
       {!session?.user ? (
         <>
           <button
+            data-testid="LoginButton"
             type="button"
             className="login_btn header_btn_base"
             disabled={isLoggingIn}

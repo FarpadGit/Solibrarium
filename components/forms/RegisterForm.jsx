@@ -186,7 +186,10 @@ export default function RegisterForm({
                 )}
               />
               {hookForm.formState.errors?.root?.serverError?.message && (
-                <div className="flex justify-center text-amaranth">
+                <div
+                  data-testid="error_msg"
+                  className="flex justify-center text-amaranth"
+                >
                   {hookForm.formState.errors.root.serverError.message}
                 </div>
               )}

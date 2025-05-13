@@ -28,6 +28,7 @@ export default function UserMenu() {
   function MenuItem({ label, sublabel = null, click }) {
     return (
       <CommandItem
+        data-testid="MenuItem"
         className="hover:bg-amber-200 dark:hover:bg-gray-400 text-center justify-center hover:cursor-pointer"
         onSelect={() => {
           setOpenDropdown(false);
@@ -46,6 +47,7 @@ export default function UserMenu() {
     <Popover open={openDropdown} onOpenChange={setOpenDropdown}>
       <PopoverTrigger asChild>
         <button
+          data-testid="WelcomeButton"
           type="button"
           className="login_btn header_btn_base hover:cursor-default"
           onMouseEnter={() => setOpenDropdown(true)}

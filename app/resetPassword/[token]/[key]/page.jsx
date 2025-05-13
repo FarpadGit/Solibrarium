@@ -27,7 +27,11 @@ export default function Register({ params }) {
   }, []);
 
   if (!email || email === "error")
-    return <div>Hibás validáció! Most átirányítunk a kezdőoldalra...</div>;
+    return (
+      <div data-testid="reset-error-msg">
+        Hibás validáció! Most átirányítunk a kezdőoldalra...
+      </div>
+    );
 
   return (
     email && (

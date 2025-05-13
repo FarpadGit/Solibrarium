@@ -60,6 +60,7 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
             {isLoading ? "Könyveid lekérdezése..." : "Könyvespolcod még üres"}
           </p>
           <Image
+            data-testid="bookshelf"
             src="/decor/bookshelf.png"
             alt=""
             width={550}
@@ -78,6 +79,7 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
             radioGroup="userBook"
           >
             <Image
+              data-testid="bookshelf"
               src="/decor/bookshelf.png"
               alt=""
               width={550}

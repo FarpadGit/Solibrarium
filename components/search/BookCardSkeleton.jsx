@@ -1,6 +1,6 @@
 ﻿export default function BookCardSkeleton() {
   return (
-    <div className="card book_card">
+    <div data-testid="BookCardSkeleton" className="card book_card">
       <div className="flex space-y-8 animate-pulse ml-0 w-11/12 md:ml-6 md:space-y-0 md:space-x-8 md:items-center">
         <div className="flex self-center items-center justify-center w-[45%] h-[45%] m-3 bg-gray-400 rounded md:w-96 md:h-auto md:m-0 dark:bg-gray-700">
           <svg
