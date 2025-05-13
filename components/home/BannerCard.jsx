@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import CardWithBackground from "@/components/home/CardWithBackground";
 import { getPlaceholderDataURL } from "@/utils/DataURL";
