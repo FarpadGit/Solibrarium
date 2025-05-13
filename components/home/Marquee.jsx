@@ -12,7 +12,7 @@ export default function Marquee({ frontPageBooks }) {
   const x = useMotionValue(0); // this is the drag offset value, can be manipulated
   const trackControls = useAnimationControls();
 
-  // The marquee uses two CSS properties for locomotion: transform/translateX for dragging offsets and translate for moving to the right.
+  // The marquee uses two CSS properties for locomotion: Transform/translateX for dragging offsets and Translate for moving to the right.
   //
   // The track displays 2 repeating sets of items. By default Framer Motion will try to animate the track sliding to the far right but when
   // the guard pixel after the last item is visible in the viewport the track will jump back to the end of the first set of items (a 50% rewind into seamless transition)
@@ -21,6 +21,7 @@ export default function Marquee({ frontPageBooks }) {
   // not interfere with the infinite loop by prematurely letting the animation finish.
   // For this reason the Translate property is "converted" into a drag offset and resets to 0 every time the user starts to drag or the track reached its end and loops back.
   // This way the sliding animation will never reach its -100% destination and will continue running even with copious amounts of dragging.
+  // (There is also a second guard pixel above the marquee that rewinds it every time it enters the viewport, in case it does run to the end when unobserved.)
   const guardRef = inViewportItem(guardPixel, () => onLastItemInView(), {
     callOnce: false,
     threshold: 0,
@@ -74,6 +75,7 @@ export default function Marquee({ frontPageBooks }) {
 
   return (
     <div ref={containerRef} className="marquee_container">
+      <motion.div onViewportEnter={() => onLastItemInView()}></motion.div>
       <motion.div
         ref={trackRef}
         variants={variants}
@@ -87,10 +89,10 @@ export default function Marquee({ frontPageBooks }) {
         className="marquee_track"
       >
         {frontPageBooks.map((book) => (
-          <MarqueeCard key={`marqueeCard_${book.id}`} book={book} />
+          <MarqueeCard key={`marqueeCard1_${book.id}`} book={book} />
         ))}
         {frontPageBooks.map((book) => (
-          <MarqueeCard key={`marqueeCard_${book.id}`} book={book} />
+          <MarqueeCard key={`marqueeCard2_${book.id}`} book={book} />
         ))}
         <div ref={guardRef}></div>
       </motion.div>
