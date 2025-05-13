@@ -22,7 +22,10 @@ export default function HeaderButtons() {
       {/* Shopping Cart button */}
       <Sheet>
         <SheetTrigger asChild>
-          <button className="header_icon_btn rounded-full w-6 h-6 relative md:w-8 md:h-8 md:mr-2">
+          <button
+            id="Cart-btn"
+            className="header_icon_btn rounded-full w-6 h-6 relative md:w-8 md:h-8 md:mr-2"
+          >
             <ShoppingCartIcon />
             {cartQuantity > 0 && (
               <div className="rounded-full bg-amaranth text-sm text-white w-4 h-4 flex justify-center items-center absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 md:text-base md:w-5 md:h-5">
