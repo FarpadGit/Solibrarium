@@ -18,7 +18,7 @@ export default function FilterButton() {
         <button type="button" className="filters_btn header_icon_btn">
           <Image
             src="/icons/filter.svg"
-            alt="Filter"
+            alt="search filters"
             width={20}
             height={20}
             className="md:w-[30px] md:h-[30px]"
