@@ -16,17 +16,15 @@ export default function Register({ params }) {
         `/api/forgotPassword?token=${token}&key=${key}`
       );
       if (!response.error) setEmail(response);
-      else setEmail("error");
+      else {
+        setEmail("error");
+        setTimeout(() => {
+          router.push("/");
+        }, 5000);
+      }
     };
     validate();
   }, []);
-
-  useEffect(() => {
-    if (email === "error")
-      setTimeout(() => {
-        router.push("/");
-      }, 5000);
-  }, [email]);
 
   if (!email || email === "error")
     return <div>Hibás validáció! Most átirányítunk a kezdőoldalra...</div>;
