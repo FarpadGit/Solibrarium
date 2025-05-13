@@ -39,11 +39,11 @@ export default async function Details({ params }) {
       {/* center */}
       <div className="w-1/2 flex-auto grid grid-cols-1 pl-3">
         <div className="">
-          <div className="text-3xl">{bookDetails.title}</div>
+          <h1 className="text-3xl">{bookDetails.title}</h1>
           {bookDetails.subtitle && (
-            <div className="text-lg py-0.5">{bookDetails.subtitle}</div>
+            <h3 className="text-lg py-0.5">{bookDetails.subtitle}</h3>
           )}
-          <div className="text-sm py-0.5">{bookDetails.author}</div>
+          <h2 className="text-sm py-0.5">{bookDetails.author}</h2>
           <div className="text-xs pt-0.5 pb-7">
             {[bookDetails.publisher, bookDetails.publishedDate].join(", ")}
           </div>
