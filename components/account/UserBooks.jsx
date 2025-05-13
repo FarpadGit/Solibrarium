@@ -19,8 +19,8 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
       setIsLoading(true);
       send(`/api/users/${session.user.id}/collection`).then((body) => {
         if (!body.error) setUserBooks(body);
+        setIsLoading(false);
       });
-      setIsLoading(false);
     } else setUserBooks([]);
   }, []);
 
