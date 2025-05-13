@@ -18,11 +18,11 @@ export const ScreenENUM = {
 export default function useMediaQuery() {
   const [screenSize, setScreenSize] = useState({});
   function checkScreenSize() {
-    const screenWidth2XL = window.matchMedia("(min-width: 1536px)").matches;
-    const screenWidthXL = window.matchMedia("(min-width: 1280px)").matches;
-    const screenWidthLG = window.matchMedia("(min-width: 1024px)").matches;
-    const screenWidthMD = window.matchMedia("(min-width: 768px)").matches;
-    const screenWidthSM = window.matchMedia("(min-width: 640px)").matches;
+    const screenWidth2XL = window.matchMedia(`(min-width: ${ScreenENUM["2XL"]}px)`).matches;
+    const screenWidthXL = window.matchMedia(`(min-width: ${ScreenENUM["XL"]}px)`).matches;
+    const screenWidthLG = window.matchMedia(`(min-width: ${ScreenENUM["LG"]}px)`).matches;
+    const screenWidthMD = window.matchMedia(`(min-width: ${ScreenENUM["MD"]}px)`).matches;
+    const screenWidthSM = window.matchMedia(`(min-width: ${ScreenENUM["SM"]}px)`).matches;
     if (screenWidth2XL) setScreenSize(ScreenENUM["2XL"]);
     else if (screenWidthXL) setScreenSize(ScreenENUM["XL"]);
     else if (screenWidthLG) setScreenSize(ScreenENUM["LG"]);
