@@ -7,6 +7,7 @@ import Searchbars from "@/components/header/Searchbars";
 import HeaderBackground from "@/components/header/HeaderBackground";
 import HeaderButtons from "@/components/header/HeaderButtons";
 import { useScrollHandler } from "@/hooks/useScrollHandler";
+import useMediaQuery, { ScreenENUM } from "@/hooks/useMediaQuery";
 import { useSelector, useDispatch } from "react-redux";
 import { reducers as searchReducers } from "@/redux/features/search/searchSlice";
 import {
@@ -31,6 +32,7 @@ export default function Header() {
   const { clearAllFields, resetPagination } = searchReducers;
   const { toggleCollapsedButtons } = modalsReducers;
   const { maximizeHeader } = headerVisibilityReducers;
+  const screenSize = useMediaQuery();
 
   const headerRef = useRef(null);
   useScrollHandler(headerRef);
@@ -67,41 +69,41 @@ export default function Header() {
         <Searchbars />
 
         {/* Right side buttons - Desktop Navigation */}
-        <div className="hidden md:block">
-          <HeaderButtons />
-        </div>
+        {screenSize >= ScreenENUM.MD && <HeaderButtons />}
 
         {/* Right side buttons - Mobile Navigation */}
-        <div className="block w-1/5 md:hidden">
-          <div className="flex justify-center">
-            <button
-              onClick={() => {
-                dispatch(maximizeHeader());
-                dispatch(toggleCollapsedButtons());
-              }}
-              className="misc_btn drop-shadow-star min-w-[50px]"
-            >
-              {"\u25bc" /* ▼ */}
-            </button>
-          </div>
-          <div className="flex justify-center">
-            <TECollapse
-              className="fixed flex justify-center border border-black overflow-hidden"
-              show={areButtonsCollapsed}
-            >
-              <div className="rounded-2xl z-50">
-                <HeaderBackground
-                  withOverhang={false}
-                  verticalOffset="-5"
-                  className="scale-[200%]"
-                />
-                <div className="px-2 py-4">
-                  <HeaderButtons />
+        {screenSize < ScreenENUM.MD && (
+          <div className="block w-1/5 md:hidden">
+            <div className="flex justify-center">
+              <button
+                onClick={() => {
+                  dispatch(maximizeHeader());
+                  dispatch(toggleCollapsedButtons());
+                }}
+                className="misc_btn drop-shadow-star min-w-[50px]"
+              >
+                {"\u25bc" /* ▼ */}
+              </button>
+            </div>
+            <div className="flex justify-center">
+              <TECollapse
+                className="fixed flex justify-center border border-black overflow-hidden"
+                show={areButtonsCollapsed}
+              >
+                <div className="rounded-2xl z-50">
+                  <HeaderBackground
+                    withOverhang={false}
+                    verticalOffset="-4"
+                    className="scale-[200%]"
+                  />
+                  <div className="px-2 py-4">
+                    <HeaderButtons />
+                  </div>
                 </div>
-              </div>
-            </TECollapse>
+              </TECollapse>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </nav>
   );
