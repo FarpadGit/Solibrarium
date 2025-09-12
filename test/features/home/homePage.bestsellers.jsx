@@ -45,7 +45,7 @@ export function testsForBestsellers() {
 
       expect(quickLinks).toBeTruthy();
       expect(heroBanner).toBeTruthy();
-      expect(subBanners.length).toBe(2);
+      expect(subBanners.length).toBe(4);
       expect(container.querySelector(".separator_label_text")).toBeTruthy();
       expect(marquee).toBeTruthy();
       expect(within(heroBanner).getByText(mockBook.title)).toBeTruthy();
