@@ -36,7 +36,7 @@ export default async function BestSellers() {
     return results;
   }
 
-  const bannerBooks = getRandomBannerBook(3);
+  const bannerBooks = getRandomBannerBook(5);
 
   return (
     <>
@@ -59,6 +59,16 @@ export default async function BestSellers() {
         <div className="w-full">
           <h3 className="separator_label_text">További kiemelt könyvek</h3>
           <Marquee frontPageBooks={frontPageBooks} />
+          <div className="flex flex-col pb-8 sm:flex-row w-full gap-5">
+            <BannerCard
+              bannerBook={bannerBooks[3]}
+              bannerBackground={getRandomBackgroundImage()}
+            />
+            <BannerCard
+              bannerBook={bannerBooks[4]}
+              bannerBackground={getRandomBackgroundImage()}
+            />
+          </div>
         </div>
       </div>
     </>

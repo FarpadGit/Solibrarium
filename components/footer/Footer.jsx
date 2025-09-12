@@ -77,15 +77,24 @@ export default function Footer() {
             <br />
             Fabók Árpád webfejlesztő vagyok és ez egy afféle hobbi / portfolió
             projekt amit azért csináltam hogy megtanítsam magamnak a Next.js 13+
-            -ot valamint több egyéb funkciót is mint például a felhasználók
+            -ot valamint más egyéb funkciókat is mint például a felhasználók
             hitelesítése JWT tokennel vagy egy távoli MongoDB adatbázis
             használata. Nyugodtan nézz körbe, kattints arra ami megtetszik,
             esetleg csinálhatsz egy fiókot is ha kedved tartja (ezt majd
-            kitörölheted ha gondolod), és ha van bármilyen kérdésed az itt
-            látottakkal kapcsolatban akkor küldj egy emailt az{" "}
+            kitörölheted ha gondolod), és ha van bármi ami megtetszett az itt
+            látottak közül akkor látogass el a{" "}
+            <Link
+              href="https://fabokarpad.hu"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="italic hover:underline"
+            >
+              személyes oldalamra
+            </Link>{" "}
+            vagy küldj egy emailt az{" "}
             <Link
               href="mailto:farpadmail@gmail.com"
-              className="hover:underline"
+              className="italic hover:underline"
             >
               itt található címre
             </Link>
@@ -96,7 +105,7 @@ export default function Footer() {
         <div>
           <p className="text-right text-xs min-w-[7rem]">
             <Link
-              href="https:\\www.fabokarpad.hu"
+              href="https://fabokarpad.hu"
               rel="noopener noreferrer"
               target="_blank"
               className="hover:underline"
