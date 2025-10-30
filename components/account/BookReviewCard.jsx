@@ -116,6 +116,7 @@ export default function BookReviewCard({ user, bookDetails, close }) {
                   : "33"
               }
               rows="30"
+              spellCheck="false"
               value={reviewText}
               onChange={(e) => setReviewText(e.target.value)}
             ></textarea>
