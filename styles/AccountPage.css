@@ -76,6 +76,10 @@
     outline: 1px solid transparent;
 }
 
+.userbook .book::after {
+    z-index: -1;
+}
+
 .userbook:hover,
 .userbook.selected {
     transform: translate(0, -70px) skew(3deg, -3deg) scale(1.275);

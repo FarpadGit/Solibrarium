@@ -122,9 +122,7 @@ const UserBooks = React.forwardRef(({ selected, setSelected }, ref) => {
                     height={userBookSize.height}
                     rotate={0}
                     rotateHover={20}
-                    shadowColor={
-                      selected?.id === book.id ? "white" : "transparent"
-                    }
+                    shadowColor={selected?.id === book.id ? "white" : "#0001"}
                   >
                     <Image
                       src={book.image}
