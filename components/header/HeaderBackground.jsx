@@ -12,7 +12,7 @@ export default function HeaderBackground({
   const { darkMode } = useAppContext();
   const [bgSource, setBgSource] = useState("/decor/header_brick_wall.png");
   const [afterSource, setAfterSource] = useState(
-    "/decor/header_ivy_overhang.png"
+    "/decor/header_ivy_overhang.png",
   );
   const backgroundStyles = {
     objectPosition: `right calc(100% + ${
@@ -50,6 +50,7 @@ export default function HeaderBackground({
         src={bgSource}
         alt=""
         fill
+        loading="eager"
         className={className}
         style={backgroundStyles}
       />
@@ -57,6 +58,7 @@ export default function HeaderBackground({
         <Image
           src={afterSource}
           alt=""
+          loading="eager"
           width={1400}
           height={140}
           style={overhangStyles}
