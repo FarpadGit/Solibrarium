@@ -21,6 +21,7 @@ export default function Logo() {
           }
           alt="logo"
           fill
+          sizes="16vw"
           className={`object-contain transition-[object_position_0.5s_ease] ${
             currentSearchBarCount === 1 || isHeaderMinimized
               ? "object-[50%] lg:object-[0%]"
