@@ -28,7 +28,7 @@ export const GET = async (request) => {
     // pick a random number up to [max] times and add that review to results if it's not there already
     errorProgressMessage = "Error picking random reviews: ";
 
-    const reviewCount = await Review.count();
+    const reviewCount = await Review.countDocuments();
     const resultSize = reviewCount > Number(max) ? Number(max) : reviewCount;
 
     const aggregate = await Review.aggregate([{ $sample: { size: resultSize } }]);
