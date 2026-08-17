@@ -1,6 +1,6 @@
 export default function HomeLayout({ bestsellers, bookreviews }) {
   return (
-    <div className="w-11/12">
+    <div className="w-[calc(100vw-2*var(--page-margin))]">
       {bestsellers}
       {bookreviews}
     </div>

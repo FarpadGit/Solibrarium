@@ -53,7 +53,7 @@
   --glow-color: yellow;
   --banner-color: rgb(252, 211, 77);
   --foreground-color: rgb(0, 0, 0);
-  --background1-color: rgb(214, 219, 220);
+  --background1-color: rgba(214, 219, 220, 0.5);
   --background2-color: rgb(255, 255, 255);
   --header-dropshadow-color: rgb(0 0 0 / 0.75);
   --header-dropshadow: 5px 5px 0px var(--header-dropshadow-color);
@@ -70,6 +70,8 @@
 
   --header-min-height: 46px;
   --header-current-height: 0;
+
+  --page-margin: calc(100vw / 12.8);
 }
 
 :root.dark-mode {
@@ -80,7 +82,7 @@
   --solibrarium-accent-color: rgb(56, 63, 73);
   --glow-color: deepskyblue;
   --foreground-color: rgb(255, 255, 255);
-  --background1-color: rgb(0, 0, 0);
+  --background1-color: rgba(0, 0, 0, 0.5);
   --background2-color: rgb(50, 50, 50);
   /* --header-dropshadow-color: rgb(123 218 255 / 0.5); */
   --header-dropshadow: 5px 5px 2px var(--header-dropshadow-color);
@@ -115,7 +117,7 @@
   padding-top: 3rem;
   padding-bottom: 4rem;
   color: var(--foreground-color);
-  background: linear-gradient(to bottom, transparent, var(--background2-color)) var(--background1-color);
+  background: linear-gradient(to bottom, transparent, var(--background2-color) 180px) var(--background1-color);
 }
 
 .app_backdrop {

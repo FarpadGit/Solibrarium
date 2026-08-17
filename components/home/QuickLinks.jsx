@@ -11,7 +11,7 @@ export default function QuickLinks() {
   return (
     <div
       id="QuickLinks"
-      className="w-full flex justify-between overflow-x-auto gap-4 mb-4 md:mb-10"
+      className="w-full flex justify-between overflow-x-auto gap-4 mb-4 md:mb-10 pb-2 md:pb-0"
     >
       <QuickLink target="Audiobook">Hangoskönyvek</QuickLink>
       <Separator />
@@ -53,5 +53,13 @@ function QuickLink({ children, target }) {
 }
 
 function Separator() {
-  return <Image src={"/icons/leaf.svg"} alt="" height={25} width={25} />;
+  return (
+    <Image
+      src={"/icons/leaf.svg"}
+      alt=""
+      height={25}
+      width={25}
+      className="w-[25px] h-[25px]"
+    />
+  );
 }

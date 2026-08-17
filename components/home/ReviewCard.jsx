@@ -25,7 +25,7 @@ export default function ReviewCard({ book, reviewText, rating }) {
         </div>
         <div className="flex flex-col items-center md:items-start gap-2">
           <Link href={`/details/${book.id}`}>
-            <div className="font-bold text-sm line-clamp-2 hover:underline">
+            <div className="font-bold md:text-sm line-clamp-2 hover:underline">
               {book.title}
             </div>
           </Link>
