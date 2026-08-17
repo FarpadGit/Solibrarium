@@ -25,7 +25,13 @@ export default function ReviewedBooks() {
         <Loading />
       </div>
     );
-  if (reviews.length === 0) return;
+  if (reviews.length === 0)
+    return (
+      <div className="text-[var(--red-color)] text-center pb-4">
+        Sajnos hiba történt az adatbázis betöltése során, próbálj visszanézni
+        egy későbbi alkalommal
+      </div>
+    );
   return (
     <>
       <h2 className="separator_label_text">
