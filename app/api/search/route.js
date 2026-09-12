@@ -28,6 +28,7 @@ export const GET = async (request) => {
     //sends request to API, processes the response and returns an array of book details
     const books = await sendWithAPIKey(`https://www.googleapis.com/books/v1/volumes?q=${searchquery}&startIndex=${page}`)
       .then((body) => {
+        if (body.error) throw new Error("Google search error");
         if (!body.items) return [];
         const bookWithDetails = body.items.map((book) => getBookDetails(book));
         bookWithDetails.forEach(book => cacheBook(book));
