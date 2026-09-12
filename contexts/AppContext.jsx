@@ -20,7 +20,7 @@ export default ({ children }) => {
   const loginUser = async (params) => {
     setIsLoggingIn(true);
     return signIn("SolibrariumProvider", params).finally(() =>
-      setIsLoggingIn(false)
+      setIsLoggingIn(false),
     );
   };
   const loginUserWithGoogle = async () => {
@@ -56,8 +56,8 @@ export default ({ children }) => {
     setIsLoggingIn(false);
   };
 
-  const logOutUser = () => {
-    signOut({ redirect: false });
+  const logOutUser = async () => {
+    await signOut({ redirect: false });
     if (pathName === "/account") router.push("/");
   };
 
