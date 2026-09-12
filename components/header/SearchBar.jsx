@@ -28,7 +28,7 @@ import { abortSend } from "@/utils/FetchRequest";
 const SettingsModal = dynamic(
   () =>
     import("@/components/popovers/SettingsModal").then((res) => res.default),
-  { ssr: false }
+  { ssr: false },
 );
 
 const debounceDuration = 1000;
@@ -45,9 +45,10 @@ export default function SearchBar({ id, type: initialType, click }) {
     subject,
     excluding,
     isbn,
+    wasError,
   } = useSelector(searchSelector);
   const { canHeaderExpand, isHeaderMinimized } = useSelector(
-    headerVisibilitySelector
+    headerVisibilitySelector,
   );
   const dispatch = useDispatch();
   const { setSearchValue, resetPagination } = searchReducers;
@@ -60,11 +61,11 @@ export default function SearchBar({ id, type: initialType, click }) {
 
   useDebounce(
     () => {
-      if (pathName !== "/search" && searchText === "") return;
+      if (searchText === "" && (pathName !== "/search" || wasError)) return;
       sendSearch(type, searchText);
     },
     debounceDuration,
-    [searchText]
+    [searchText],
   );
 
   useEffect(() => {
