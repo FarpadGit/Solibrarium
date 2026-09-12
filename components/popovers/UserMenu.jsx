@@ -31,10 +31,10 @@ export default function UserMenu() {
       <CommandItem
         data-testid="MenuItem"
         className="hover:bg-amber-200 dark:hover:bg-gray-400 text-center justify-center hover:cursor-pointer"
-        onSelect={() => {
+        onSelect={async () => {
           setOpenDropdown(false);
           setIsLoading(true);
-          click();
+          await click();
           setIsLoading(false);
         }}
       >
@@ -85,8 +85,8 @@ export default function UserMenu() {
               />
               <MenuItem
                 label="Kijelentkezés"
-                click={() => {
-                  logOutUser();
+                click={async () => {
+                  await logOutUser();
                 }}
               />
             </CommandGroup>
