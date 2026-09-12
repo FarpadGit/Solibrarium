@@ -15,6 +15,7 @@ export default function HeaderBackground({
     "/decor/header_ivy_overhang.png",
   );
   const backgroundStyles = {
+    position: "absolute",
     objectPosition: `right calc(100% + ${
       withOverhang ? "2vw" : `${verticalOffset}vw`
     })`,
@@ -50,6 +51,7 @@ export default function HeaderBackground({
         src={bgSource}
         alt=""
         fill
+        sizes="100vw"
         loading="eager"
         className={className}
         style={backgroundStyles}
