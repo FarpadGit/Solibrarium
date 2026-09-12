@@ -17,6 +17,7 @@ const swingDuration = 1000;
 
 export default function UserMenu() {
   const { getRememberMe, deleteRememberMe, logOutUser } = useAppContext();
+  const [isLoading, setIsLoading] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [lanyardSwing, setLanyardSwing] = useState(false);
   const dispatch = useDispatch();
@@ -32,7 +33,9 @@ export default function UserMenu() {
         className="hover:bg-amber-200 dark:hover:bg-gray-400 text-center justify-center hover:cursor-pointer"
         onSelect={() => {
           setOpenDropdown(false);
+          setIsLoading(true);
           click();
+          setIsLoading(false);
         }}
       >
         <span>
@@ -50,9 +53,9 @@ export default function UserMenu() {
           data-testid="WelcomeButton"
           type="button"
           className="login_btn header_btn_base hover:cursor-default"
-          onMouseEnter={() => setOpenDropdown(true)}
+          onMouseEnter={() => !isLoading && setOpenDropdown(true)}
         >
-          Üdvözlünk!
+          {!isLoading ? "Üdvözlünk!" : "Egy pillanat..."}
         </button>
       </PopoverTrigger>
       <PopoverContent className="p-0" arrow={false}>
